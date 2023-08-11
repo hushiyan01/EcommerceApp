@@ -4,17 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#4BBAED"
-    tools:context=".view.fragment.Introfragment2">
+    android:background="@color/intro_2_blue"
+    tools:context=".view.fragment.IntroFragment2">
 
     <androidx.cardview.widget.CardView
-        app:cardCornerRadius="20dp"
-        android:layout_width="300dp"
-        android:layout_height="600dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:cardCornerRadius="@dimen/_20dp"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_0dp"
+        app:layout_constraintTop_toTopOf="@id/guideline_top"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -22,8 +22,8 @@
             android:orientation="vertical">
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_marginTop="80dp"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="@dimen/_100dp"
+                android:layout_height="@dimen/_100dp"
                 app:srcCompat="@drawable/baseline_shopping_basket_24"/>
 
             <TextView
@@ -42,13 +42,33 @@
                 android:gravity="center"
                 android:text="@string/add_them_into_your_basket"
                 android:textSize="18sp" />
-
-
-
-
         </LinearLayout>
 
-
     </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

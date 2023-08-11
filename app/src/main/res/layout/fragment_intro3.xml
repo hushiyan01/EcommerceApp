@@ -4,17 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F1AA53"
+    android:background="@color/intro_3_orange"
     tools:context=".view.fragment.IntroFragment3">
 
     <androidx.cardview.widget.CardView
-        app:cardCornerRadius="20dp"
-        android:layout_width="300dp"
-        android:layout_height="600dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:cardCornerRadius="@dimen/_20dp"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_0dp"
+        app:layout_constraintTop_toTopOf="@id/guideline_top"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right">
         <LinearLayout
             android:background="@color/white"
             android:layout_width="match_parent"
@@ -46,18 +46,37 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_go_to_login"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="@dimen/_40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/go"
-                android:backgroundTint="#F1AA53"/>
-
-
-
-
+                android:backgroundTint="@color/intro_3_orange"/>
         </LinearLayout>
-
-
     </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

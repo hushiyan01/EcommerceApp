@@ -8,4 +8,5 @@
     <string name="login_in_a_safe_way">login in a safe way</string>
     <string name="go">go</string>
     <string name="welcome">Welcome</string>
+    <string name="skip">skip</string>
 </resources>
