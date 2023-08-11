@@ -1,11 +1,11 @@
-package com.apolisb42.view_pager.fragments.intro
+package com.myworkshop.ecommerceapp.view.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.myworkshop.ecomerceapp.R
+import com.myworkshop.ecommerceapp.R
 
 class IntroFragment1 : Fragment() {
 

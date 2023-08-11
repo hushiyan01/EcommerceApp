@@ -1,4 +1,4 @@
-package com.myworkshop.ecomerceapp
+package com.myworkshop.ecommerceapp
 
 import org.junit.Test
 

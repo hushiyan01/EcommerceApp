@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#53F192"
+    android:background="#61C475"
     tools:context=".view.fragment.IntroFragment1">
 
     <androidx.cardview.widget.CardView
@@ -24,24 +24,24 @@
                 android:layout_marginTop="80dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                app:srcCompat="@drawable/baseline_manage_accounts_24"/>
+                app:srcCompat="@drawable/baseline_screen_search_desktop_24"/>
 
             <TextView
                 android:layout_marginTop="100dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/author_n_management"
-                android:textSize="30sp"
+                android:text="@string/better_search"
+                android:textSize="@dimen/_30sp"
                 android:textStyle="bold"/>
 
             <TextView
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="@dimen/_50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/add_them_into_your_basket"
-                android:textSize="18sp" />
+                android:text="@string/perform_a_quicker_search"
+                android:textSize="@dimen/_18sp" />
 
 
 

@@ -16,6 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
@@ -24,14 +25,14 @@
                 android:layout_marginTop="80dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                app:srcCompat="@drawable/baseline_login_24"/>
+                app:srcCompat="@drawable/baseline_manage_accounts_24"/>
 
             <TextView
                 android:layout_marginTop="100dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Account \n management"
+                android:text="@string/account_n_management"
                 android:textSize="30sp"
                 android:textStyle="bold"/>
 
@@ -40,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="login in a safe way"
+                android:text="@string/login_in_a_safe_way"
                 android:textSize="18sp" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -48,7 +49,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="go"
+                android:text="@string/go"
                 android:backgroundTint="#F1AA53"/>
 
 

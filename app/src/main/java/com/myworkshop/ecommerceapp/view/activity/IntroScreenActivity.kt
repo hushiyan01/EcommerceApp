@@ -1,18 +1,17 @@
-package com.myworkshop.ecomerceapp.view.activity
+package com.myworkshop.ecommerceapp.view.activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
 
-import com.apolisb42.view_pager.fragments.intro.IntroFragment1
-import com.apolisb42.view_pager.fragments.intro.IntroFragment2
-import com.apolisb42.view_pager.fragments.intro.IntroFragment3
+import com.myworkshop.ecommerceapp.view.fragment.IntroFragment1
+import com.myworkshop.ecommerceapp.view.fragment.IntroFragment2
+import com.myworkshop.ecommerceapp.view.fragment.IntroFragment3
 import com.google.android.material.tabs.TabLayoutMediator
-import com.myworkshop.ecomerceapp.databinding.ActivityIntroScreenBinding
-import com.myworkshop.ecomerceapp.databinding.IndicatorDotsBinding
-import com.myworkshop.ecomerceapp.view.adapter.ViewpagerAdapter
+import com.myworkshop.ecommerceapp.databinding.ActivityIntroScreenBinding
+import com.myworkshop.ecommerceapp.databinding.IndicatorDotsBinding
+import com.myworkshop.ecommerceapp.view.adapter.ViewpagerAdapter
 
 class IntroScreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntroScreenBinding

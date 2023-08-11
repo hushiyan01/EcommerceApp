@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">EcomerceApp</string>
-    <string name="author_n_management">Author \n management</string>
+    <string name="app_name">EcommerceApp</string>
+    <string name="better_search">Better Search</string>
     <string name="add_them_into_your_basket">add them into you basket now</string>
     <string name="variety_of_n_goods">Variety of \n goods</string>
+    <string name="perform_a_quicker_search">perform a quicker search</string>
+    <string name="account_n_management">Account \n management</string>
+    <string name="login_in_a_safe_way">login in a safe way</string>
+    <string name="go">go</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.myworkshop.ecomerceapp.model.preferences
+package com.myworkshop.ecommerceapp.model.preferences
 
 import android.content.Context
 import android.content.SharedPreferences

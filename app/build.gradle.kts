@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.myworkshop.ecomerceapp"
+    namespace = "com.myworkshop.ecommerceapp"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.myworkshop.ecomerceapp"
+        applicationId = "com.myworkshop.ecommerceapp"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
