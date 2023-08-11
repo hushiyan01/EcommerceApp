@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="intro_1_green">#3C7017</color>
-    <color name="intro_2_blue">#1C888C</color>
-    <color name="intro_3_orange">#F48F36</color>
+    <color name="intro_2_blue">#2268A5</color>
+    <color name="intro_3_orange">#A86327</color>
     <color name="white">#919190</color>
+    <color name="gray">#EDECEC</color>
 </resources>

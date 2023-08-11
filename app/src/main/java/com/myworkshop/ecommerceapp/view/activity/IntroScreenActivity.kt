@@ -5,15 +5,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
 
-import com.myworkshop.ecommerceapp.view.fragment.IntroFragment1
-import com.myworkshop.ecommerceapp.view.fragment.IntroFragment2
-import com.myworkshop.ecommerceapp.view.fragment.IntroFragment3
+import com.myworkshop.ecommerceapp.view.fragment.intros.IntroFragment1
+import com.myworkshop.ecommerceapp.view.fragment.intros.IntroFragment2
+import com.myworkshop.ecommerceapp.view.fragment.intros.IntroFragment3
 import com.google.android.material.tabs.TabLayoutMediator
 import com.myworkshop.ecommerceapp.databinding.ActivityIntroScreenBinding
 import com.myworkshop.ecommerceapp.databinding.IndicatorDotsBinding
 import com.myworkshop.ecommerceapp.view.adapter.ViewpagerAdapter
+import com.myworkshop.ecommerceapp.view.fragment.intros.OnFragmentFinishCallBack
 
-class IntroScreenActivity : AppCompatActivity() {
+class IntroScreenActivity : AppCompatActivity(), OnFragmentFinishCallBack {
     private lateinit var binding: ActivityIntroScreenBinding
     private lateinit var viewpagerAdapter: ViewpagerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,7 @@ class IntroScreenActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        val introFrags = listOf(IntroFragment1(), IntroFragment2(), IntroFragment3())
+        val introFrags = listOf(IntroFragment1(this), IntroFragment2(), IntroFragment3(this))
         viewpagerAdapter = ViewpagerAdapter(
             introFrags,
             this@IntroScreenActivity
@@ -63,5 +64,9 @@ class IntroScreenActivity : AppCompatActivity() {
     private fun createTabView(): View {
         val tabBinding = IndicatorDotsBinding.inflate(layoutInflater)
         return tabBinding.root
+    }
+
+    override fun finishActivity() {
+        finish()
     }
 }

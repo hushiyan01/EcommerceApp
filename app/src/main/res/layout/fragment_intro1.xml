@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/intro_1_green"
-    tools:context=".view.fragment.IntroFragment1">
+    tools:context=".view.fragment.intros.IntroFragment1">
 
     <androidx.cardview.widget.CardView
         android:layout_width="@dimen/_0dp"
@@ -34,7 +34,7 @@
                 android:layout_marginTop="100dp"
                 android:gravity="center"
                 android:text="@string/better_search"
-                android:textSize="@dimen/_30sp"
+                android:textSize="@dimen/intro_title"
                 android:textStyle="bold" />
 
             <TextView
@@ -43,7 +43,7 @@
                 android:layout_marginTop="@dimen/_50dp"
                 android:gravity="center"
                 android:text="@string/perform_a_quicker_search"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/intro_detail" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_skip"

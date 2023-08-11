@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".view.fragment.sign_in_register.SignUpFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_login_banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_signup_banner_size"
+        android:background="@color/intro_2_blue"
+        android:gravity="center"
+        android:text="@string/register"
+        android:textColor="@color/white"
+        android:textSize="@dimen/login_signup_banner_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/iv_shopping_basket"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/full_name"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/guideline_icon" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_marginTop="@dimen/_5dp"
+        android:id="@+id/et_full_name"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_60dp"
+        android:background="@drawable/edit_text_background"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/iv_shopping_basket" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_mobile_no"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/mobile_no"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/et_full_name" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_marginTop="@dimen/_5dp"
+        android:id="@+id/et_mobile_no"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_60dp"
+        android:background="@drawable/edit_text_background"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mobile_no" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_email_id"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@id/et_mobile_no"
+        android:text="@string/email_id"
+        style="@style/StaticText"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_marginTop="@dimen/_5dp"
+        android:id="@+id/et_email_id"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_60dp"
+        android:background="@drawable/edit_text_background"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/tv_email_id" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_password"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@id/et_email_id"
+        android:text="@string/password"
+        style="@style/StaticText"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_marginTop="@dimen/_5dp"
+        android:id="@+id/et_password"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_60dp"
+        android:background="@drawable/edit_text_background"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/tv_password" />
+
+    <Button
+        android:id="@+id/btn_forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_password"
+        android:textColor="@color/intro_3_orange"
+        app:layout_constraintTop_toBottomOf="@id/et_password"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        android:backgroundTint="@color/white"/>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_margin="@dimen/_20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/PrimaryButton"
+        android:text="@string/register"
+        app:layout_constraintTop_toBottomOf="@id/btn_forgot_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/btn_jump_to_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/i_don_t_have_an_account"
+        android:textColor="@color/intro_3_orange"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        android:backgroundTint="@color/white"/>
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.13" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

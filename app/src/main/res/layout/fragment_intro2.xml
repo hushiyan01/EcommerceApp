@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/intro_2_blue"
-    tools:context=".view.fragment.IntroFragment2">
+    tools:context=".view.fragment.intros.IntroFragment2">
 
     <androidx.cardview.widget.CardView
         app:cardCornerRadius="@dimen/_20dp"
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/variety_of_n_goods"
-                android:textSize="30sp"
+                android:textSize="@dimen/intro_title"
                 android:textStyle="bold"/>
 
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/add_them_into_your_basket"
-                android:textSize="18sp" />
+                android:textSize="@dimen/intro_detail" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

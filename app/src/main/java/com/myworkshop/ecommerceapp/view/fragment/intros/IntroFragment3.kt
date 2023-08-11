@@ -1,4 +1,4 @@
-package com.myworkshop.ecommerceapp.view.fragment
+package com.myworkshop.ecommerceapp.view.fragment.intros
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.myworkshop.ecommerceapp.databinding.FragmentIntro3Binding
 import com.myworkshop.ecommerceapp.model.preferences.SharedPref
+import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
+import com.myworkshop.ecommerceapp.view.activity.LoginSignUpActivity
 import com.myworkshop.ecommerceapp.view.activity.MainActivity
 
-class IntroFragment3 : Fragment() {
+class IntroFragment3(private val callback:OnFragmentFinishCallBack) : Fragment(), MVPInterfaces.Intro.View{
+    private lateinit var presenter: MVPInterfaces.Intro.Presenter
     private lateinit var binding: FragmentIntro3Binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,11 +26,15 @@ class IntroFragment3 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnGoToLogin.setOnClickListener {
-            val loginIntent = Intent(requireContext(), MainActivity::class.java)
-            val sharedPref = SharedPref.getSecuredSharedPreferences(requireContext())
-            sharedPref.edit().putBoolean("is_first_launch", false).apply()
-            startActivity(loginIntent)
+            presenter.updatePref()
+            goToSignUpLogin()
         }
+    }
+
+    override fun goToSignUpLogin() {
+        val intent = Intent(requireContext(),LoginSignUpActivity::class.java)
+        startActivity(intent)
+        callback.finishActivity()
     }
 
 }

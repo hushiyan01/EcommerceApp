@@ -1,4 +1,4 @@
-package com.myworkshop.ecommerceapp.view.fragment
+package com.myworkshop.ecommerceapp.view.fragment.intros
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

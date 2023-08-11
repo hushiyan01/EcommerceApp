@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/intro_3_orange"
-    tools:context=".view.fragment.IntroFragment3">
+    tools:context=".view.fragment.intros.IntroFragment3">
 
     <androidx.cardview.widget.CardView
         app:cardCornerRadius="@dimen/_20dp"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/account_n_management"
-                android:textSize="30sp"
+                android:textSize="@dimen/intro_title"
                 android:textStyle="bold"/>
 
             <TextView
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/login_in_a_safe_way"
-                android:textSize="18sp" />
+                android:textSize="@dimen/intro_detail" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_go_to_login"
