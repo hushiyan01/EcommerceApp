@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import com.myworkshop.ecommerceapp.model.remote.ResponseCallBack
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
+import com.myworkshop.ecommerceapp.model.remote.dto.search.CategoryResult
 import org.json.JSONObject
 
 class VolleyHandler(private val context: Context) {
@@ -61,12 +62,34 @@ class VolleyHandler(private val context: Context) {
         requestQueue.add(request)
     }
 
+    fun fetchCategory(fetchCategoryCallBack: ResponseCallBack.FetchCategoryCallBack) {
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val jsonObject = JSONObject()
+
+        val request = JsonObjectRequest(Request.Method.GET, FETCH_CATEGORY_URL, jsonObject,
+            { response ->
+                val categoryResult:CategoryResult = Gson().fromJson(response.toString(), CategoryResult::class.java)
+                if(categoryResult.status == 0){
+                    fetchCategoryCallBack.fetchCategorySuccess(categoryResult)
+                }else{
+                    fetchCategoryCallBack.fetchCategoryFailed(categoryResult.message)
+                }
+            },
+            { error ->
+                fetchCategoryCallBack.fetchCategoryFailed(error.toString())
+            })
+
+        requestQueue.add(request)
+    }
+
 
     companion object{
         private const val BASE_URL = "http://192.168.0.12/myshop/index.php/"
 
         const val USER_LOGIN_URL = BASE_URL + "user/auth"
         const val USER_REGISTER_URL = BASE_URL + "user/register"
+        const val FETCH_CATEGORY_URL = BASE_URL + "category"
 
 //        fun getHeader():MutableMap<String, String>{
 //            val header = HashMap<String, String>()

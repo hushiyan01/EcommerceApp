@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.myworkshop.ecommerceapp.databinding.FragmentIntro3Binding
 import com.myworkshop.ecommerceapp.model.preferences.SharedPref
+import com.myworkshop.ecommerceapp.presenter.IntroPresenter
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.view.activity.LoginSignUpActivity
 import com.myworkshop.ecommerceapp.view.activity.MainActivity
@@ -19,6 +20,7 @@ class IntroFragment3(private val callback:OnFragmentFinishCallBack) : Fragment()
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        presenter = IntroPresenter(requireContext(),this)
         binding = FragmentIntro3Binding.inflate(inflater, container, false)
         return binding.root
     }

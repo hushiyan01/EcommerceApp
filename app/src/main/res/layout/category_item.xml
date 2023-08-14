@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_5dp"
+    android:layout_margin="@dimen/_5dp"
+    android:layout_width="@dimen/_160dp"
+    android:layout_height="@dimen/_200dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/iv_category_item_img"
+            android:background="@drawable/category_item_img_background"
+            android:layout_width="@dimen/_160dp"
+            android:layout_height="@dimen/_160dp"/>
+        <TextView
+            android:id="@+id/tv_category_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_18sp"
+            android:textColor="@color/intro_3_orange"
+            android:text="@string/category_item"/>
+        
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

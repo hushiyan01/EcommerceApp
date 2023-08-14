@@ -4,6 +4,7 @@ import android.content.Context
 import com.myworkshop.ecommerceapp.model.remote.ResponseCallBack
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
+import com.myworkshop.ecommerceapp.model.remote.dto.search.CategoryResult
 
 interface MVPInterfaces {
     interface Splash{
@@ -45,6 +46,16 @@ interface MVPInterfaces {
         interface View{
             fun registerSuccess(registerResult: RegisterResult)
             fun registerFailed(errorMsg:String)
+        }
+    }
+
+    interface Category{
+        interface Presenter{
+            fun fetchAllCategories()
+        }
+        interface View{
+            fun fetchSuccess(categoryResult: CategoryResult)
+            fun fetchFailed(errorMsg: String)
         }
     }
 

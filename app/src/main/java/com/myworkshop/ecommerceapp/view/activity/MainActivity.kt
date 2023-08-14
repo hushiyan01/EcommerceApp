@@ -13,6 +13,7 @@ import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.ActivityMainBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
 import com.myworkshop.ecommerceapp.model.preferences.SharedPref
+import com.myworkshop.ecommerceapp.view.fragment.main.CategoryFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             menuItems.isChecked = true
 
             when (menuItems.itemId) {
-//                R.id.profile -> showToast("profile")
+                R.id.app_home -> goToHome()
 //                R.id.offer -> showToast("offer")
 //                R.id.settings -> showToast("setting")
 //                R.id.logout -> showToast("logout")
@@ -73,6 +74,11 @@ class MainActivity : AppCompatActivity() {
             true
 
         }
+        supportFragmentManager.beginTransaction().add(R.id.fg_home_container, CategoryFragment()).commit()
+    }
+
+    private fun goToHome() {
+        binding.drawer.closeDrawer(GravityCompat.START)
     }
 
     private fun logout() {
