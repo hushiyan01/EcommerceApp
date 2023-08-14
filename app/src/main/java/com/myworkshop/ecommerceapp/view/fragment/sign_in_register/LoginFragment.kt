@@ -56,7 +56,9 @@ class LoginFragment(private val onSignInNRegisterChanged: OnSignInNRegisterChang
 
     override fun loginSuccess(loginResult: LoginResult) {
         val intent = Intent(requireContext(), MainActivity::class.java)
-        intent.putExtra("username",loginResult.user.full_name)
+        intent.putExtra("full_name",loginResult.user.full_name)
+        intent.putExtra("email_id",loginResult.user.email_id)
+        intent.putExtra("mobile_no",loginResult.user.mobile_no)
         startActivity(intent)
         onFragmentFinishCallBack.finishActivity()
     }

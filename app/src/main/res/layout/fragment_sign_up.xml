@@ -40,7 +40,7 @@
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@+id/iv_shopping_basket" />
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_mobile_no"
+        android:id="@+id/tv_header_mobile_no"
         android:layout_width="@dimen/_0dp"
         android:layout_height="wrap_content"
         android:text="@string/mobile_no"
@@ -56,7 +56,7 @@
         android:background="@drawable/edit_text_background"
         app:layout_constraintEnd_toEndOf="@id/guideline_right"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/tv_mobile_no" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_header_mobile_no" />
 
 
     <androidx.appcompat.widget.AppCompatTextView
