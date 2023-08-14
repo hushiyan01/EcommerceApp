@@ -5,17 +5,19 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Layout
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.ActivityMainBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
 import com.myworkshop.ecommerceapp.model.preferences.SharedPref
 import com.myworkshop.ecommerceapp.view.fragment.main.CategoryFragment
+import com.myworkshop.ecommerceapp.view.fragment.main.OnGoToSubCategoryViewPagerCallBack
+import com.myworkshop.ecommerceapp.view.fragment.main.SubCategoryFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnGoToSubCategoryViewPagerCallBack {
     private lateinit var binding: ActivityMainBinding
     private lateinit var pref: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,11 +76,13 @@ class MainActivity : AppCompatActivity() {
             true
 
         }
-        supportFragmentManager.beginTransaction().add(R.id.fg_home_container, CategoryFragment()).commit()
+//        supportFragmentManager.beginTransaction().add(R.id.fg_home_container, CategoryFragment(this)).commit()
+        makeFragTransaction("category_fragment", CategoryFragment(this))
     }
 
     private fun goToHome() {
         binding.drawer.closeDrawer(GravityCompat.START)
+        makeFragTransaction("category_fragment", CategoryFragment(this))
     }
 
     private fun logout() {
@@ -87,5 +91,17 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, LoginSignUpActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun makeFragTransaction(flag:String, fragment: Fragment){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fg_home_container, fragment)
+            .addToBackStack(flag)
+            .commit()
+    }
+
+    override fun go(subCategoryId:String) {
+//        supportFragmentManager.beginTransaction().replace(R.id.fg_home_container, SubCategoryFragment(subCategoryId)).commit()
+        makeFragTransaction("sub_category_fragment", SubCategoryFragment(subCategoryId))
     }
 }

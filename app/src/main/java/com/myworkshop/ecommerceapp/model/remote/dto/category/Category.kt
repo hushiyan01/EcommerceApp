@@ -1,4 +1,4 @@
-package com.myworkshop.ecommerceapp.model.remote.dto.search
+package com.myworkshop.ecommerceapp.model.remote.dto.category
 
 data class Category(
     val category_id: String,

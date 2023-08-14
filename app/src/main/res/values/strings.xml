@@ -29,4 +29,5 @@
     <string name="logout">Logout</string>
     <string name="super_cart">SUPER CART</string>
     <string name="category_item">Category item</string>
+    <string name="sub_category">sub category</string>
 </resources>

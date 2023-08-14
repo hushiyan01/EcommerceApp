@@ -2,8 +2,8 @@ package com.myworkshop.ecommerceapp.model.remote
 
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
-import com.myworkshop.ecommerceapp.model.remote.dto.search.CategoryResult
-import org.json.JSONObject
+import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
+import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 
 interface ResponseCallBack {
     interface LoginResponseCallBack{
@@ -19,5 +19,10 @@ interface ResponseCallBack {
     interface FetchCategoryCallBack{
         fun fetchCategorySuccess(categoryResult: CategoryResult)
         fun fetchCategoryFailed(errorMsg: String)
+    }
+
+    interface FetchSubCategoryFromCategoryCallback{
+        fun fetchSubCategorySuccess(subCategoryResult: SubCategoryResult)
+        fun fetchSubCategoryFailed(errorMsg: String)
     }
 }

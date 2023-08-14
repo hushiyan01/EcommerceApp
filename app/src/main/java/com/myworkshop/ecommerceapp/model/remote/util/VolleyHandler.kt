@@ -8,7 +8,8 @@ import com.google.gson.Gson
 import com.myworkshop.ecommerceapp.model.remote.ResponseCallBack
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
-import com.myworkshop.ecommerceapp.model.remote.dto.search.CategoryResult
+import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
+import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import org.json.JSONObject
 
 class VolleyHandler(private val context: Context) {
@@ -83,6 +84,27 @@ class VolleyHandler(private val context: Context) {
         requestQueue.add(request)
     }
 
+    fun fetchSubCategory(id:String, fetchSubCategoryCallBack: ResponseCallBack.FetchSubCategoryFromCategoryCallback) {
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val jsonObject = JSONObject()
+        val params = "?category_id=$id"
+
+        val request = JsonObjectRequest(Request.Method.GET, FETCH_SUB_CATEGORY_URL+params, jsonObject,
+            { response ->
+                val categoryResult:SubCategoryResult = Gson().fromJson(response.toString(), SubCategoryResult::class.java)
+                if(categoryResult.status == 0){
+                    fetchSubCategoryCallBack.fetchSubCategorySuccess(categoryResult)
+                }else{
+                    fetchSubCategoryCallBack.fetchSubCategoryFailed(categoryResult.message)
+                }
+            },
+            { error ->
+                fetchSubCategoryCallBack.fetchSubCategoryFailed(error.toString())
+            })
+        requestQueue.add(request)
+    }
+
 
     companion object{
         private const val BASE_URL = "http://192.168.0.12/myshop/index.php/"
@@ -90,6 +112,7 @@ class VolleyHandler(private val context: Context) {
         const val USER_LOGIN_URL = BASE_URL + "user/auth"
         const val USER_REGISTER_URL = BASE_URL + "user/register"
         const val FETCH_CATEGORY_URL = BASE_URL + "category"
+        const val FETCH_SUB_CATEGORY_URL = BASE_URL + "subcategory"
 
 //        fun getHeader():MutableMap<String, String>{
 //            val header = HashMap<String, String>()

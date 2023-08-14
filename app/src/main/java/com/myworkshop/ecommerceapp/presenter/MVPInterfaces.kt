@@ -1,10 +1,10 @@
 package com.myworkshop.ecommerceapp.presenter
 
 import android.content.Context
-import com.myworkshop.ecommerceapp.model.remote.ResponseCallBack
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
-import com.myworkshop.ecommerceapp.model.remote.dto.search.CategoryResult
+import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
+import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 
 interface MVPInterfaces {
     interface Splash{
@@ -55,6 +55,16 @@ interface MVPInterfaces {
         }
         interface View{
             fun fetchSuccess(categoryResult: CategoryResult)
+            fun fetchFailed(errorMsg: String)
+        }
+    }
+
+    interface SubCategory{
+        interface Presenter{
+            fun fetchSubCategoriesById(categoryId:String)
+        }
+        interface View{
+            fun fetchSuccess(subCategoryResult: SubCategoryResult)
             fun fetchFailed(errorMsg: String)
         }
     }

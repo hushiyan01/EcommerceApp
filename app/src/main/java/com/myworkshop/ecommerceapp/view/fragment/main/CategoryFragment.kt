@@ -5,18 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.FragmentCategoryBinding
-import com.myworkshop.ecommerceapp.model.remote.dto.search.CategoryResult
+import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
 import com.myworkshop.ecommerceapp.presenter.CategoryPresenter
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.view.adapter.CategoryAdapter
 
-class CategoryFragment : Fragment(), MVPInterfaces.Category.View{
+class CategoryFragment(private val callBack: OnGoToSubCategoryViewPagerCallBack) : Fragment(), MVPInterfaces.Category.View{
     private lateinit var binding:FragmentCategoryBinding
     private lateinit var presenter: CategoryPresenter
 
@@ -37,7 +35,7 @@ class CategoryFragment : Fragment(), MVPInterfaces.Category.View{
         val categories = categoryResult.categories
         binding.rvCategories.apply {
             layoutManager = GridLayoutManager(requireContext(),2)
-            adapter = CategoryAdapter(categories, requireContext())
+            adapter = CategoryAdapter(categories, callBack)
         }
     }
 
