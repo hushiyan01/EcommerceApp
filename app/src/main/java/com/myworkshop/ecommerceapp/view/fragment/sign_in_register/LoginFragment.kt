@@ -59,6 +59,11 @@ class LoginFragment(private val onSignInNRegisterChanged: OnSignInNRegisterChang
         intent.putExtra("full_name",loginResult.user.full_name)
         intent.putExtra("email_id",loginResult.user.email_id)
         intent.putExtra("mobile_no",loginResult.user.mobile_no)
+        presenter.updatePref(
+            requireContext(),
+            fullName =loginResult.user.full_name,
+            emailId = loginResult.user.email_id,
+            mobileNo = loginResult.user.mobile_no)
         startActivity(intent)
         onFragmentFinishCallBack.finishActivity()
     }

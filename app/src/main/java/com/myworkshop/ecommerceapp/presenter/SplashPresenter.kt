@@ -7,11 +7,17 @@ class SplashPresenter(private val view:MVPInterfaces.Splash.View): MVPInterfaces
     override fun fetchPref(context: Context) {
         val pref = SharedPref.getSecuredSharedPreferences(context)
         val isFirstLaunch = pref.getBoolean("is_first_launch",true)
+        val isLogin = pref.getBoolean("is_login",false)
         if(isFirstLaunch){
             pref.edit().putBoolean("is_first_launch",false).apply()
             view.goToIntroActivity()
         }else{
-            view.goToLoginActivity()
+            if(isLogin){
+                view.goToMainActivity()
+            }else{
+                view.goToLoginActivity()
+            }
+
         }
     }
 }

@@ -14,6 +14,7 @@ interface MVPInterfaces {
         interface View{
             fun goToIntroActivity()
             fun goToLoginActivity()
+            fun goToMainActivity()
         }
     }
 
@@ -29,6 +30,7 @@ interface MVPInterfaces {
     interface SignIn{
         interface Presenter{
             fun login(userName:String, password:String)
+            fun updatePref(context: Context, fullName: String, emailId: String, mobileNo: String)
         }
         interface View{
             fun loginSuccess(loginResult: LoginResult)

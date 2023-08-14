@@ -1,6 +1,8 @@
 package com.myworkshop.ecommerceapp.view.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Layout
@@ -10,21 +12,19 @@ import androidx.core.view.GravityCompat
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.ActivityMainBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
+import com.myworkshop.ecommerceapp.model.preferences.SharedPref
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var fullName: String
-    private lateinit var email: String
-    private lateinit var mobileNo: String
+    private lateinit var pref: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        pref = SharedPref.getSecuredSharedPreferences(this)
 
-        fullName = intent.extras!!.getString("full_name", "")
-        email = intent.extras!!.getString("email_id", "")
-        mobileNo = intent.extras!!.getString("mobile_no", "")
-        if (fullName.isNotEmpty()) {
+        val fullName = pref.getString("logged_in_full_name", "")
+        if (fullName!!.isNotEmpty()) {
             UIUtils.showSnackBar(binding.root, "$fullName login successfully")
         }
         initViews()
@@ -38,9 +38,12 @@ class MainActivity : AppCompatActivity() {
                 binding.drawer.closeDrawer(GravityCompat.START)
             } else {
                 binding.drawer.openDrawer(GravityCompat.START)
-                findViewById<TextView>(R.id.tv_header_name).text = "Welcome  $fullName"
-                findViewById<TextView>(R.id.tv_header_email).text = email
-                findViewById<TextView>(R.id.tv_header_mobile_no).text = mobileNo
+                findViewById<TextView>(R.id.tv_header_name).text =
+                    "Welcome  ${pref.getString("logged_in_full_name", "")}"
+                findViewById<TextView>(R.id.tv_header_email).text =
+                    pref.getString("logged_in_email_id", "")
+                findViewById<TextView>(R.id.tv_header_mobile_no).text =
+                    pref.getString("logged_in_mobile_no", "")
             }
         }
 
@@ -57,18 +60,26 @@ class MainActivity : AppCompatActivity() {
         binding.nvNavView.setNavigationItemSelectedListener { menuItems ->
             menuItems.isChecked = true
 
-//            when (menuItems.itemId) {
+            when (menuItems.itemId) {
 //                R.id.profile -> showToast("profile")
 //                R.id.offer -> showToast("offer")
 //                R.id.settings -> showToast("setting")
 //                R.id.logout -> showToast("logout")
 //                R.id.moments -> showToast("moments")
-//                R.id.wallet -> showToast("wallet")
+                R.id.logout -> logout()
 
-//            }
+            }
 
             true
 
         }
+    }
+
+    private fun logout() {
+        binding.drawer.closeDrawer(GravityCompat.START)
+        pref.edit().putBoolean("is_login", false).apply()
+        val intent = Intent(this, LoginSignUpActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

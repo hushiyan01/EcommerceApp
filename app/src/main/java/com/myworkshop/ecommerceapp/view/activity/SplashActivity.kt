@@ -33,5 +33,11 @@ class SplashActivity : AppCompatActivity(),MVPInterfaces.Splash.View{
         finish()
     }
 
+    override fun goToMainActivity() {
+        val intent = Intent(this@SplashActivity, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 
 }
