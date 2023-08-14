@@ -3,12 +3,11 @@ package com.myworkshop.ecommerceapp.view.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.ActivityLoginSignUpBinding
 import com.myworkshop.ecommerceapp.view.fragment.intros.OnFragmentFinishCallBack
 import com.myworkshop.ecommerceapp.view.fragment.sign_in_register.LoginFragment
-import com.myworkshop.ecommerceapp.view.fragment.sign_in_register.SignUpFragment
+import com.myworkshop.ecommerceapp.view.fragment.sign_in_register.RegisterFragment
 
 class LoginSignUpActivity : AppCompatActivity(),OnSignInNRegisterChanged,OnFragmentFinishCallBack {
     private lateinit var binding: ActivityLoginSignUpBinding
@@ -29,7 +28,7 @@ class LoginSignUpActivity : AppCompatActivity(),OnSignInNRegisterChanged,OnFragm
     }
 
     override fun changeToSignUp() {
-        makeTransaction(SignUpFragment(this))
+        makeTransaction(RegisterFragment(this))
     }
 
     override fun changeToSignIn() {

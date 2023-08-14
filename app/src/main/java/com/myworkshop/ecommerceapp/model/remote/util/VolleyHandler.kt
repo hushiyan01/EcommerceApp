@@ -7,29 +7,55 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.myworkshop.ecommerceapp.model.remote.ResponseCallBack
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
+import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
 import org.json.JSONObject
 
 class VolleyHandler(private val context: Context) {
 
-    fun login(userName:String, password:String, responseCallback: ResponseCallBack.LoginResponseCallBack) {
+    fun userLogin(emailId:String, password:String, loginResponseCallback: ResponseCallBack.LoginResponseCallBack) {
         val requestQueue = Volley.newRequestQueue(context)
 
         val jsonObject = JSONObject()
-        jsonObject.put("email_id", userName)
+        jsonObject.put("email_id", emailId)
         jsonObject.put("password", password)
 
-        val request = JsonObjectRequest(Request.Method.POST, LOGIN_URL, jsonObject,
+        val request = JsonObjectRequest(Request.Method.POST, USER_LOGIN_URL, jsonObject,
             { response ->
                 val loginResult:LoginResult = Gson().fromJson(response.toString(), LoginResult::class.java)
                 if(loginResult.status == 0){
-                    responseCallback.loginSuccess(loginResult)
+                    loginResponseCallback.loginSuccess(loginResult)
                 }else{
-                    responseCallback.loginFailed(loginResult.message)
+                    loginResponseCallback.loginFailed(loginResult.message)
                 }
 
             },
             { error ->
-                responseCallback.loginFailed(error.toString())
+                loginResponseCallback.loginFailed(error.toString())
+            })
+
+        requestQueue.add(request)
+    }
+
+    fun userRegister(fullName:String,mobileNo:String,emailId:String, password:String, registerResponseCallBack: ResponseCallBack.RegisterResponseCallBack) {
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val jsonObject = JSONObject()
+        jsonObject.put("full_name", fullName)
+        jsonObject.put("mobile_no", mobileNo)
+        jsonObject.put("email_id", emailId)
+        jsonObject.put("password", password)
+
+        val request = JsonObjectRequest(Request.Method.POST, USER_REGISTER_URL, jsonObject,
+            { response ->
+                val registerResult:RegisterResult = Gson().fromJson(response.toString(), RegisterResult::class.java)
+                if(registerResult.status == 0){
+                    registerResponseCallBack.registerSuccess(registerResult)
+                }else{
+                    registerResponseCallBack.registerFailed(errorMsg = registerResult.message)
+                }
+            },
+            { error ->
+                registerResponseCallBack.registerFailed(error.toString())
             })
 
         requestQueue.add(request)
@@ -39,7 +65,9 @@ class VolleyHandler(private val context: Context) {
     companion object{
         private const val BASE_URL = "http://192.168.0.12/myshop/index.php/"
 
-        const val LOGIN_URL = BASE_URL + "user/auth"
+        const val USER_LOGIN_URL = BASE_URL + "user/auth"
+        const val USER_REGISTER_URL = BASE_URL + "user/register"
+
 //        fun getHeader():MutableMap<String, String>{
 //            val header = HashMap<String, String>()
 //            header["Content-Type"] = "application/json"
