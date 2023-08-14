@@ -6,10 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.ActivityLoginSignUpBinding
+import com.myworkshop.ecommerceapp.view.fragment.intros.OnFragmentFinishCallBack
 import com.myworkshop.ecommerceapp.view.fragment.sign_in_register.LoginFragment
 import com.myworkshop.ecommerceapp.view.fragment.sign_in_register.SignUpFragment
 
-class LoginSignUpActivity : AppCompatActivity(),OnSignInNRegisterChanged {
+class LoginSignUpActivity : AppCompatActivity(),OnSignInNRegisterChanged,OnFragmentFinishCallBack {
     private lateinit var binding: ActivityLoginSignUpBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +21,7 @@ class LoginSignUpActivity : AppCompatActivity(),OnSignInNRegisterChanged {
     }
 
     private fun initLoginSignUpFragments() {
-        makeTransaction(LoginFragment(this))
+        makeTransaction(LoginFragment(this,this))
     }
 
     private fun makeTransaction(fragment: Fragment){
@@ -32,6 +33,10 @@ class LoginSignUpActivity : AppCompatActivity(),OnSignInNRegisterChanged {
     }
 
     override fun changeToSignIn() {
-        makeTransaction(LoginFragment(this))
+        makeTransaction(LoginFragment(this,this))
+    }
+
+    override fun finishActivity() {
+        finish()
     }
 }

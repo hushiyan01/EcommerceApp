@@ -1,6 +1,7 @@
 package com.myworkshop.ecommerceapp.presenter
 
 import android.content.Context
+import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 
 interface MVPInterfaces {
     interface Splash{
@@ -25,10 +26,11 @@ interface MVPInterfaces {
 
     interface SignIn{
         interface Presenter{
-
+            fun login(userName:String, password:String)
         }
         interface View{
-
+            fun loginSuccess(loginResult: LoginResult)
+            fun loginFailed(errorMsg:String)
         }
     }
 

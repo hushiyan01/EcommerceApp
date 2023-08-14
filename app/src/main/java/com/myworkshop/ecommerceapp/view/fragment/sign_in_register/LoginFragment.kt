@@ -1,5 +1,6 @@
 package com.myworkshop.ecommerceapp.view.fragment.sign_in_register
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,15 +10,24 @@ import android.view.animation.AnimationUtils
 import android.view.animation.BounceInterpolator
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.FragmentLoginBinding
+import com.myworkshop.ecommerceapp.model.local.util.UIUtils
+import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
+import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
+import com.myworkshop.ecommerceapp.presenter.LoginPresenter
+import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
+import com.myworkshop.ecommerceapp.view.activity.MainActivity
 import com.myworkshop.ecommerceapp.view.activity.OnSignInNRegisterChanged
+import com.myworkshop.ecommerceapp.view.fragment.intros.OnFragmentFinishCallBack
 
-class LoginFragment(private val onSignInNRegisterChanged: OnSignInNRegisterChanged) : Fragment() {
+class LoginFragment(private val onSignInNRegisterChanged: OnSignInNRegisterChanged, private val onFragmentFinishCallBack: OnFragmentFinishCallBack) : Fragment(),MVPInterfaces.SignIn.View {
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var presenter: LoginPresenter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater,container,false)
+        presenter = LoginPresenter(VolleyHandler(requireContext()), this)
         return binding.root
     }
 
@@ -25,10 +35,35 @@ class LoginFragment(private val onSignInNRegisterChanged: OnSignInNRegisterChang
         val bounceAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.bounce_anim)
         bounceAnimation.interpolator = BounceInterpolator()
         super.onViewCreated(view, savedInstanceState)
-        binding.btnSignUp.setOnClickListener {
-            onSignInNRegisterChanged.changeToSignUp()
+
+        binding.apply {
+            btnJumpToSignUp.setOnClickListener {
+                onSignInNRegisterChanged.changeToSignUp()
+            }
+            ivShoppingBasket.startAnimation(bounceAnimation)
+
+            btnSignIn.setOnClickListener {
+                val username = etEmailId.text.toString()
+                val password = etPassword.text.toString()
+                if(username.isEmpty()||password.isEmpty()){
+                    UIUtils.showSnackBar(requireView(), "email id or password should not be empty!")
+                    return@setOnClickListener
+                }
+                presenter.login(username,password)
+            }
         }
-        binding.ivShoppingBasket.startAnimation(bounceAnimation)
     }
+
+    override fun loginSuccess(loginResult: LoginResult) {
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        intent.putExtra("username",loginResult.user.full_name)
+        startActivity(intent)
+        onFragmentFinishCallBack.finishActivity()
+    }
+
+    override fun loginFailed(errorMsg: String) {
+        UIUtils.showSnackBar(requireView(), errorMsg)
+    }
+
 
 }
