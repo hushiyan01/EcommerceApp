@@ -5,18 +5,47 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.myworkshop.ecommerceapp.R
+import com.myworkshop.ecommerceapp.databinding.FragmentSubCategoryBinding
+import com.myworkshop.ecommerceapp.databinding.FragmentSubCategoryItemListBinding
+import com.myworkshop.ecommerceapp.model.local.util.UIUtils
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.Subcategory
+import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
+import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
+import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
+import com.myworkshop.ecommerceapp.presenter.ProductPresenter
+import com.myworkshop.ecommerceapp.view.adapter.ProductAdapter
 
-class SubCategoryItemListFragment(private val subCategory:Subcategory): Fragment() {
-
+class SubCategoryItemListFragment(private val subCategory:Subcategory): Fragment(),MVPInterfaces.Product.View {
+    private lateinit var binding: FragmentSubCategoryItemListBinding
+    private lateinit var presenter:ProductPresenter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sub_category_item_list, container, false)
+    ): View {
+        binding = FragmentSubCategoryItemListBinding.inflate(inflater, container, false)
+        presenter = ProductPresenter(VolleyHandler(requireContext()), this)
+        return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter.fetchProductsBySubCategoryId(subCategoryId = subCategory.subcategory_id)
+    }
+
+    override fun fetchSuccess(productResult: ProductResult) {
+        val list = productResult.products
+        binding.rvProducts.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = ProductAdapter(list)
+        }
+    }
+
+    override fun fetchFailed(errorMsg: String) {
+        UIUtils.showSnackBar(requireView(), "Fetch products failed")
+    }
+
 
 }

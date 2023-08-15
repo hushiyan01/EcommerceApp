@@ -30,4 +30,8 @@
     <string name="super_cart">SUPER CART</string>
     <string name="category_item">Category item</string>
     <string name="sub_category">sub category</string>
+    <string name="product_title">Product title</string>
+    <string name="_200">$ 200</string>
+    <string name="product_descriptions">product descriptions :********</string>
+    <string name="add_to_cart">ADD TO CART</string>
 </resources>

@@ -9,10 +9,12 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.android.volley.toolbox.ImageLoader
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.ActivityMainBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
 import com.myworkshop.ecommerceapp.model.preferences.SharedPref
+import com.myworkshop.ecommerceapp.model.remote.util.VolleyImageCaching
 import com.myworkshop.ecommerceapp.view.fragment.main.CategoryFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnGoToSubCategoryViewPagerCallBack
 import com.myworkshop.ecommerceapp.view.fragment.main.SubCategoryFragment
@@ -31,6 +33,11 @@ class MainActivity : AppCompatActivity(), OnGoToSubCategoryViewPagerCallBack {
             UIUtils.showSnackBar(binding.root, "$fullName login successfully")
         }
         initViews()
+        initImageLoader()
+    }
+
+    private fun initImageLoader() {
+        VolleyImageCaching.initialize(this)
     }
 
 

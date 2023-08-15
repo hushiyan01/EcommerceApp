@@ -13,6 +13,7 @@ import com.myworkshop.ecommerceapp.model.local.util.UIUtils
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.Subcategory
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
+import com.myworkshop.ecommerceapp.model.remote.util.VolleyImageCaching
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.SubCategoryPresenter
 import com.myworkshop.ecommerceapp.view.adapter.ViewpagerAdapter
@@ -60,7 +61,9 @@ class SubCategoryFragment(private val id: String) : Fragment(), MVPInterfaces.Su
                     false
                 )
                 tabBinding.apply {
-                    tabImage.setImageResource(R.drawable.baseline_density_medium_24)
+//                    tabImage.setImageResource(R.drawable.baseline_density_medium_24)
+                    val imgUrl = hashMap[position]!!.subcategory_image_url
+                    VolleyImageCaching.fetchImageUsingVolley(imgUrl, tabImage, R.drawable.baseline_density_medium_24, R.drawable.baseline_density_medium_24)
                     tabText.text = hashMap[position]!!.subcategory_name
                 }
                 tab.customView = tabBinding.root

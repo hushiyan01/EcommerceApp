@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.myworkshop.ecommerceapp.databinding.FragmentCategoryBinding
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
@@ -35,6 +36,7 @@ class CategoryFragment(private val callBack: OnGoToSubCategoryViewPagerCallBack)
         val categories = categoryResult.categories
         binding.rvCategories.apply {
             layoutManager = GridLayoutManager(requireContext(),2)
+//            layoutManager = LinearLayoutManager(requireContext())
             adapter = CategoryAdapter(categories, callBack)
         }
     }

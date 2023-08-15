@@ -10,6 +10,7 @@ import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
+import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
 import org.json.JSONObject
 
 class VolleyHandler(private val context: Context) {
@@ -105,6 +106,26 @@ class VolleyHandler(private val context: Context) {
         requestQueue.add(request)
     }
 
+    fun fetchProductBySubCategoryId(id:String, fetchProductCallBack: ResponseCallBack.FetchProductsFromSubCategoryIdCallBack) {
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val jsonObject = JSONObject()
+
+        val request = JsonObjectRequest(Request.Method.GET, FETCH_PRODUCTS_URL + id, jsonObject,
+            { response ->
+                val productResult: ProductResult =
+                    Gson().fromJson(response.toString(), ProductResult::class.java)
+                if (productResult.status == 0) {
+                    fetchProductCallBack.fetchProductsSuccess(productResult)
+                } else {
+                    fetchProductCallBack.fetchProductsFailed(productResult.message)
+                }
+            },
+            { error ->
+                fetchProductCallBack.fetchProductsFailed(error.toString())
+            })
+        requestQueue.add(request)
+    }
 
     companion object{
         private const val BASE_URL = "http://192.168.0.12/myshop/index.php/"
@@ -113,6 +134,8 @@ class VolleyHandler(private val context: Context) {
         const val USER_REGISTER_URL = BASE_URL + "user/register"
         const val FETCH_CATEGORY_URL = BASE_URL + "category"
         const val FETCH_SUB_CATEGORY_URL = BASE_URL + "subcategory"
+        const val FETCH_PRODUCTS_URL = BASE_URL + "SubCategory/products/"
+        const val FETCH_IMAGE_URL = "http://192.168.0.12/myshop/images/"
 
 //        fun getHeader():MutableMap<String, String>{
 //            val header = HashMap<String, String>()

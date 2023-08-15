@@ -4,10 +4,10 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/tab_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_20dp"
+        android:layout_height="@dimen/_20dp"
         android:src="@drawable/ic_launcher_foreground"
         android:layout_gravity="center_horizontal"/>
 
