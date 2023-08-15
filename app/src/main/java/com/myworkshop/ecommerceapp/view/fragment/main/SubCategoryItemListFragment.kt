@@ -18,7 +18,7 @@ import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.ProductPresenter
 import com.myworkshop.ecommerceapp.view.adapter.ProductAdapter
 
-class SubCategoryItemListFragment(private val subCategory:Subcategory): Fragment(),MVPInterfaces.Product.View {
+class SubCategoryItemListFragment(private val subCategory:Subcategory, private val callBack: OnGoToProductDetailCallBack): Fragment(),MVPInterfaces.Product.View {
     private lateinit var binding: FragmentSubCategoryItemListBinding
     private lateinit var presenter:ProductPresenter
     override fun onCreateView(
@@ -39,7 +39,7 @@ class SubCategoryItemListFragment(private val subCategory:Subcategory): Fragment
         val list = productResult.products
         binding.rvProducts.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = ProductAdapter(list)
+            adapter = ProductAdapter(list,callBack)
         }
     }
 

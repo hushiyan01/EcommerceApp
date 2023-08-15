@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
-        <com.android.volley.toolbox.NetworkImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_category_item_img"
             android:background="@drawable/category_item_img_background"
             android:layout_width="@dimen/_160dp"

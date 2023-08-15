@@ -18,6 +18,11 @@
         <item name="android:textColor">@color/intro_3_orange</item>
         <item name="backgroundTint">@color/white</item>
     </style>
+    <style name="AddToCartButtonBlue" parent="Widget.AppCompat.Button">
+        <item name="android:textSize">@dimen/_18sp</item>
+        <item name="android:textColor">@color/intro_2_blue</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
 
     <style name="StaticText" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">@dimen/_15sp</item>
@@ -29,5 +34,12 @@
         <item name="android:textColor">@color/intro_3_orange</item>
     </style>
 
+    <style name="ProductTitle2" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/_20dp</item>
+        <item name="android:textColor">@color/intro_3_orange</item>
+    </style>
+
     <dimen name="_10sp">10sp</dimen>
+    <dimen name="_30sp">30sp</dimen>
+    <dimen name="_25sp">25sp</dimen>
 </resources>

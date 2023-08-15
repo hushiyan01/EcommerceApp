@@ -6,6 +6,7 @@ import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
+import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
 
 interface MVPInterfaces {
     interface Splash{
@@ -76,6 +77,16 @@ interface MVPInterfaces {
         }
         interface View{
             fun fetchSuccess(productResult: ProductResult)
+            fun fetchFailed(errorMsg: String)
+        }
+    }
+
+    interface ProductDetail{
+        interface Presenter{
+            fun fetchProductDetailById(productId:String)
+        }
+        interface View{
+            fun fetchSuccess(productDetailResult: ProductDetailResult)
             fun fetchFailed(errorMsg: String)
         }
     }

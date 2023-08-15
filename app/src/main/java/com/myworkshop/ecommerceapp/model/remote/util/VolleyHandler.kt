@@ -11,6 +11,7 @@ import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
+import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
 import org.json.JSONObject
 
 class VolleyHandler(private val context: Context) {
@@ -127,6 +128,27 @@ class VolleyHandler(private val context: Context) {
         requestQueue.add(request)
     }
 
+    fun fetchProductDetailById(id:String, fetchProductsDetailCallBack: ResponseCallBack.FetchProductsDetailCallBack) {
+        val requestQueue = Volley.newRequestQueue(context)
+
+        val jsonObject = JSONObject()
+
+        val request = JsonObjectRequest(Request.Method.GET, FETCH_PRODUCTS_DETAIL_URL + id, jsonObject,
+            { response ->
+                val productDetailResult: ProductDetailResult =
+                    Gson().fromJson(response.toString(), ProductDetailResult::class.java)
+                if (productDetailResult.status == 0) {
+                    fetchProductsDetailCallBack.fetchProductDetailSuccess(productDetailResult)
+                } else {
+                    fetchProductsDetailCallBack.fetchProductDetailFailed(productDetailResult.message)
+                }
+            },
+            { error ->
+                fetchProductsDetailCallBack.fetchProductDetailFailed(error.toString())
+            })
+        requestQueue.add(request)
+    }
+
     companion object{
         private const val BASE_URL = "http://192.168.0.12/myshop/index.php/"
 
@@ -135,6 +157,7 @@ class VolleyHandler(private val context: Context) {
         const val FETCH_CATEGORY_URL = BASE_URL + "category"
         const val FETCH_SUB_CATEGORY_URL = BASE_URL + "subcategory"
         const val FETCH_PRODUCTS_URL = BASE_URL + "SubCategory/products/"
+        const val FETCH_PRODUCTS_DETAIL_URL = BASE_URL + "product/details/"
         const val FETCH_IMAGE_URL = "http://192.168.0.12/myshop/images/"
 
 //        fun getHeader():MutableMap<String, String>{

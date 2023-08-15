@@ -16,13 +16,14 @@ import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyImageCaching
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.SubCategoryPresenter
-import com.myworkshop.ecommerceapp.view.adapter.ViewpagerAdapter
+import com.myworkshop.ecommerceapp.view.adapter.FragmentViewpagerAdapter
 
 
 class SubCategoryFragment(
     private val id: String,
     private val toolBarTitle:String,
-    private val onChangeToolbarCallback: OnChangeToolbarCallback
+    private val onChangeToolbarCallback: OnChangeToolbarCallback,
+    private val onGoToProductDetailCallBack: OnGoToProductDetailCallBack
 ) : Fragment(), MVPInterfaces.SubCategory.View {
 
     private lateinit var binding: FragmentSubCategoryBinding
@@ -53,8 +54,8 @@ class SubCategoryFragment(
             for (i in subcategories) {
                 hashMap[index++] = i
             }
-            val subcategoryFrags = subcategories.map { SubCategoryItemListFragment(it) }
-            vpSubCategory.adapter = ViewpagerAdapter(subcategoryFrags, requireActivity())
+            val subcategoryFrags = subcategories.map { SubCategoryItemListFragment(it,onGoToProductDetailCallBack) }
+            vpSubCategory.adapter = FragmentViewpagerAdapter(subcategoryFrags, requireActivity())
 
             TabLayoutMediator(subCategoryTabLayout, vpSubCategory) {
 

@@ -17,11 +17,14 @@ import com.myworkshop.ecommerceapp.model.preferences.SharedPref
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyImageCaching
 import com.myworkshop.ecommerceapp.view.fragment.main.CategoryFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnChangeToolbarCallback
+import com.myworkshop.ecommerceapp.view.fragment.main.OnGoToProductDetailCallBack
 import com.myworkshop.ecommerceapp.view.fragment.main.OnGoToSubCategoryViewPagerCallBack
 import com.myworkshop.ecommerceapp.view.fragment.main.SubCategoryFragment
+import com.myworkshop.ecommerceapp.view.fragment.products.ProductDetailFragment
 
 class MainActivity : AppCompatActivity(),
     OnGoToSubCategoryViewPagerCallBack,
+    OnGoToProductDetailCallBack,
     OnChangeToolbarCallback {
     private lateinit var binding: ActivityMainBinding
     private lateinit var pref: SharedPreferences
@@ -49,8 +52,8 @@ class MainActivity : AppCompatActivity(),
         if (item.itemId == android.R.id.home) {
 
             val fragment = supportFragmentManager.findFragmentById(R.id.fg_home_container)
-            when(fragment){
-                is CategoryFragment ->{
+            when (fragment) {
+                is CategoryFragment -> {
                     if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
                         binding.drawer.closeDrawer(GravityCompat.START)
                     } else {
@@ -63,7 +66,12 @@ class MainActivity : AppCompatActivity(),
                             pref.getString("logged_in_mobile_no", "")
                     }
                 }
-                is SubCategoryFragment ->{
+
+                is SubCategoryFragment -> {
+                    supportFragmentManager.popBackStack()
+                }
+
+                is ProductDetailFragment -> {
                     supportFragmentManager.popBackStack()
                 }
             }
@@ -89,12 +97,12 @@ class MainActivity : AppCompatActivity(),
             }
             true
         }
-        makeFragTransaction("category_fragment", CategoryFragment(this,this))
+        makeFragTransaction("category_fragment", CategoryFragment(this, this))
     }
 
     private fun goToHome() {
         binding.drawer.closeDrawer(GravityCompat.START)
-        makeFragTransaction("category_fragment", CategoryFragment(this,this))
+        makeFragTransaction("category_fragment", CategoryFragment(this, this))
     }
 
     private fun logout() {
@@ -105,27 +113,42 @@ class MainActivity : AppCompatActivity(),
         finish()
     }
 
-    private fun makeFragTransaction(flag:String, fragment: Fragment){
+    private fun makeFragTransaction(flag: String, fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fg_home_container, fragment)
             .addToBackStack(flag)
             .commit()
     }
 
-    override fun go(subCategoryId:String, categoryTitle:String) {
-        makeFragTransaction("sub_category_fragment", SubCategoryFragment(subCategoryId, categoryTitle, this))
+    override fun go(subCategoryId: String, categoryTitle: String) {
+        makeFragTransaction(
+            "sub_category_fragment",
+            SubCategoryFragment(subCategoryId, categoryTitle, this, this)
+        )
     }
 
-    override fun changeToolbar(fragment: Fragment, toolBarTitle:String) {
-        when(fragment){
+    @SuppressLint("SetTextI18n")
+    override fun changeToolbar(fragment: Fragment, toolBarTitle: String) {
+        when (fragment) {
             is SubCategoryFragment -> {
-                binding.tvToolbarTitle.text= toolBarTitle
+                binding.tvToolbarTitle.text = toolBarTitle
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
             }
-            is CategoryFragment ->{
-                binding.tvToolbarTitle.text= toolBarTitle
+
+            is CategoryFragment -> {
+                binding.tvToolbarTitle.text = toolBarTitle
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_density_medium_24)
             }
+
+            is ProductDetailFragment -> {
+                binding.tvToolbarTitle.text = "Detail"
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
+            }
         }
+
+
+    }
+    override fun go(productId: String) {
+        makeFragTransaction("product_detail_fragment", ProductDetailFragment(productId))
     }
 }
