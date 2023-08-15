@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.myworkshop.ecommerceapp.databinding.FragmentCategoryBinding
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
@@ -15,7 +14,10 @@ import com.myworkshop.ecommerceapp.presenter.CategoryPresenter
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.view.adapter.CategoryAdapter
 
-class CategoryFragment(private val callBack: OnGoToSubCategoryViewPagerCallBack) : Fragment(), MVPInterfaces.Category.View{
+class CategoryFragment(
+    private val onGoToSubCategoryViewPagerCallBack: OnGoToSubCategoryViewPagerCallBack,
+    private val onChangeToolbarCallback: OnChangeToolbarCallback
+) : Fragment(), MVPInterfaces.Category.View{
     private lateinit var binding:FragmentCategoryBinding
     private lateinit var presenter: CategoryPresenter
 
@@ -30,6 +32,7 @@ class CategoryFragment(private val callBack: OnGoToSubCategoryViewPagerCallBack)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         presenter.fetchAllCategories()
+        onChangeToolbarCallback.changeToolbar(this, "Super Cart")
     }
 
     override fun fetchSuccess(categoryResult: CategoryResult) {
@@ -37,7 +40,7 @@ class CategoryFragment(private val callBack: OnGoToSubCategoryViewPagerCallBack)
         binding.rvCategories.apply {
             layoutManager = GridLayoutManager(requireContext(),2)
 //            layoutManager = LinearLayoutManager(requireContext())
-            adapter = CategoryAdapter(categories, callBack)
+            adapter = CategoryAdapter(categories, onGoToSubCategoryViewPagerCallBack)
         }
     }
 

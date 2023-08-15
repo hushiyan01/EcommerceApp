@@ -19,7 +19,11 @@ import com.myworkshop.ecommerceapp.presenter.SubCategoryPresenter
 import com.myworkshop.ecommerceapp.view.adapter.ViewpagerAdapter
 
 
-class SubCategoryFragment(private val id: String) : Fragment(), MVPInterfaces.SubCategory.View {
+class SubCategoryFragment(
+    private val id: String,
+    private val toolBarTitle:String,
+    private val onChangeToolbarCallback: OnChangeToolbarCallback
+) : Fragment(), MVPInterfaces.SubCategory.View {
 
     private lateinit var binding: FragmentSubCategoryBinding
     private lateinit var presenter: SubCategoryPresenter
@@ -36,6 +40,7 @@ class SubCategoryFragment(private val id: String) : Fragment(), MVPInterfaces.Su
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onChangeToolbarCallback.changeToolbar(this, toolBarTitle)
         presenter.fetchSubCategoriesById(id)
     }
 

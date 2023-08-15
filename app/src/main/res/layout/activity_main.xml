@@ -21,6 +21,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/tv_toolbar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/super_cart"
@@ -45,7 +46,6 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.constraintlayout.widget.ConstraintLayout
