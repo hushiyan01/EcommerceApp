@@ -11,12 +11,12 @@ import com.myworkshop.ecommerceapp.view.fragment.intros.IntroFragment3
 import com.google.android.material.tabs.TabLayoutMediator
 import com.myworkshop.ecommerceapp.databinding.ActivityIntroScreenBinding
 import com.myworkshop.ecommerceapp.databinding.IndicatorDotsBinding
-import com.myworkshop.ecommerceapp.view.adapter.ViewpagerAdapter
+import com.myworkshop.ecommerceapp.view.adapter.FragmentViewpagerAdapter
 import com.myworkshop.ecommerceapp.view.fragment.intros.OnFragmentFinishCallBack
 
 class IntroScreenActivity : AppCompatActivity(), OnFragmentFinishCallBack {
     private lateinit var binding: ActivityIntroScreenBinding
-    private lateinit var viewpagerAdapter: ViewpagerAdapter
+    private lateinit var fragmentViewpagerAdapter: FragmentViewpagerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,12 +27,12 @@ class IntroScreenActivity : AppCompatActivity(), OnFragmentFinishCallBack {
 
     private fun initViews() {
         val introFrags = listOf(IntroFragment1(this), IntroFragment2(), IntroFragment3(this))
-        viewpagerAdapter = ViewpagerAdapter(
+        fragmentViewpagerAdapter = FragmentViewpagerAdapter(
             introFrags,
             this@IntroScreenActivity
         )
         binding.apply {
-            viewPager2.adapter = viewpagerAdapter
+            viewPager2.adapter = fragmentViewpagerAdapter
             TabLayoutMediator(tabLayout,viewPager2){tab,_->
                 tab.customView = createTabView()
             }.attach()
@@ -42,7 +42,6 @@ class IntroScreenActivity : AppCompatActivity(), OnFragmentFinishCallBack {
                     updateTabDots(position)
                 }
             })
-
         }
     }
 

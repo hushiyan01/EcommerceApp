@@ -14,7 +14,10 @@ import com.myworkshop.ecommerceapp.presenter.CategoryPresenter
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.view.adapter.CategoryAdapter
 
-class CategoryFragment(private val callBack: OnGoToSubCategoryViewPagerCallBack) : Fragment(), MVPInterfaces.Category.View{
+class CategoryFragment(
+    private val onGoToSubCategoryViewPagerCallBack: OnGoToSubCategoryViewPagerCallBack,
+    private val onChangeToolbarCallback: OnChangeToolbarCallback
+) : Fragment(), MVPInterfaces.Category.View{
     private lateinit var binding:FragmentCategoryBinding
     private lateinit var presenter: CategoryPresenter
 
@@ -29,13 +32,15 @@ class CategoryFragment(private val callBack: OnGoToSubCategoryViewPagerCallBack)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         presenter.fetchAllCategories()
+        onChangeToolbarCallback.changeToolbar(this, "Super Cart")
     }
 
     override fun fetchSuccess(categoryResult: CategoryResult) {
         val categories = categoryResult.categories
         binding.rvCategories.apply {
             layoutManager = GridLayoutManager(requireContext(),2)
-            adapter = CategoryAdapter(categories, callBack)
+//            layoutManager = LinearLayoutManager(requireContext())
+            adapter = CategoryAdapter(categories, onGoToSubCategoryViewPagerCallBack)
         }
     }
 
