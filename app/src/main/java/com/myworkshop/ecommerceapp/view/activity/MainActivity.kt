@@ -3,13 +3,12 @@ package com.myworkshop.ecommerceapp.view.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import com.android.volley.toolbox.ImageLoader
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.ActivityMainBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
@@ -120,7 +119,7 @@ class MainActivity : AppCompatActivity(),
             .commit()
     }
 
-    override fun go(subCategoryId: String, categoryTitle: String) {
+    override fun goToSubCategoryFragment(subCategoryId: String, categoryTitle: String) {
         makeFragTransaction(
             "sub_category_fragment",
             SubCategoryFragment(subCategoryId, categoryTitle, this, this)
@@ -148,7 +147,8 @@ class MainActivity : AppCompatActivity(),
 
 
     }
-    override fun go(productId: String) {
+
+    override fun goToProductDetailFragment(productId: String) {
         makeFragTransaction("product_detail_fragment", ProductDetailFragment(productId))
     }
 }

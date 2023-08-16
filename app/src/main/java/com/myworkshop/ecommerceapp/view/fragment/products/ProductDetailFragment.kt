@@ -2,13 +2,11 @@ package com.myworkshop.ecommerceapp.view.fragment.products
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.tabs.TabLayoutMediator
-import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.FragmentProductDetailBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
 import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
@@ -17,9 +15,10 @@ import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.ProductDetailPresenter
 import com.myworkshop.ecommerceapp.view.adapter.FragmentViewpagerAdapter
 
-class ProductDetailFragment(private val productId:String) : Fragment(), MVPInterfaces.ProductDetail.View {
+class ProductDetailFragment(private val productId: String) : Fragment(),
+    MVPInterfaces.ProductDetail.View {
     private lateinit var binding: FragmentProductDetailBinding
-    private lateinit var presenter:ProductDetailPresenter
+    private lateinit var presenter: ProductDetailPresenter
     private lateinit var fragmentViewpagerAdapter: FragmentViewpagerAdapter
 
     override fun onCreateView(
@@ -43,7 +42,8 @@ class ProductDetailFragment(private val productId:String) : Fragment(), MVPInter
         val productTitle = product.product_name
         val rating = product.average_rating.toFloat()
         val description = product.description
-        val imageFrags = product.images.sortedBy { it.display_order }.map { ProductImageFragment(VolleyHandler.FETCH_IMAGE_URL+it.image) }
+        val imageFrags = product.images.sortedBy { it.display_order }
+            .map { ProductImageFragment(VolleyHandler.FETCH_IMAGE_URL + it.image) }
         val price = product.price
 
         fragmentViewpagerAdapter = FragmentViewpagerAdapter(
@@ -69,7 +69,7 @@ class ProductDetailFragment(private val productId:String) : Fragment(), MVPInter
     }
 
     override fun fetchFailed(errorMsg: String) {
-        UIUtils.showSnackBar(requireView(),"fetch product detail failed!")
+        UIUtils.showSnackBar(requireView(), "fetch product detail failed!")
     }
 
 }

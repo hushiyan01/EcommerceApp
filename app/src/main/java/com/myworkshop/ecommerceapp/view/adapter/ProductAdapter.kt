@@ -26,7 +26,7 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.bind(position)
         holder.itemView.setOnClickListener {
-            callback.go(productId = products[position].product_id)
+            callback.goToProductDetailFragment(productId = products[position].product_id)
         }
     }
 

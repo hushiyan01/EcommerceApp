@@ -2,12 +2,12 @@ package com.myworkshop.ecommerceapp.view.fragment.sign_in_register
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.BounceInterpolator
+import androidx.fragment.app.Fragment
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.FragmentLoginBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
@@ -19,14 +19,17 @@ import com.myworkshop.ecommerceapp.view.activity.MainActivity
 import com.myworkshop.ecommerceapp.view.activity.OnSignInNRegisterChanged
 import com.myworkshop.ecommerceapp.view.fragment.intros.OnFragmentFinishCallBack
 
-class LoginFragment(private val onSignInNRegisterChanged: OnSignInNRegisterChanged, private val onFragmentFinishCallBack: OnFragmentFinishCallBack) : Fragment(),MVPInterfaces.SignIn.View {
+class LoginFragment(
+    private val onSignInNRegisterChanged: OnSignInNRegisterChanged,
+    private val onFragmentFinishCallBack: OnFragmentFinishCallBack
+) : Fragment(), MVPInterfaces.SignIn.View {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var presenter: LoginPresenter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLoginBinding.inflate(inflater,container,false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         presenter = LoginPresenter(VolleyHandler(requireContext()), this)
         return binding.root
     }
@@ -45,25 +48,26 @@ class LoginFragment(private val onSignInNRegisterChanged: OnSignInNRegisterChang
             btnSignIn.setOnClickListener {
                 val username = etEmailId.text.toString()
                 val password = etPassword.text.toString()
-                if(username.isEmpty()||password.isEmpty()){
+                if (username.isEmpty() || password.isEmpty()) {
                     UIUtils.showSnackBar(requireView(), "email id or password should not be empty!")
                     return@setOnClickListener
                 }
-                presenter.login(username,password)
+                presenter.login(username, password)
             }
         }
     }
 
     override fun loginSuccess(loginResult: LoginResult) {
         val intent = Intent(requireContext(), MainActivity::class.java)
-        intent.putExtra("full_name",loginResult.user.full_name)
-        intent.putExtra("email_id",loginResult.user.email_id)
-        intent.putExtra("mobile_no",loginResult.user.mobile_no)
+        intent.putExtra("full_name", loginResult.user.full_name)
+        intent.putExtra("email_id", loginResult.user.email_id)
+        intent.putExtra("mobile_no", loginResult.user.mobile_no)
         presenter.updatePref(
             requireContext(),
-            fullName =loginResult.user.full_name,
+            fullName = loginResult.user.full_name,
             emailId = loginResult.user.email_id,
-            mobileNo = loginResult.user.mobile_no)
+            mobileNo = loginResult.user.mobile_no
+        )
         startActivity(intent)
         onFragmentFinishCallBack.finishActivity()
     }

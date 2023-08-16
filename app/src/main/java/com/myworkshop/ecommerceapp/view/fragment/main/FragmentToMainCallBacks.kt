@@ -3,11 +3,11 @@ package com.myworkshop.ecommerceapp.view.fragment.main
 import androidx.fragment.app.Fragment
 
 interface OnGoToSubCategoryViewPagerCallBack {
-    fun go(subCategoryId:String, categoryTitle:String)
+    fun goToSubCategoryFragment(subCategoryId:String, categoryTitle:String)
 }
 
 interface OnGoToProductDetailCallBack{
-    fun go(productId:String)
+    fun goToProductDetailFragment(productId:String)
 }
 
 interface OnChangeToolbarCallback{

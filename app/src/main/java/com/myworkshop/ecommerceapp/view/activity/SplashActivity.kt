@@ -2,23 +2,22 @@ package com.myworkshop.ecommerceapp.view.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import com.myworkshop.ecommerceapp.R
-import com.myworkshop.ecommerceapp.model.preferences.SharedPref
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.SplashPresenter
 
 @SuppressLint("CustomSplashScreen")
-class SplashActivity : AppCompatActivity(),MVPInterfaces.Splash.View{
+class SplashActivity : AppCompatActivity(), MVPInterfaces.Splash.View {
     private lateinit var presenter: MVPInterfaces.Splash.SplashPresenter
     private val SPLASH_DISPLAY_TIME_MS = 2000L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         presenter = SplashPresenter(this)
-        Handler().postDelayed({presenter.fetchPref(this)}, SPLASH_DISPLAY_TIME_MS)
+        Handler().postDelayed({ presenter.fetchPref(this) }, SPLASH_DISPLAY_TIME_MS)
     }
 
     override fun goToIntroActivity() {
