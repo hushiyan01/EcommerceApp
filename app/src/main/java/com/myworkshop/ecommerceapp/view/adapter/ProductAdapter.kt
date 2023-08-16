@@ -1,5 +1,6 @@
 package com.myworkshop.ecommerceapp.view.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -38,10 +39,11 @@ class ProductAdapter(
         private val price = binding.tvProductPrice
         private var rating = 0f
         private var imageUrl = ""
+        @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
             title.text = products[position].product_name
             description.text = products[position].description
-            price.text = products[position].price
+            price.text = "$ ${products[position].price}"
             rating = products[position].price.toFloat()
             imageUrl = VolleyHandler.FETCH_IMAGE_URL + products[position].product_image_url
 //            VolleyImageCaching.fetchImageUsingVolley(products[position].product_image_url, )

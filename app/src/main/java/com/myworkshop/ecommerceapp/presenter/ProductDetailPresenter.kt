@@ -1,7 +1,6 @@
 package com.myworkshop.ecommerceapp.presenter
 
 import com.myworkshop.ecommerceapp.model.remote.ResponseCallBack
-import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
 
 class ProductDetailPresenter(

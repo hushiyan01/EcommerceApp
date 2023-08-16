@@ -14,6 +14,8 @@ import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.ProductDetailPresenter
 import com.myworkshop.ecommerceapp.view.adapter.FragmentViewpagerAdapter
+import com.myworkshop.ecommerceapp.view.adapter.SpecificationAdapter
+import com.myworkshop.ecommerceapp.view.adapter.UserReviewAdapter
 
 class ProductDetailFragment(private val productId: String) : Fragment(),
     MVPInterfaces.ProductDetail.View {
@@ -38,13 +40,14 @@ class ProductDetailFragment(private val productId: String) : Fragment(),
     @SuppressLint("SetTextI18n")
     override fun fetchSuccess(productDetailResult: ProductDetailResult) {
         val product = productDetailResult.product
-
         val productTitle = product.product_name
         val rating = product.average_rating.toFloat()
         val description = product.description
         val imageFrags = product.images.sortedBy { it.display_order }
             .map { ProductImageFragment(VolleyHandler.FETCH_IMAGE_URL + it.image) }
         val price = product.price
+        val specifications = productDetailResult.product.specifications.sortedBy { it.display_order }
+        val reviews = productDetailResult.product.reviews.sortedBy { it.review_date }
 
         fragmentViewpagerAdapter = FragmentViewpagerAdapter(
             imageFrags,
@@ -60,7 +63,12 @@ class ProductDetailFragment(private val productId: String) : Fragment(),
 
             rvSpecifications.apply {
                 layoutManager = LinearLayoutManager(requireContext())
-//                adapter =
+                adapter = SpecificationAdapter(specifications)
+            }
+
+            rvUserReviews.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = UserReviewAdapter(reviews)
             }
 //            TabLayoutMediator(tabLayout,viewPager2){tab,_->
 //                tab.customView = createTabView()
