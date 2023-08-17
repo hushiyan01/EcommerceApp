@@ -55,7 +55,7 @@ class CartItemsFragment : Fragment(), MVPInterfaces.ProductCart.View {
         binding.tvTotalPrice.text = products.map { it.price*it.num }.sum().toString()
     }
 
-    private fun findViewPagerParent(view: View): ViewPager2? {
+     private fun findViewPagerParent(view: View): ViewPager2? {
         var parentView: ViewParent? = view.parent
 
         while (parentView != null) {

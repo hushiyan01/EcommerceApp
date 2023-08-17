@@ -50,4 +50,11 @@
     <string name="quantity">Quantity</string>
     <string name="amount">Amount</string>
     <string name="next">next</string>
+    <string name="address_type">Address type</string>
+    <string name="address_info">address info</string>
+    <string name="select_delivery_address">Select Delivery Address</string>
+    <string name="add_address">add address</string>
+    <string name="address_title">Address Title</string>
+    <string name="cancel">cancel</string>
+    <string name="save">save</string>
 </resources>

@@ -16,6 +16,7 @@ import com.myworkshop.ecommerceapp.model.preferences.SharedPref
 import com.myworkshop.ecommerceapp.model.remote.dto.product.Product
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyImageCaching
 import com.myworkshop.ecommerceapp.view.fragment.cart.CartPreviewFragment
+import com.myworkshop.ecommerceapp.view.fragment.checkout.CheckOutFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.CategoryFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnChangeToolbarCallback
 import com.myworkshop.ecommerceapp.view.fragment.main.OnGoToProductDetailCallBack
@@ -69,6 +70,10 @@ class MainActivity : AppCompatActivity(),
                 is CartPreviewFragment ->{
                     openCloseDrawer()
                 }
+
+                is CheckOutFragment ->{
+                    supportFragmentManager.popBackStack()
+                }
             }
         }
 
@@ -112,7 +117,7 @@ class MainActivity : AppCompatActivity(),
 
     private fun goToCart() {
         binding.drawer.closeDrawer(GravityCompat.START)
-        makeFragTransaction("cart_fragment", CartPreviewFragment())
+        makeFragTransaction("cart_fragment", CartPreviewFragment(this))
     }
 
     private fun goToHome() {
@@ -156,8 +161,18 @@ class MainActivity : AppCompatActivity(),
             }
 
             is ProductDetailFragment -> {
-                binding.tvToolbarTitle.text = "Detail"
+                binding.tvToolbarTitle.text = toolBarTitle
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
+            }
+
+            is CheckOutFragment ->{
+                binding.tvToolbarTitle.text = toolBarTitle
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
+            }
+
+            is CartPreviewFragment ->{
+                binding.tvToolbarTitle.text = toolBarTitle
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_density_medium_24)
             }
         }
     }
