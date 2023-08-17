@@ -5,20 +5,20 @@ import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetail
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
 
 class ProductDetailPresenter(
-    private val id:String,
+    private val id: String,
     private val volleyHandler: VolleyHandler,
-    private val view:MVPInterfaces.ProductDetail.View
-): MVPInterfaces.ProductDetail.Presenter {
+    private val view: MVPInterfaces.ProductDetail.View
+) : MVPInterfaces.ProductDetail.Presenter {
     override fun fetchProductDetailById(productId: String) {
-        volleyHandler.fetchProductDetailById(id, object:ResponseCallBack.FetchProductsDetailCallBack{
-            override fun fetchProductDetailSuccess(productDetailResult: ProductDetailResult) {
-                view.fetchSuccess(productDetailResult)
-            }
+        volleyHandler.fetchProductDetailById(
+            id, object : ResponseCallBack.FetchProductsDetailCallBack {
+                override fun fetchProductDetailSuccess(productDetailResult: ProductDetailResult) {
+                    view.fetchSuccess(productDetailResult)
+                }
 
-            override fun fetchProductDetailFailed(errorMsg: String) {
-                view.fetchFailed(errorMsg)
-            }
-
-        })
+                override fun fetchProductDetailFailed(errorMsg: String) {
+                    view.fetchFailed(errorMsg)
+                }
+            })
     }
 }

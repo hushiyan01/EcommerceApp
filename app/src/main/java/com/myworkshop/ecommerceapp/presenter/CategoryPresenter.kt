@@ -14,7 +14,6 @@ class CategoryPresenter(private val volleyHandler: VolleyHandler, private val vi
             override fun fetchCategoryFailed(errorMsg: String) {
                 view.fetchFailed(errorMsg)
             }
-
         })
     }
 }

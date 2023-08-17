@@ -3,18 +3,20 @@ package com.myworkshop.ecommerceapp.view.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import com.android.volley.toolbox.ImageLoader
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.ActivityMainBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
 import com.myworkshop.ecommerceapp.model.preferences.SharedPref
+import com.myworkshop.ecommerceapp.model.remote.dto.product.Product
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyImageCaching
+import com.myworkshop.ecommerceapp.view.fragment.cart.CartPreviewFragment
+import com.myworkshop.ecommerceapp.view.fragment.checkout.CheckOutFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.CategoryFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnChangeToolbarCallback
 import com.myworkshop.ecommerceapp.view.fragment.main.OnGoToProductDetailCallBack
@@ -54,17 +56,7 @@ class MainActivity : AppCompatActivity(),
             val fragment = supportFragmentManager.findFragmentById(R.id.fg_home_container)
             when (fragment) {
                 is CategoryFragment -> {
-                    if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
-                        binding.drawer.closeDrawer(GravityCompat.START)
-                    } else {
-                        binding.drawer.openDrawer(GravityCompat.START)
-                        findViewById<TextView>(R.id.tv_header_name).text =
-                            "Welcome  ${pref.getString("logged_in_full_name", "")}"
-                        findViewById<TextView>(R.id.tv_header_email).text =
-                            pref.getString("logged_in_email_id", "")
-                        findViewById<TextView>(R.id.tv_header_mobile_no).text =
-                            pref.getString("logged_in_mobile_no", "")
-                    }
+                    openCloseDrawer()
                 }
 
                 is SubCategoryFragment -> {
@@ -72,6 +64,14 @@ class MainActivity : AppCompatActivity(),
                 }
 
                 is ProductDetailFragment -> {
+                    supportFragmentManager.popBackStack()
+                }
+
+                is CartPreviewFragment ->{
+                    openCloseDrawer()
+                }
+
+                is CheckOutFragment ->{
                     supportFragmentManager.popBackStack()
                 }
             }
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(),
 
             when (menuItems.itemId) {
                 R.id.app_home -> goToHome()
-//                R.id.offer -> showToast("offer")
+                R.id.cart -> goToCart()
 //                R.id.settings -> showToast("setting")
 //                R.id.logout -> showToast("logout")
 //                R.id.moments -> showToast("moments")
@@ -98,6 +98,26 @@ class MainActivity : AppCompatActivity(),
             true
         }
         makeFragTransaction("category_fragment", CategoryFragment(this, this))
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun openCloseDrawer(){
+        if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
+            binding.drawer.closeDrawer(GravityCompat.START)
+        } else {
+            binding.drawer.openDrawer(GravityCompat.START)
+            findViewById<TextView>(R.id.tv_header_name).text =
+                "Welcome  ${pref.getString("logged_in_full_name", "")}"
+            findViewById<TextView>(R.id.tv_header_email).text =
+                pref.getString("logged_in_email_id", "")
+            findViewById<TextView>(R.id.tv_header_mobile_no).text =
+                pref.getString("logged_in_mobile_no", "")
+        }
+    }
+
+    private fun goToCart() {
+        binding.drawer.closeDrawer(GravityCompat.START)
+        makeFragTransaction("cart_fragment", CartPreviewFragment(this))
     }
 
     private fun goToHome() {
@@ -120,7 +140,7 @@ class MainActivity : AppCompatActivity(),
             .commit()
     }
 
-    override fun go(subCategoryId: String, categoryTitle: String) {
+    override fun goToSubCategoryFragment(subCategoryId: String, categoryTitle: String) {
         makeFragTransaction(
             "sub_category_fragment",
             SubCategoryFragment(subCategoryId, categoryTitle, this, this)
@@ -141,14 +161,27 @@ class MainActivity : AppCompatActivity(),
             }
 
             is ProductDetailFragment -> {
-                binding.tvToolbarTitle.text = "Detail"
+                binding.tvToolbarTitle.text = toolBarTitle
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
             }
+
+            is CheckOutFragment ->{
+                binding.tvToolbarTitle.text = toolBarTitle
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
+            }
+
+            is CartPreviewFragment ->{
+                binding.tvToolbarTitle.text = toolBarTitle
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_density_medium_24)
+            }
         }
-
-
     }
-    override fun go(productId: String) {
-        makeFragTransaction("product_detail_fragment", ProductDetailFragment(productId))
+
+    override fun goToProductDetailFragment(product: Product) {
+        val productDetailFragment = ProductDetailFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("product", product)
+        productDetailFragment.arguments = bundle
+        makeFragTransaction("product_detail_fragment", productDetailFragment)
     }
 }

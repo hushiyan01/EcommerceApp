@@ -7,18 +7,19 @@ import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
 class ProductPresenter(
     private val volleyHandler: VolleyHandler,
     private val view: MVPInterfaces.Product.View
-) : MVPInterfaces.Product.Presenter{
+) : MVPInterfaces.Product.Presenter {
     override fun fetchProductsBySubCategoryId(subCategoryId: String) {
-        volleyHandler.fetchProductBySubCategoryId(subCategoryId, object :ResponseCallBack.FetchProductsFromSubCategoryIdCallBack{
-            override fun fetchProductsSuccess(productResult: ProductResult) {
-                view.fetchSuccess(productResult)
-            }
+        volleyHandler.fetchProductBySubCategoryId(
+            subCategoryId,
+            object : ResponseCallBack.FetchProductsFromSubCategoryIdCallBack {
+                override fun fetchProductsSuccess(productResult: ProductResult) {
+                    view.fetchSuccess(productResult)
+                }
 
-            override fun fetchProductsFailed(errorMsg: String) {
-                view.fetchFailed(errorMsg)
-            }
-
-        })
+                override fun fetchProductsFailed(errorMsg: String) {
+                    view.fetchFailed(errorMsg)
+                }
+            })
     }
 
 }

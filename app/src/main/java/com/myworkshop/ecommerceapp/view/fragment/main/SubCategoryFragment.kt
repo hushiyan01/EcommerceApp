@@ -1,10 +1,10 @@
 package com.myworkshop.ecommerceapp.view.fragment.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.CustomTabBinding
@@ -18,10 +18,9 @@ import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.SubCategoryPresenter
 import com.myworkshop.ecommerceapp.view.adapter.FragmentViewpagerAdapter
 
-
 class SubCategoryFragment(
     private val id: String,
-    private val toolBarTitle:String,
+    private val toolBarTitle: String,
     private val onChangeToolbarCallback: OnChangeToolbarCallback,
     private val onGoToProductDetailCallBack: OnGoToProductDetailCallBack
 ) : Fragment(), MVPInterfaces.SubCategory.View {
@@ -54,7 +53,8 @@ class SubCategoryFragment(
             for (i in subcategories) {
                 hashMap[index++] = i
             }
-            val subcategoryFrags = subcategories.map { SubCategoryItemListFragment(it,onGoToProductDetailCallBack) }
+            val subcategoryFrags =
+                subcategories.map { SubCategoryItemListFragment(it, onGoToProductDetailCallBack) }
             vpSubCategory.adapter = FragmentViewpagerAdapter(subcategoryFrags, requireActivity())
 
             TabLayoutMediator(subCategoryTabLayout, vpSubCategory) {
@@ -67,9 +67,13 @@ class SubCategoryFragment(
                     false
                 )
                 tabBinding.apply {
-//                    tabImage.setImageResource(R.drawable.baseline_density_medium_24)
                     val imgUrl = hashMap[position]!!.subcategory_image_url
-                    VolleyImageCaching.fetchImageUsingVolley(imgUrl, tabImage, R.drawable.baseline_density_medium_24, R.drawable.baseline_density_medium_24)
+                    VolleyImageCaching.fetchImageUsingVolley(
+                        imgUrl,
+                        tabImage,
+                        R.drawable.baseline_density_medium_24,
+                        R.drawable.baseline_density_medium_24
+                    )
                     tabText.text = hashMap[position]!!.subcategory_name
                 }
                 tab.customView = tabBinding.root

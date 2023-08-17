@@ -18,4 +18,8 @@
     <dimen name="_160dp">160dp</dimen>
     <dimen name="_200dp">200dp</dimen>
     <dimen name="_12sp">12sp</dimen>
+    <dimen name="_150dp">150dp</dimen>
+    <dimen name="_30dp">30dp</dimen>
+    <dimen name="_3dp">3dp</dimen>
+    <dimen name="_1dp">1dp</dimen>
 </resources>

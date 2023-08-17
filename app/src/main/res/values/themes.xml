@@ -39,6 +39,23 @@
         <item name="android:textColor">@color/intro_3_orange</item>
     </style>
 
+    <style name="ProductTitle3" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/_25sp</item>
+        <item name="android:textColor">@color/intro_3_orange</item>
+    </style>
+
+    <style name="CartTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/_25sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="addRemoveButtonLittle" parent="Widget.AppCompat.Button">
+        <item name="android:textSize">@dimen/_10dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/intro_2_blue</item>
+    </style>
+
     <dimen name="_10sp">10sp</dimen>
     <dimen name="_30sp">30sp</dimen>
     <dimen name="_25sp">25sp</dimen>

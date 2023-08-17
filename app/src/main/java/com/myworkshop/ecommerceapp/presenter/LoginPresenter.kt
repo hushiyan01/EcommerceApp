@@ -22,7 +22,6 @@ class LoginPresenter(
                 override fun loginFailed(errorMsg: String) {
                     view.loginFailed(errorMsg)
                 }
-
             })
     }
 

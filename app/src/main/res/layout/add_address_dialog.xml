@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/static_title"
+        style="@style/CartTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30dp"
+        android:padding="@dimen/_20dp"
+        android:text="@string/add_address"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/static_address_title"
+        style="@style/StaticText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_30dp"
+        android:text="@string/address_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/static_title" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_address_type"
+        style="@style/StaticText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60dp"
+        android:layout_margin="@dimen/_20dp"
+        android:background="@drawable/edit_text_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/static_address_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/static_address_content"
+        style="@style/StaticText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_30dp"
+        android:layout_marginTop="@dimen/_30dp"
+        android:text="@string/address_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_address_type" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_address_content"
+        style="@style/StaticText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100dp"
+        android:layout_margin="@dimen/_20dp"
+        android:background="@drawable/edit_text_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/static_address_content" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_cancel"
+        style="@style/PrimaryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_60dp"
+        android:text="@string/cancel"
+        app:layout_constraintEnd_toStartOf="@+id/btn_save_address"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_address_content" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_save_address"
+        style="@style/PrimaryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_60dp"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_cancel"
+        app:layout_constraintTop_toBottomOf="@id/et_address_content" />
+</androidx.constraintlayout.widget.ConstraintLayout>

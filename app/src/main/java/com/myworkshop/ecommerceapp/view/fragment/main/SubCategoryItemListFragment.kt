@@ -1,16 +1,13 @@
 package com.myworkshop.ecommerceapp.view.fragment.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myworkshop.ecommerceapp.R
-import com.myworkshop.ecommerceapp.databinding.FragmentSubCategoryBinding
 import com.myworkshop.ecommerceapp.databinding.FragmentSubCategoryItemListBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
-import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.Subcategory
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
@@ -18,9 +15,12 @@ import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.ProductPresenter
 import com.myworkshop.ecommerceapp.view.adapter.ProductAdapter
 
-class SubCategoryItemListFragment(private val subCategory:Subcategory, private val callBack: OnGoToProductDetailCallBack): Fragment(),MVPInterfaces.Product.View {
+class SubCategoryItemListFragment(
+    private val subCategory: Subcategory,
+    private val callBack: OnGoToProductDetailCallBack
+) : Fragment(), MVPInterfaces.Product.View {
     private lateinit var binding: FragmentSubCategoryItemListBinding
-    private lateinit var presenter:ProductPresenter
+    private lateinit var presenter: ProductPresenter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +39,7 @@ class SubCategoryItemListFragment(private val subCategory:Subcategory, private v
         val list = productResult.products
         binding.rvProducts.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = ProductAdapter(list,callBack)
+            adapter = ProductAdapter(list, callBack)
         }
     }
 
