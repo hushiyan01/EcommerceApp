@@ -1,11 +1,13 @@
 package com.myworkshop.ecommerceapp.presenter
 
 import android.content.Context
+import com.myworkshop.ecommerceapp.model.local.entity.po.CartItem
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
+import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
 
 interface MVPInterfaces {
     interface Splash {
@@ -94,6 +96,20 @@ interface MVPInterfaces {
         interface View {
             fun fetchSuccess(productDetailResult: ProductDetailResult)
             fun fetchFailed(errorMsg: String)
+        }
+    }
+
+    interface ProductCart{
+        interface Presenter{
+            fun fetchProductsInCart()
+            fun productMinus1(id:String)
+            fun productPlus1(id:String)
+            fun insertNewItem(cartItem: CartItem)
+            fun isInCart(id:String):Boolean
+            fun remove(id:String):Int
+        }
+        interface View{
+            fun loadCart(products:List<CartItem>)
         }
     }
 

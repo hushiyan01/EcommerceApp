@@ -13,7 +13,9 @@ import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.ActivityMainBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
 import com.myworkshop.ecommerceapp.model.preferences.SharedPref
+import com.myworkshop.ecommerceapp.model.remote.dto.product.Product
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyImageCaching
+import com.myworkshop.ecommerceapp.view.fragment.cart.CartPreviewFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.CategoryFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnChangeToolbarCallback
 import com.myworkshop.ecommerceapp.view.fragment.main.OnGoToProductDetailCallBack
@@ -88,7 +90,7 @@ class MainActivity : AppCompatActivity(),
 
             when (menuItems.itemId) {
                 R.id.app_home -> goToHome()
-//                R.id.offer -> showToast("offer")
+                R.id.cart -> goToCart()
 //                R.id.settings -> showToast("setting")
 //                R.id.logout -> showToast("logout")
 //                R.id.moments -> showToast("moments")
@@ -97,6 +99,11 @@ class MainActivity : AppCompatActivity(),
             true
         }
         makeFragTransaction("category_fragment", CategoryFragment(this, this))
+    }
+
+    private fun goToCart() {
+        binding.drawer.closeDrawer(GravityCompat.START)
+        makeFragTransaction("cart_fragment", CartPreviewFragment())
     }
 
     private fun goToHome() {
@@ -148,7 +155,11 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-    override fun goToProductDetailFragment(productId: String) {
-        makeFragTransaction("product_detail_fragment", ProductDetailFragment(productId))
+    override fun goToProductDetailFragment(product: Product) {
+        val productDetailFragment = ProductDetailFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("product", product)
+        productDetailFragment.arguments = bundle
+        makeFragTransaction("product_detail_fragment", productDetailFragment)
     }
 }

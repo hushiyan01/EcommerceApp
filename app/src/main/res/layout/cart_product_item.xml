@@ -37,6 +37,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_product_price_sum"
+            style="@style/ProductTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/_10dp"
+            android:gravity="center"
+            android:text="@string/price_preview"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_product_description"
             style="@style/StaticText"
             android:layout_width="@dimen/_0dp"
@@ -48,21 +60,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline_vertical"
             app:layout_constraintTop_toTopOf="@id/guideline_top" />
-
-        <androidx.appcompat.widget.AppCompatRatingBar
-            android:id="@+id/rb_product_rating"
-            android:layout_width="300dp"
-            android:layout_height="0dp"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:scaleX="0.4"
-            android:scaleY="0.4"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_top"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.512"
-            app:layout_constraintStart_toEndOf="@+id/tv_product_title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.133" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_product_price"
@@ -76,15 +73,38 @@
             app:layout_constraintStart_toStartOf="@id/guideline_vertical"
             app:layout_constraintTop_toTopOf="@id/guideline_bottom" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            style="@style/AddToCartButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="@dimen/_100dp"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/_5dp"
-            android:text="@string/add_to_cart"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="@id/guideline_bottom"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
+            app:layout_constraintBottom_toBottomOf="parent">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_remove1"
+                style="@style/addRemoveButtonLittle"
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp"
+                android:text="@string/minus"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_product_num"
+                style="@style/ProductTitle2"
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp"
+                android:gravity="center"
+                android:text="@string/_1"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_add1"
+                style="@style/addRemoveButtonLittle"
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp"
+                android:text="@string/plus"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
 
         <androidx.constraintlayout.widget.Guideline

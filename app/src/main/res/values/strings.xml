@@ -31,7 +31,7 @@
     <string name="category_item">Category item</string>
     <string name="sub_category">sub category</string>
     <string name="product_title">Product title</string>
-    <string name="_200">$ 200</string>
+    <string name="price_preview">$ 200</string>
     <string name="product_descriptions">product descriptions :********</string>
     <string name="add_to_cart">ADD TO CART</string>
     <string name="category_name">Category name</string>
@@ -41,4 +41,9 @@
     <string name="user_reviews">User Reviews</string>
     <string name="user_name">user name</string>
     <string name="review_title">Review title</string>
+    <string name="checkout">checkout</string>
+    <string name="total_bill_amount">Total Bill Amount</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="_1">1</string>
 </resources>

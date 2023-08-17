@@ -6,11 +6,12 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.myworkshop.ecommerceapp.model.remote.ResponseCallBack
-import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
-import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
+import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
+import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
+import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
 import org.json.JSONObject
 
 class VolleyHandler(private val context: Context) {
