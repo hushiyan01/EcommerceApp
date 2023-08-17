@@ -19,7 +19,7 @@ object DBConstants {
 
     val CREATE_TABLE_ADDRESS = """create table $TABLE_NAME_ADDRESS(
         id integer primary key autoincrement,
-        user_id integer,
+        user_id text,
         type text,
         address text
     )

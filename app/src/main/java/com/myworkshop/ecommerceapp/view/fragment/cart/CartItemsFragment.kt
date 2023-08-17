@@ -1,60 +1,71 @@
 package com.myworkshop.ecommerceapp.view.fragment.cart
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewParent
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.myworkshop.ecommerceapp.R
+import com.myworkshop.ecommerceapp.databinding.FragmentCartItemsBinding
+import com.myworkshop.ecommerceapp.model.local.dao.CartDao
+import com.myworkshop.ecommerceapp.model.local.entity.db.ShoppingDBHelper
+import com.myworkshop.ecommerceapp.model.local.entity.po.CartItem
+import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
+import com.myworkshop.ecommerceapp.presenter.ProductCartPresenter
+import com.myworkshop.ecommerceapp.view.adapter.CartCheckoutAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CartItemsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class CartItemsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class CartItemsFragment : Fragment(), MVPInterfaces.ProductCart.View {
+    private lateinit var binding:FragmentCartItemsBinding
+    private lateinit var presenter: ProductCartPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart_items, container, false)
+    ): View {
+        binding = FragmentCartItemsBinding.inflate(inflater,container,false)
+        presenter= ProductCartPresenter(CartDao(ShoppingDBHelper(requireContext())), this)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CartItemsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CartItemsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter.fetchProductsInCart()
+        binding.btnNext.setOnClickListener {
+            val checkoutViewPager2 = findViewPagerParent(view)
+            if(checkoutViewPager2!=null){
+                val currentItem = checkoutViewPager2.currentItem
+                val nextPage = currentItem + 1
+
+                if (checkoutViewPager2.adapter !=null && nextPage < checkoutViewPager2.adapter!!.itemCount) {
+                    checkoutViewPager2.setCurrentItem(nextPage, true)
                 }
             }
+        }
     }
+
+    override fun loadCart(products: List<CartItem>) {
+        binding.rvCartItemCheckoutList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = CartCheckoutAdapter(products)
+        }
+        binding.tvTotalPrice.text = products.map { it.price*it.num }.sum().toString()
+    }
+
+    private fun findViewPagerParent(view: View): ViewPager2? {
+        var parentView: ViewParent? = view.parent
+
+        while (parentView != null) {
+            if (parentView is ViewPager2) {
+                return parentView
+            }
+            parentView = parentView.parent
+        }
+
+        return null
+    }
+
 }

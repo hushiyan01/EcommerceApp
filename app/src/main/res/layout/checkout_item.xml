@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/_10dp"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_150dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_product_img"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="@dimen/_0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_cart_item_checkout_title"
+            style="@style/ProductTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10dp"
+            android:text="@string/product_title"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_cart_unit_price_static"
+            style="@style/StaticText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="@string/unit_price"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_cart_item_checkout_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_cart_quantity_static"
+            style="@style/StaticText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="@string/quantity"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_cart_unit_price_static" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/StaticText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="@string/amount"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_cart_quantity_static" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_cart_item_checkout_unit_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="@string/price_preview"
+            app:layout_constraintTop_toBottomOf="@id/tv_cart_item_checkout_title"
+            app:layout_constraintStart_toStartOf="@id/guideline_end_cart"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_cart_item_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="@string/_1"
+            app:layout_constraintTop_toBottomOf="@id/tv_cart_item_checkout_unit_price"
+            app:layout_constraintStart_toStartOf="@id/guideline_end_cart"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_cart_item_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="@string/price_preview"
+            app:layout_constraintTop_toBottomOf="@id/tv_cart_item_quantity"
+            app:layout_constraintStart_toStartOf="@id/guideline_end_cart"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

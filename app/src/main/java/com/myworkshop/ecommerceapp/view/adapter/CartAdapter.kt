@@ -13,7 +13,11 @@ import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
 import com.myworkshop.ecommerceapp.presenter.ProductCartPresenter
 import com.squareup.picasso.Picasso
 
-class CartAdapter(val products:List<CartItem>,private var presenter: ProductCartPresenter):RecyclerView.Adapter<CartAdapter.CartProductViewHolder>() {
+class CartAdapter(
+    val products:List<CartItem>,
+    private var presenter: ProductCartPresenter,
+    private val itemChangeCallback: OnCartItemChangeCallback
+):RecyclerView.Adapter<CartAdapter.CartProductViewHolder>() {
     private lateinit var binding:CartProductItemBinding
     inner class CartProductViewHolder(binding: CartProductItemBinding):RecyclerView.ViewHolder(binding.root){
         val title = binding.tvProductTitle
@@ -21,6 +25,7 @@ class CartAdapter(val products:List<CartItem>,private var presenter: ProductCart
         val num = binding.tvProductNum
         val desc = binding.tvProductDescription
         val img = binding.ivProductImg
+        val subTotalPrice = binding.tvProductPriceSum
 
         @SuppressLint("SetTextI18n")
         fun bind(position:Int){
@@ -28,6 +33,7 @@ class CartAdapter(val products:List<CartItem>,private var presenter: ProductCart
             unitPrice.text = "$ ${products[position].price}"
             desc.text = products[position].description
             num.text = products[position].num.toString()
+            subTotalPrice.text = (products[position].price * products[position].num).toString()
             val imageUrl = VolleyHandler.FETCH_IMAGE_URL + products[position].img
             Picasso.get().load(imageUrl).into(img)
 
@@ -49,6 +55,8 @@ class CartAdapter(val products:List<CartItem>,private var presenter: ProductCart
                 products[position].num++
                 notifyItemChanged(position)
                 presenter.productPlus1(products[position].id.toString())
+                val totalPrice = products.map { it.price*it.num }.sum()
+                itemChangeCallback.updateTotalPrice(totalPrice)
             }
             btnRemove1.setOnClickListener {
                 if(products[position].num>=1){
@@ -58,6 +66,8 @@ class CartAdapter(val products:List<CartItem>,private var presenter: ProductCart
                 }else{
                     presenter.remove(id = products[position].id.toString())
                 }
+                val totalPrice = products.map { it.price*it.num }.sum()
+                itemChangeCallback.updateTotalPrice(totalPrice)
             }
         }
     }

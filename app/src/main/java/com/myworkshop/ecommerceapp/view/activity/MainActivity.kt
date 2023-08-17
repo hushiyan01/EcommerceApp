@@ -55,17 +55,7 @@ class MainActivity : AppCompatActivity(),
             val fragment = supportFragmentManager.findFragmentById(R.id.fg_home_container)
             when (fragment) {
                 is CategoryFragment -> {
-                    if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
-                        binding.drawer.closeDrawer(GravityCompat.START)
-                    } else {
-                        binding.drawer.openDrawer(GravityCompat.START)
-                        findViewById<TextView>(R.id.tv_header_name).text =
-                            "Welcome  ${pref.getString("logged_in_full_name", "")}"
-                        findViewById<TextView>(R.id.tv_header_email).text =
-                            pref.getString("logged_in_email_id", "")
-                        findViewById<TextView>(R.id.tv_header_mobile_no).text =
-                            pref.getString("logged_in_mobile_no", "")
-                    }
+                    openCloseDrawer()
                 }
 
                 is SubCategoryFragment -> {
@@ -74,6 +64,10 @@ class MainActivity : AppCompatActivity(),
 
                 is ProductDetailFragment -> {
                     supportFragmentManager.popBackStack()
+                }
+
+                is CartPreviewFragment ->{
+                    openCloseDrawer()
                 }
             }
         }
@@ -99,6 +93,21 @@ class MainActivity : AppCompatActivity(),
             true
         }
         makeFragTransaction("category_fragment", CategoryFragment(this, this))
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun openCloseDrawer(){
+        if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
+            binding.drawer.closeDrawer(GravityCompat.START)
+        } else {
+            binding.drawer.openDrawer(GravityCompat.START)
+            findViewById<TextView>(R.id.tv_header_name).text =
+                "Welcome  ${pref.getString("logged_in_full_name", "")}"
+            findViewById<TextView>(R.id.tv_header_email).text =
+                pref.getString("logged_in_email_id", "")
+            findViewById<TextView>(R.id.tv_header_mobile_no).text =
+                pref.getString("logged_in_mobile_no", "")
+        }
     }
 
     private fun goToCart() {
@@ -151,8 +160,6 @@ class MainActivity : AppCompatActivity(),
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
             }
         }
-
-
     }
 
     override fun goToProductDetailFragment(product: Product) {
