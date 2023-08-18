@@ -36,9 +36,10 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/appCompatButton"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_40dp"
+                    android:layout_height="30dp"
                     android:layout_marginEnd="@dimen/_10dp"
                     android:background="@drawable/search_icon"
+                    android:padding="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"

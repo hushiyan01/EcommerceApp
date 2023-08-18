@@ -1,42 +1,47 @@
 package com.myworkshop.ecommerceapp.view.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.AddressItemBinding
 import com.myworkshop.ecommerceapp.model.local.entity.po.AddressView
 
-class AddressAdapter(
-    val addressViews: List<AddressView>,
-) : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
+class AddressAdapter(val addressViews: List<AddressView>, val context: Context) : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
     private lateinit var binding: AddressItemBinding
+    private var isSelected = false
 
     inner class AddressViewHolder(binding: AddressItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val type = binding.tvAddressType
         private val address = binding.tvAddress
-        var selectorButton = binding.btnAddressSelector
-        var isPressed = false
+        private val button = binding.btnAddressSelector
+        var isCurSelected = false
 
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
             type.text = addressViews[position].type
             address.text = addressViews[position].address
-            isPressed = addressViews[position].isSelected
-            selectorButton.isPressed = isPressed
-            selectorButton
-                .setOnClickListener {
-                    if (!addressViews.map { it.isSelected }.contains(true)) {
-                        addressViews[position].isSelected = !addressViews[position].isSelected
-                        isPressed = addressViews[position].isSelected
-                        notifyItemChanged(position)
-                    } else if (addressViews[position].isSelected) {
-                        addressViews[position].isSelected = !addressViews[position].isSelected
-                        isPressed = addressViews[position].isSelected
-                        notifyItemChanged(position)
-                    }
+            button.setOnClickListener {
+                if (!isSelected) {
+                    isSelected = true
+                    isCurSelected = true
+                    it.setBackgroundResource(R.drawable.button_selected)
+                    addressViews[position].isSelected = true
+                    notifyDataSetChanged()
+                } else if (isCurSelected) {
+                    isSelected = false
+                    isCurSelected = false
+                    it.setBackgroundResource(R.drawable.button_unselected)
+                    addressViews[position].isSelected = false
+                    notifyDataSetChanged()
+                } else {
+                    Toast.makeText(context,"you can only select one address!",Toast.LENGTH_SHORT).show()
                 }
+            }
         }
     }
 

@@ -87,7 +87,7 @@ class DeliveryFragment : Fragment(), MVPInterfaces.GetAddresses.View, RefreshDel
     override fun fetchSuccess(getAddressesResult: GetAddressesResult) {
         binding.rvAddresses.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = AddressAdapter(buildAddressView(getAddressesResult.addresses))
+            adapter = AddressAdapter(buildAddressView(getAddressesResult.addresses),requireContext())
         }
     }
 

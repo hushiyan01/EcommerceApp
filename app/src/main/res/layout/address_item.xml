@@ -32,7 +32,7 @@
             android:id="@+id/btn_address_selector"
             android:layout_width="@dimen/_40dp"
             android:layout_height="@dimen/_40dp"
-            android:background="@drawable/button_selection"
+            android:background="@drawable/button_unselected"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline5"
