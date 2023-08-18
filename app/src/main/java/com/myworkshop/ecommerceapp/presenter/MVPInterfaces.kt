@@ -2,6 +2,8 @@ package com.myworkshop.ecommerceapp.presenter
 
 import android.content.Context
 import com.myworkshop.ecommerceapp.model.local.entity.po.CartItem
+import com.myworkshop.ecommerceapp.model.remote.dto.address.AddAddressResult
+import com.myworkshop.ecommerceapp.model.remote.dto.address.GetAddressesResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
@@ -35,7 +37,13 @@ interface MVPInterfaces {
     interface SignIn {
         interface Presenter {
             fun login(userName: String, password: String)
-            fun updatePref(context: Context, fullName: String, emailId: String, mobileNo: String)
+            fun updatePref(
+                context: Context,
+                fullName: String,
+                emailId: String,
+                mobileNo: String,
+                userId: String
+            )
         }
 
         interface View {
@@ -111,6 +119,28 @@ interface MVPInterfaces {
 
         interface View {
             fun loadCart(products: List<CartItem>)
+        }
+    }
+
+    interface GetAddresses{
+        interface Presenter{
+            fun getAddresses(userId: String)
+        }
+
+        interface View{
+            fun fetchSuccess(getAddressesResult: GetAddressesResult)
+            fun fetchFailed(errorMsg: String)
+        }
+    }
+
+    interface AddAddress{
+        interface Presenter{
+            fun addAddresses(userId: String, title:String, address:String)
+        }
+
+        interface View{
+            fun addSuccess(addAddressResult: AddAddressResult)
+            fun addFailed(errorMsg: String)
         }
     }
 

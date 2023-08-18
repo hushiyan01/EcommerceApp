@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.myworkshop.ecommerceapp.databinding.AddressItemBinding
-import com.myworkshop.ecommerceapp.model.local.entity.po.Address
+import com.myworkshop.ecommerceapp.model.local.entity.po.AddressView
 
 class AddressAdapter(
-    val addresses: List<Address>,
+    val addressViews: List<AddressView>,
 ) : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
     private lateinit var binding: AddressItemBinding
 
@@ -21,19 +21,19 @@ class AddressAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
-            type.text = addresses[position].type
-            address.text = addresses[position].address
-            isPressed = addresses[position].isSelected
+            type.text = addressViews[position].type
+            address.text = addressViews[position].address
+            isPressed = addressViews[position].isSelected
             selectorButton.isPressed = isPressed
             selectorButton
                 .setOnClickListener {
-                    if (!addresses.map { it.isSelected }.contains(true)) {
-                        addresses[position].isSelected = !addresses[position].isSelected
-                        isPressed = addresses[position].isSelected
+                    if (!addressViews.map { it.isSelected }.contains(true)) {
+                        addressViews[position].isSelected = !addressViews[position].isSelected
+                        isPressed = addressViews[position].isSelected
                         notifyItemChanged(position)
-                    } else if (addresses[position].isSelected) {
-                        addresses[position].isSelected = !addresses[position].isSelected
-                        isPressed = addresses[position].isSelected
+                    } else if (addressViews[position].isSelected) {
+                        addressViews[position].isSelected = !addressViews[position].isSelected
+                        isPressed = addressViews[position].isSelected
                         notifyItemChanged(position)
                     }
                 }
@@ -46,7 +46,7 @@ class AddressAdapter(
         return AddressViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = addresses.size
+    override fun getItemCount(): Int = addressViews.size
 
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
         holder.bind(position)

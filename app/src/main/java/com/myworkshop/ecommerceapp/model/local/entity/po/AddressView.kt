@@ -1,6 +1,6 @@
 package com.myworkshop.ecommerceapp.model.local.entity.po
 
-data class Address(
+data class AddressView(
     val id: Long?,
     val type: String,
     val address: String,

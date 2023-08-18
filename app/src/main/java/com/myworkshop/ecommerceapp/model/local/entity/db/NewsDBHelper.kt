@@ -20,5 +20,4 @@ class ShoppingDBHelper(private val context: Context) : SQLiteOpenHelper(
 
     }
 
-
 }

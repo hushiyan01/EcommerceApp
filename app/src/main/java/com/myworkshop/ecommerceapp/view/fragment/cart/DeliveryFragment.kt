@@ -5,35 +5,54 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewParent
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.myworkshop.ecommerceapp.databinding.FragmentDeliveryBinding
-import com.myworkshop.ecommerceapp.model.local.dao.AddressDao
-import com.myworkshop.ecommerceapp.model.local.entity.db.ShoppingDBHelper
+import com.myworkshop.ecommerceapp.model.local.entity.po.AddressView
+import com.myworkshop.ecommerceapp.model.local.util.UIUtils
+import com.myworkshop.ecommerceapp.model.preferences.SharedPref
+import com.myworkshop.ecommerceapp.model.remote.dto.address.AddAddressResult
+import com.myworkshop.ecommerceapp.model.remote.dto.address.Address
+import com.myworkshop.ecommerceapp.model.remote.dto.address.GetAddressesResult
+import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
+import com.myworkshop.ecommerceapp.presenter.AddAddressPresenter
+import com.myworkshop.ecommerceapp.presenter.GetAddressPresenter
+import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.view.adapter.AddressAdapter
 import com.myworkshop.ecommerceapp.view.dialog.AddAddressDialog
+import com.myworkshop.ecommerceapp.view.dialog.RefreshDeliveryListCallback
 
-class DeliveryFragment : Fragment() {
+class DeliveryFragment : Fragment(), MVPInterfaces.GetAddresses.View, RefreshDeliveryListCallback {
     private lateinit var binding: FragmentDeliveryBinding
-    private lateinit var addressDao: AddressDao
+    private lateinit var getAddressPresenter: GetAddressPresenter
+    private lateinit var userId: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDeliveryBinding.inflate(layoutInflater, container, false)
-        addressDao = AddressDao(ShoppingDBHelper(requireContext()))
+        val volleyHandler = VolleyHandler(requireContext())
+        getAddressPresenter = GetAddressPresenter(volleyHandler, this)
+        userId = SharedPref.getSecuredSharedPreferences(requireContext())
+            .getString("user_id", "").toString()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (userId.isEmpty()) {
+            Toast.makeText(
+                requireContext(),
+                "fetch deliver address list failed: unknown user",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            getAddressPresenter.getAddresses(userId)
+        }
 
         binding.apply {
-            rvAddresses.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = AddressAdapter(addressDao.getAllAddress())
-            }
             btnNext.setOnClickListener {
                 val checkoutViewPager2 = findViewPagerParent(view)
                 if (checkoutViewPager2 != null) {
@@ -46,7 +65,7 @@ class DeliveryFragment : Fragment() {
                 }
             }
             btnAddAddress.setOnClickListener {
-                val dialog = AddAddressDialog(requireContext())
+                val dialog = AddAddressDialog(requireContext(),this@DeliveryFragment)
                 dialog.show()
             }
         }
@@ -65,4 +84,29 @@ class DeliveryFragment : Fragment() {
         return null
     }
 
+    override fun fetchSuccess(getAddressesResult: GetAddressesResult) {
+        binding.rvAddresses.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = AddressAdapter(buildAddressView(getAddressesResult.addresses))
+        }
+    }
+
+    override fun fetchFailed(errorMsg: String) {
+        UIUtils.showSnackBar(requireView(), "request to fetch deliver address list failed!")
+    }
+
+    private fun buildAddressView(addresses: List<Address>): List<AddressView> {
+        return addresses.map {
+            AddressView(
+                type = it.title,
+                address = it.address,
+                userId = "",
+                id = null
+            )
+        }
+    }
+
+    override fun refresh(result: String) {
+        getAddressPresenter.getAddresses(userId)
+    }
 }

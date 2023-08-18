@@ -6,6 +6,8 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.myworkshop.ecommerceapp.model.remote.ResponseCallBack
+import com.myworkshop.ecommerceapp.model.remote.dto.address.AddAddressResult
+import com.myworkshop.ecommerceapp.model.remote.dto.address.GetAddressesResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
@@ -160,6 +162,57 @@ class VolleyHandler(private val context: Context) {
         requestQueue.add(request)
     }
 
+    fun fetchAddressesByUserId(
+        id: String,
+        getAddressByUserIdCallback: ResponseCallBack.GetAddressByUserIdCallback
+    ) {
+        val requestQueue = Volley.newRequestQueue(context)
+        val jsonObject = JSONObject()
+        val request =
+            JsonObjectRequest(Request.Method.GET, FETCH_ADDRESSES_URL + id, jsonObject,
+                { response ->
+                    val getAddressesResult: GetAddressesResult =
+                        Gson().fromJson(response.toString(), GetAddressesResult::class.java)
+                    if (getAddressesResult.status == 0) {
+                        getAddressByUserIdCallback.getAddressesSuccess(getAddressesResult)
+                    } else {
+                        getAddressByUserIdCallback.getAddressesFailed(getAddressesResult.message)
+                    }
+                },
+                { error ->
+                    getAddressByUserIdCallback.getAddressesFailed(error.toString())
+                })
+        requestQueue.add(request)
+    }
+
+    fun addAddress(
+        userId:String,
+        title:String,
+        address:String,
+        getAddressCallback: ResponseCallBack.AddAddressCallback
+    ) {
+        val requestQueue = Volley.newRequestQueue(context)
+        val jsonObject = JSONObject()
+        jsonObject.put("user_id",userId)
+        jsonObject.put("title",title)
+        jsonObject.put("address",address)
+        val request =
+            JsonObjectRequest(Request.Method.POST, ADD_ADDRESS_URL, jsonObject,
+                { response ->
+                    val addressesResult: AddAddressResult =
+                        Gson().fromJson(response.toString(), AddAddressResult::class.java)
+                    if (addressesResult.status == 0) {
+                        getAddressCallback.getAddressesSuccess(addressesResult)
+                    } else {
+                        getAddressCallback.getAddressesFailed(addressesResult.message)
+                    }
+                },
+                { error ->
+                    getAddressCallback.getAddressesFailed(error.toString())
+                })
+        requestQueue.add(request)
+    }
+
     companion object {
         private const val BASE_URL = "http://192.168.0.12/myshop/index.php/"
         const val USER_LOGIN_URL = BASE_URL + "user/auth"
@@ -168,6 +221,8 @@ class VolleyHandler(private val context: Context) {
         const val FETCH_SUB_CATEGORY_URL = BASE_URL + "subcategory"
         const val FETCH_PRODUCTS_URL = BASE_URL + "SubCategory/products/"
         const val FETCH_PRODUCTS_DETAIL_URL = BASE_URL + "product/details/"
+        const val FETCH_ADDRESSES_URL = BASE_URL + "user/addresses/"
+        const val ADD_ADDRESS_URL = BASE_URL + "user/address"
         const val FETCH_IMAGE_URL = "http://192.168.0.12/myshop/images/"
     }
 

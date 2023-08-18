@@ -1,5 +1,7 @@
 package com.myworkshop.ecommerceapp.model.remote
 
+import com.myworkshop.ecommerceapp.model.remote.dto.address.AddAddressResult
+import com.myworkshop.ecommerceapp.model.remote.dto.address.GetAddressesResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
@@ -36,5 +38,15 @@ interface ResponseCallBack {
     interface FetchProductsDetailCallBack {
         fun fetchProductDetailSuccess(productDetailResult: ProductDetailResult)
         fun fetchProductDetailFailed(errorMsg: String)
+    }
+
+    interface GetAddressByUserIdCallback{
+        fun getAddressesSuccess(getAddressesResult: GetAddressesResult)
+        fun getAddressesFailed(errorMsg: String)
+    }
+
+    interface AddAddressCallback{
+        fun getAddressesSuccess(addAddressResult: AddAddressResult)
+        fun getAddressesFailed(errorMsg: String)
     }
 }

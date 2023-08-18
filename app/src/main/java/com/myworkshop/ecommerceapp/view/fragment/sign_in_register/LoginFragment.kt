@@ -66,7 +66,8 @@ class LoginFragment(
             requireContext(),
             fullName = loginResult.user.full_name,
             emailId = loginResult.user.email_id,
-            mobileNo = loginResult.user.mobile_no
+            mobileNo = loginResult.user.mobile_no,
+            userId = loginResult.user.user_id
         )
         startActivity(intent)
         onFragmentFinishCallBack.finishActivity()
