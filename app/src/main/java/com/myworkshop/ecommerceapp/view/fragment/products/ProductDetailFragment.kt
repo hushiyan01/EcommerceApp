@@ -23,7 +23,7 @@ import com.myworkshop.ecommerceapp.view.adapter.FragmentViewpagerAdapter
 import com.myworkshop.ecommerceapp.view.adapter.SpecificationAdapter
 import com.myworkshop.ecommerceapp.view.adapter.UserReviewAdapter
 
-class ProductDetailFragment() : Fragment(),
+class ProductDetailFragment : Fragment(),
     MVPInterfaces.ProductDetail.View,
     MVPInterfaces.ProductCart.View {
     private lateinit var binding: FragmentProductDetailBinding

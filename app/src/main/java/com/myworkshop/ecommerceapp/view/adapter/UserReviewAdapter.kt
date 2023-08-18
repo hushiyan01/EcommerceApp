@@ -6,15 +6,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myworkshop.ecommerceapp.databinding.UserReviewItemBinding
 import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.Review
 
-class UserReviewAdapter(private val reviews:List<Review>):RecyclerView.Adapter<UserReviewAdapter.ReviewViewHolder>(){
+class UserReviewAdapter(private val reviews: List<Review>) :
+    RecyclerView.Adapter<UserReviewAdapter.ReviewViewHolder>() {
     private lateinit var binding: UserReviewItemBinding
-    inner class ReviewViewHolder(binding: UserReviewItemBinding):RecyclerView.ViewHolder(binding.root){
+
+    inner class ReviewViewHolder(binding: UserReviewItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         private val userName = binding.tvUserName
         private val title = binding.tvUserReviewTitle
         private val reviewContent = binding.tvUserReviewContent
         private val rating = binding.rbUserRating
 
-        fun bind(position:Int){
+        fun bind(position: Int) {
             userName.text = reviews[position].full_name
             title.text = reviews[position].review_title
             reviewContent.text = reviews[position].review
@@ -24,7 +27,7 @@ class UserReviewAdapter(private val reviews:List<Review>):RecyclerView.Adapter<U
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        binding = UserReviewItemBinding.inflate(layoutInflater,parent,false)
+        binding = UserReviewItemBinding.inflate(layoutInflater, parent, false)
         return ReviewViewHolder(binding)
     }
 

@@ -5,5 +5,5 @@ data class Address(
     val type: String,
     val address: String,
     val userId: String,
-    var isSelected:Boolean=false
+    var isSelected: Boolean = false
 )

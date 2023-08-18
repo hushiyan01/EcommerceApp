@@ -99,17 +99,18 @@ interface MVPInterfaces {
         }
     }
 
-    interface ProductCart{
-        interface Presenter{
+    interface ProductCart {
+        interface Presenter {
             fun fetchProductsInCart()
-            fun productMinus1(id:String)
-            fun productPlus1(id:String)
+            fun productMinus1(id: String)
+            fun productPlus1(id: String)
             fun insertNewItem(cartItem: CartItem)
-            fun isInCart(id:String):Boolean
-            fun remove(id:String):Int
+            fun isInCart(id: String): Boolean
+            fun remove(id: String): Int
         }
-        interface View{
-            fun loadCart(products:List<CartItem>)
+
+        interface View {
+            fun loadCart(products: List<CartItem>)
         }
     }
 

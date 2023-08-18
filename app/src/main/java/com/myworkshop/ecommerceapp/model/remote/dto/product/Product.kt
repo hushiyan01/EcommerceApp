@@ -14,20 +14,19 @@ data class Product(
     val product_name: String,
     val sub_category_id: String,
     val subcategory_name: String
-):Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString()?:"",
-        parcel.readString()?:"",
-        parcel.readString()?:"",
-        parcel.readString()?:"",
-        parcel.readString()?:"",
-        parcel.readString()?:"",
-        parcel.readString()?:"",
-        parcel.readString()?:"",
-        parcel.readString()?:"",
-        parcel.readString()?:""
-    ) {
-    }
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: ""
+    )
 
     override fun describeContents(): Int {
         return 0

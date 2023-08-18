@@ -12,9 +12,9 @@ import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.NetworkImageView
 
 object VolleyImageCaching {
-     lateinit var imageLoader: ImageLoader
+    lateinit var imageLoader: ImageLoader
 
-    fun initialize(context: Context){
+    fun initialize(context: Context) {
         RequestQueue(
             DiskBasedCache(context.cacheDir, 100000),
             BasicNetwork(HurlStack())
@@ -22,14 +22,14 @@ object VolleyImageCaching {
             start()
             imageLoader = ImageLoader(
                 this,
-                object: ImageLoader.ImageCache{
+                object : ImageLoader.ImageCache {
                     private val internal_cache = LruCache<String, Bitmap>(10)
                     override fun getBitmap(url: String?): Bitmap? {
                         return internal_cache[url]
                     }
 
                     override fun putBitmap(url: String?, bitmap: Bitmap?) {
-                        internal_cache.put(url,bitmap)
+                        internal_cache.put(url, bitmap)
                     }
                 }
             )
@@ -37,19 +37,19 @@ object VolleyImageCaching {
     }
 
     fun fetchImageUsingVolley(
-        url:String,
+        url: String,
         imageVolleyImageView: NetworkImageView,
-        @DrawableRes placeHolder:Int,
-        @DrawableRes errorDrawable:Int
-    ){
+        @DrawableRes placeHolder: Int,
+        @DrawableRes errorDrawable: Int
+    ) {
         imageLoader.get(
-            VolleyHandler.FETCH_IMAGE_URL+url,
+            VolleyHandler.FETCH_IMAGE_URL + url,
             ImageLoader.getImageListener(
                 imageVolleyImageView,
                 placeHolder,
                 errorDrawable
             )
         )
-        imageVolleyImageView.setImageUrl(url,imageLoader)
+        imageVolleyImageView.setImageUrl(url, imageLoader)
     }
 }

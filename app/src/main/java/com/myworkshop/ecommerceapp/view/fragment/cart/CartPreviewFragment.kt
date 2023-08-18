@@ -2,10 +2,10 @@ package com.myworkshop.ecommerceapp.view.fragment.cart
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myworkshop.ecommerceapp.R
@@ -20,7 +20,8 @@ import com.myworkshop.ecommerceapp.view.adapter.OnCartItemChangeCallback
 import com.myworkshop.ecommerceapp.view.fragment.checkout.CheckOutFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnChangeToolbarCallback
 
-class CartPreviewFragment(private val onChangeToolbarCallback: OnChangeToolbarCallback) : Fragment(),MVPInterfaces.ProductCart.View,OnCartItemChangeCallback {
+class CartPreviewFragment(private val onChangeToolbarCallback: OnChangeToolbarCallback) :
+    Fragment(), MVPInterfaces.ProductCart.View, OnCartItemChangeCallback {
     private lateinit var binding: FragmentCartPreviewBinding
     private lateinit var cartDao: CartDao
     private lateinit var fragmentManager: FragmentManager
@@ -41,7 +42,8 @@ class CartPreviewFragment(private val onChangeToolbarCallback: OnChangeToolbarCa
         onChangeToolbarCallback.changeToolbar(this, "Cart")
         presenter.fetchProductsInCart()
         binding.btnCheckout.setOnClickListener {
-            fragmentManager.beginTransaction().replace(R.id.fg_home_container, CheckOutFragment(onChangeToolbarCallback))
+            fragmentManager.beginTransaction()
+                .replace(R.id.fg_home_container, CheckOutFragment(onChangeToolbarCallback))
                 .addToBackStack("checkout_fragment")
                 .commit()
         }
@@ -51,13 +53,13 @@ class CartPreviewFragment(private val onChangeToolbarCallback: OnChangeToolbarCa
     override fun loadCart(products: List<CartItem>) {
         binding.rvProducts.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = CartAdapter(products,presenter,this@CartPreviewFragment)
+            adapter = CartAdapter(products, presenter, this@CartPreviewFragment)
         }
-        binding.tvTotalPrice.text = "$ ${products.map { it.price*it.num }.sum()}"
+        binding.tvTotalPrice.text = "$ ${products.map { it.price * it.num }.sum()}"
     }
 
     @SuppressLint("SetTextI18n")
-    override fun updateTotalPrice(totalPrice:Float) {
+    override fun updateTotalPrice(totalPrice: Float) {
         binding.tvTotalPrice.text = "$ $totalPrice"
     }
 

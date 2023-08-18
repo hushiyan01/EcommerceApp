@@ -67,11 +67,11 @@ class MainActivity : AppCompatActivity(),
                     supportFragmentManager.popBackStack()
                 }
 
-                is CartPreviewFragment ->{
+                is CartPreviewFragment -> {
                     openCloseDrawer()
                 }
 
-                is CheckOutFragment ->{
+                is CheckOutFragment -> {
                     supportFragmentManager.popBackStack()
                 }
             }
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     @SuppressLint("SetTextI18n")
-    private fun openCloseDrawer(){
+    private fun openCloseDrawer() {
         if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
             binding.drawer.closeDrawer(GravityCompat.START)
         } else {
@@ -165,12 +165,12 @@ class MainActivity : AppCompatActivity(),
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
             }
 
-            is CheckOutFragment ->{
+            is CheckOutFragment -> {
                 binding.tvToolbarTitle.text = toolBarTitle
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
             }
 
-            is CartPreviewFragment ->{
+            is CartPreviewFragment -> {
                 binding.tvToolbarTitle.text = toolBarTitle
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_density_medium_24)
             }

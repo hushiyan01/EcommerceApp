@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.view.ViewParent
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
-import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.FragmentCartItemsBinding
 import com.myworkshop.ecommerceapp.model.local.dao.CartDao
 import com.myworkshop.ecommerceapp.model.local.entity.db.ShoppingDBHelper
@@ -19,15 +17,15 @@ import com.myworkshop.ecommerceapp.presenter.ProductCartPresenter
 import com.myworkshop.ecommerceapp.view.adapter.CartCheckoutAdapter
 
 class CartItemsFragment : Fragment(), MVPInterfaces.ProductCart.View {
-    private lateinit var binding:FragmentCartItemsBinding
+    private lateinit var binding: FragmentCartItemsBinding
     private lateinit var presenter: ProductCartPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCartItemsBinding.inflate(inflater,container,false)
-        presenter= ProductCartPresenter(CartDao(ShoppingDBHelper(requireContext())), this)
+        binding = FragmentCartItemsBinding.inflate(inflater, container, false)
+        presenter = ProductCartPresenter(CartDao(ShoppingDBHelper(requireContext())), this)
         return binding.root
     }
 
@@ -36,11 +34,11 @@ class CartItemsFragment : Fragment(), MVPInterfaces.ProductCart.View {
         presenter.fetchProductsInCart()
         binding.btnNext.setOnClickListener {
             val checkoutViewPager2 = findViewPagerParent(view)
-            if(checkoutViewPager2!=null){
+            if (checkoutViewPager2 != null) {
                 val currentItem = checkoutViewPager2.currentItem
                 val nextPage = currentItem + 1
 
-                if (checkoutViewPager2.adapter !=null && nextPage < checkoutViewPager2.adapter!!.itemCount) {
+                if (checkoutViewPager2.adapter != null && nextPage < checkoutViewPager2.adapter!!.itemCount) {
                     checkoutViewPager2.setCurrentItem(nextPage, true)
                 }
             }
@@ -52,10 +50,10 @@ class CartItemsFragment : Fragment(), MVPInterfaces.ProductCart.View {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = CartCheckoutAdapter(products)
         }
-        binding.tvTotalPrice.text = products.map { it.price*it.num }.sum().toString()
+        binding.tvTotalPrice.text = products.map { it.price * it.num }.sum().toString()
     }
 
-     private fun findViewPagerParent(view: View): ViewPager2? {
+    private fun findViewPagerParent(view: View): ViewPager2? {
         var parentView: ViewParent? = view.parent
 
         while (parentView != null) {

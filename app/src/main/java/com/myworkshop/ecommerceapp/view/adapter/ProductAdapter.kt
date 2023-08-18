@@ -39,6 +39,7 @@ class ProductAdapter(
         private val price = binding.tvProductPrice
         private var rating = 0f
         private var imageUrl = ""
+
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
             title.text = products[position].product_name

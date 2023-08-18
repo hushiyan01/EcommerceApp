@@ -1,39 +1,39 @@
 package com.myworkshop.ecommerceapp.model.remote
 
-import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
-import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
+import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
+import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
 
 interface ResponseCallBack {
-    interface LoginResponseCallBack{
+    interface LoginResponseCallBack {
         fun loginSuccess(result: LoginResult)
-        fun loginFailed(errorMsg:String)
+        fun loginFailed(errorMsg: String)
     }
 
-    interface RegisterResponseCallBack{
+    interface RegisterResponseCallBack {
         fun registerSuccess(registerResult: RegisterResult)
         fun registerFailed(errorMsg: String)
     }
 
-    interface FetchCategoryCallBack{
+    interface FetchCategoryCallBack {
         fun fetchCategorySuccess(categoryResult: CategoryResult)
         fun fetchCategoryFailed(errorMsg: String)
     }
 
-    interface FetchSubCategoryFromCategoryCallback{
+    interface FetchSubCategoryFromCategoryCallback {
         fun fetchSubCategorySuccess(subCategoryResult: SubCategoryResult)
         fun fetchSubCategoryFailed(errorMsg: String)
     }
 
-    interface FetchProductsFromSubCategoryIdCallBack{
+    interface FetchProductsFromSubCategoryIdCallBack {
         fun fetchProductsSuccess(productResult: ProductResult)
         fun fetchProductsFailed(errorMsg: String)
     }
 
-    interface FetchProductsDetailCallBack{
+    interface FetchProductsDetailCallBack {
         fun fetchProductDetailSuccess(productDetailResult: ProductDetailResult)
         fun fetchProductDetailFailed(errorMsg: String)
     }

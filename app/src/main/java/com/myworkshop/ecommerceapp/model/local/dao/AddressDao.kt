@@ -39,7 +39,7 @@ class AddressDao(private val dbHelper: ShoppingDBHelper) {
         )
     }
 
-    fun updateById(id:String, change:Int){
+    fun updateById(id: String, change: Int) {
 //        val contentValues = ContentValues()
 //        contentValues.put("num", "num + $change")
 //        if(change>0){
