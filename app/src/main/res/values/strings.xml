@@ -59,4 +59,5 @@
     <string name="save">save</string>
     <string name="payment_description">payment description</string>
     <string name="select_payment_option">Select Payment Option</string>
+    <string name="switch_theme">switch theme </string>
 </resources>

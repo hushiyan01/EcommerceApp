@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.myworkshop.ecommerceapp.databinding.FragmentProductImageBinding
 import com.squareup.picasso.Picasso
 
-class ProductImageFragment(private val imageUrl: String) : Fragment() {
+class ProductImageFragment : Fragment() {
     private lateinit var binding: FragmentProductImageBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,7 +21,10 @@ class ProductImageFragment(private val imageUrl: String) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Picasso.get().load(imageUrl).into(binding.ivProductDetailImage)
+        val imageUrl = requireArguments().getString("image_url") ?: ""
+        if (imageUrl.isNotEmpty()) {
+            Picasso.get().load(imageUrl).into(binding.ivProductDetailImage)
+        }
     }
 
 }

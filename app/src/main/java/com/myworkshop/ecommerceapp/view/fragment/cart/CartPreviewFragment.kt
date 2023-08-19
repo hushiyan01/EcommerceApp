@@ -15,12 +15,15 @@ import com.myworkshop.ecommerceapp.model.local.entity.db.ShoppingDBHelper
 import com.myworkshop.ecommerceapp.model.local.entity.po.CartItem
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.ProductCartPresenter
+import com.myworkshop.ecommerceapp.view.activity.MainActivity
 import com.myworkshop.ecommerceapp.view.adapter.CartAdapter
 import com.myworkshop.ecommerceapp.view.adapter.OnCartItemChangeCallback
 import com.myworkshop.ecommerceapp.view.fragment.checkout.CheckOutFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnChangeToolbarCallback
 
-class CartPreviewFragment(private val onChangeToolbarCallback: OnChangeToolbarCallback) :
+class CartPreviewFragment(
+//    private val onChangeToolbarCallback: OnChangeToolbarCallback
+) :
     Fragment(), MVPInterfaces.ProductCart.View, OnCartItemChangeCallback {
     private lateinit var binding: FragmentCartPreviewBinding
     private lateinit var cartDao: CartDao
@@ -39,11 +42,12 @@ class CartPreviewFragment(private val onChangeToolbarCallback: OnChangeToolbarCa
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onChangeToolbarCallback.changeToolbar(this, "Cart")
+        (activity as? MainActivity)?.changeToolbar(this, "Cart")
+//        onChangeToolbarCallback.changeToolbar(this, "Cart")
         presenter.fetchProductsInCart()
         binding.btnCheckout.setOnClickListener {
             fragmentManager.beginTransaction()
-                .replace(R.id.fg_home_container, CheckOutFragment(onChangeToolbarCallback))
+                .replace(R.id.fg_home_container, CheckOutFragment())
                 .addToBackStack("checkout_fragment")
                 .commit()
         }

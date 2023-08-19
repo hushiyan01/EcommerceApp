@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.myworkshop.ecommerceapp.databinding.FragmentCheckoutBinding
+import com.myworkshop.ecommerceapp.view.activity.MainActivity
 import com.myworkshop.ecommerceapp.view.adapter.FragmentViewpagerAdapter
 import com.myworkshop.ecommerceapp.view.fragment.cart.CartItemsFragment
 import com.myworkshop.ecommerceapp.view.fragment.cart.DeliveryFragment
@@ -14,7 +15,9 @@ import com.myworkshop.ecommerceapp.view.fragment.cart.PaymentFragment
 import com.myworkshop.ecommerceapp.view.fragment.cart.SummaryFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnChangeToolbarCallback
 
-class CheckOutFragment(private val onChangeToolbarCallback: OnChangeToolbarCallback) : Fragment() {
+class CheckOutFragment(
+//    private val onChangeToolbarCallback: OnChangeToolbarCallback
+) : Fragment() {
     private lateinit var binding: FragmentCheckoutBinding
 
     override fun onCreateView(
@@ -27,7 +30,8 @@ class CheckOutFragment(private val onChangeToolbarCallback: OnChangeToolbarCallb
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onChangeToolbarCallback.changeToolbar(this@CheckOutFragment, "CHECKOUT")
+        (activity as? MainActivity)?.changeToolbar(this, "Cart")
+//        onChangeToolbarCallback.changeToolbar(this@CheckOutFragment, "CHECKOUT")
         val subcategoryFrags =
             listOf(CartItemsFragment(), DeliveryFragment(), PaymentFragment(), SummaryFragment())
         binding.apply {

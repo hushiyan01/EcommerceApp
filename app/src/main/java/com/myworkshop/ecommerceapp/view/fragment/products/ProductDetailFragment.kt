@@ -61,8 +61,18 @@ class ProductDetailFragment : Fragment(),
         val productTitle = product.product_name
         val rating = product.average_rating.toFloat()
         val description = product.description
-        val imageFrags = product.images.sortedBy { it.display_order }
-            .map { ProductImageFragment(VolleyHandler.FETCH_IMAGE_URL + it.image) }
+        val imageFrags = product.images
+            .sortedBy { it.display_order }
+            .map {
+                val imageUrl =
+                    StringBuffer(VolleyHandler.FETCH_IMAGE_URL).append(it.image).toString()
+                val productImageFragment = ProductImageFragment()
+                val bundle = Bundle()
+                bundle.putString("image_url", imageUrl)
+                productImageFragment.arguments = bundle
+                productImageFragment.requireArguments().putString("image_url", imageUrl)
+                productImageFragment
+            }
         val price = product.price
         val specifications =
             productDetailResult.product.specifications.sortedBy { it.display_order }
