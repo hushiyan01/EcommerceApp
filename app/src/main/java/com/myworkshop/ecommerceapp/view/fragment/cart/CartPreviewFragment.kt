@@ -21,9 +21,7 @@ import com.myworkshop.ecommerceapp.view.adapter.OnCartItemChangeCallback
 import com.myworkshop.ecommerceapp.view.fragment.checkout.CheckOutFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnChangeToolbarCallback
 
-class CartPreviewFragment(
-//    private val onChangeToolbarCallback: OnChangeToolbarCallback
-) :
+class CartPreviewFragment :
     Fragment(), MVPInterfaces.ProductCart.View, OnCartItemChangeCallback {
     private lateinit var binding: FragmentCartPreviewBinding
     private lateinit var cartDao: CartDao
@@ -43,7 +41,6 @@ class CartPreviewFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as? MainActivity)?.changeToolbar(this, "Cart")
-//        onChangeToolbarCallback.changeToolbar(this, "Cart")
         presenter.fetchProductsInCart()
         binding.btnCheckout.setOnClickListener {
             fragmentManager.beginTransaction()

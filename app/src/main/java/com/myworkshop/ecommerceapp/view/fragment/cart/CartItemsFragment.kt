@@ -15,8 +15,9 @@ import com.myworkshop.ecommerceapp.model.local.entity.po.CartItem
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.ProductCartPresenter
 import com.myworkshop.ecommerceapp.view.adapter.CartCheckoutAdapter
+import com.myworkshop.ecommerceapp.view.fragment.checkout.UpdateCheckoutInfo
 
-class CartItemsFragment : Fragment(), MVPInterfaces.ProductCart.View {
+class CartItemsFragment(val updateCheckoutInfo: UpdateCheckoutInfo) : Fragment(), MVPInterfaces.ProductCart.View {
     private lateinit var binding: FragmentCartItemsBinding
     private lateinit var presenter: ProductCartPresenter
 
@@ -51,6 +52,7 @@ class CartItemsFragment : Fragment(), MVPInterfaces.ProductCart.View {
             adapter = CartCheckoutAdapter(products)
         }
         binding.tvTotalPrice.text = products.map { it.price * it.num }.sum().toString()
+        updateCheckoutInfo.updateCartItems(products)
     }
 
     private fun findViewPagerParent(view: View): ViewPager2? {

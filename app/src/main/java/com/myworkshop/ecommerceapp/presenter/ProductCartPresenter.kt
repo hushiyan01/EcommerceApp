@@ -8,7 +8,7 @@ class ProductCartPresenter(
     private val view: MVPInterfaces.ProductCart.View
 ) : MVPInterfaces.ProductCart.Presenter {
     override fun fetchProductsInCart() {
-        view.loadCart(cartDao.getAllItems())
+        view.loadCart(cartDao.getAllItems().filter { it.num>0 })
     }
 
     override fun productMinus1(id: String) {

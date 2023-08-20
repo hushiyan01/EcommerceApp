@@ -13,21 +13,22 @@ import com.myworkshop.ecommerceapp.databinding.FragmentDeliveryBinding
 import com.myworkshop.ecommerceapp.model.local.entity.po.AddressView
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
 import com.myworkshop.ecommerceapp.model.preferences.SharedPref
-import com.myworkshop.ecommerceapp.model.remote.dto.address.AddAddressResult
 import com.myworkshop.ecommerceapp.model.remote.dto.address.Address
 import com.myworkshop.ecommerceapp.model.remote.dto.address.GetAddressesResult
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
-import com.myworkshop.ecommerceapp.presenter.AddAddressPresenter
 import com.myworkshop.ecommerceapp.presenter.GetAddressPresenter
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.view.adapter.AddressAdapter
 import com.myworkshop.ecommerceapp.view.dialog.AddAddressDialog
 import com.myworkshop.ecommerceapp.view.dialog.RefreshDeliveryListCallback
+import com.myworkshop.ecommerceapp.view.fragment.checkout.UpdateCheckoutInfo
+import java.lang.IllegalStateException
 
-class DeliveryFragment : Fragment(), MVPInterfaces.GetAddresses.View, RefreshDeliveryListCallback {
+class DeliveryFragment(val updateCheckoutInfo: UpdateCheckoutInfo) : Fragment(), MVPInterfaces.GetAddresses.View, RefreshDeliveryListCallback {
     private lateinit var binding: FragmentDeliveryBinding
     private lateinit var getAddressPresenter: GetAddressPresenter
     private lateinit var userId: String
+    private lateinit var addresses: List<AddressView>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,11 +38,6 @@ class DeliveryFragment : Fragment(), MVPInterfaces.GetAddresses.View, RefreshDel
         getAddressPresenter = GetAddressPresenter(volleyHandler, this)
         userId = SharedPref.getSecuredSharedPreferences(requireContext())
             .getString("user_id", "").toString()
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         if (userId.isEmpty()) {
             Toast.makeText(
                 requireContext(),
@@ -51,6 +47,20 @@ class DeliveryFragment : Fragment(), MVPInterfaces.GetAddresses.View, RefreshDel
         } else {
             getAddressPresenter.getAddresses(userId)
         }
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        if (userId.isEmpty()) {
+//            Toast.makeText(
+//                requireContext(),
+//                "fetch deliver address list failed: unknown user",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        } else {
+//            getAddressPresenter.getAddresses(userId)
+//        }
 
         binding.apply {
             btnNext.setOnClickListener {
@@ -63,31 +73,26 @@ class DeliveryFragment : Fragment(), MVPInterfaces.GetAddresses.View, RefreshDel
                         checkoutViewPager2.setCurrentItem(nextPage, true)
                     }
                 }
+                if (addresses.any { it.isSelected }) {
+                    updateCheckoutInfo.updateDeliverAddress(addresses.filter { it.isSelected }[0])
+                }
             }
             btnAddAddress.setOnClickListener {
-                val dialog = AddAddressDialog(requireContext(),this@DeliveryFragment)
+                val dialog = AddAddressDialog(requireContext(), this@DeliveryFragment)
                 dialog.show()
             }
         }
     }
 
-    private fun findViewPagerParent(view: View): ViewPager2? {
-        var parentView: ViewParent? = view.parent
-
-        while (parentView != null) {
-            if (parentView is ViewPager2) {
-                return parentView
-            }
-            parentView = parentView.parent
-        }
-
-        return null
-    }
-
     override fun fetchSuccess(getAddressesResult: GetAddressesResult) {
         binding.rvAddresses.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = AddressAdapter(buildAddressView(getAddressesResult.addresses),requireContext())
+            try{
+                layoutManager = LinearLayoutManager(requireContext())
+                addresses = buildAddressView(getAddressesResult.addresses)
+                adapter = AddressAdapter(addresses, requireContext(),updateCheckoutInfo)
+            }catch (e:IllegalStateException){
+                Toast.makeText(context,"please check your cart items first!",Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -109,4 +114,16 @@ class DeliveryFragment : Fragment(), MVPInterfaces.GetAddresses.View, RefreshDel
     override fun refresh(result: String) {
         getAddressPresenter.getAddresses(userId)
     }
+}
+
+fun findViewPagerParent(view: View): ViewPager2? {
+    var parentView: ViewParent? = view.parent
+
+    while (parentView != null) {
+        if (parentView is ViewPager2) {
+            return parentView
+        }
+        parentView = parentView.parent
+    }
+    return null
 }

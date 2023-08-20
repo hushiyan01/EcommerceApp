@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.AddressItemBinding
 import com.myworkshop.ecommerceapp.model.local.entity.po.AddressView
+import com.myworkshop.ecommerceapp.view.fragment.checkout.UpdateCheckoutInfo
 
-class AddressAdapter(val addressViews: List<AddressView>, val context: Context) : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
+class AddressAdapter(val addressViews: List<AddressView>, val context: Context, val updateCheckoutInfo: UpdateCheckoutInfo) : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() {
     private lateinit var binding: AddressItemBinding
     private var isSelected = false
 
@@ -31,6 +32,7 @@ class AddressAdapter(val addressViews: List<AddressView>, val context: Context) 
                     isCurSelected = true
                     it.setBackgroundResource(R.drawable.button_selected)
                     addressViews[position].isSelected = true
+                    updateCheckoutInfo.updateDeliverAddress(addressViews[position])
                     notifyDataSetChanged()
                 } else if (isCurSelected) {
                     isSelected = false

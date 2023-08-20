@@ -60,4 +60,7 @@
     <string name="payment_description">payment description</string>
     <string name="select_payment_option">Select Payment Option</string>
     <string name="switch_theme">switch theme </string>
+    <string name="cart_items">Cart Items</string>
+    <string name="payment_option">Payment Option</string>
+    <string name="confirm_and_place_order">Confirm and Place Order</string>
 </resources>

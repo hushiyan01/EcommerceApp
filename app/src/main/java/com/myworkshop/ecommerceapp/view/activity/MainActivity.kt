@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.ActivityMainBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
@@ -187,4 +188,13 @@ class MainActivity : AppCompatActivity(),
             }
         }
     }
+
+    override fun onStop() {
+        val fragments: List<Fragment> = supportFragmentManager.fragments
+        for (fragment in fragments) {
+            supportFragmentManager.beginTransaction().remove(fragment).commit()
+        }
+        super.onStop()
+    }
+
 }

@@ -31,7 +31,6 @@ class SubCategoryFragment(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentSubCategoryBinding.inflate(inflater, container, false)
         presenter = SubCategoryPresenter(VolleyHandler(requireContext()), this)
         return binding.root

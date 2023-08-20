@@ -8,8 +8,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.PaymentItemBinding
+import com.myworkshop.ecommerceapp.model.local.entity.po.PaymentView
+import com.myworkshop.ecommerceapp.view.fragment.checkout.UpdateCheckoutInfo
 
-class PaymentAdapter(val paymentMethods: List<String>, val context: Context) :
+class PaymentAdapter(val paymentMethods: List<PaymentView>, val context: Context,val updateCheckoutInfo: UpdateCheckoutInfo) :
     RecyclerView.Adapter<PaymentAdapter.PaymentViewHolder>() {
     private lateinit var binding: PaymentItemBinding
     private var isSelected = false
@@ -22,16 +24,19 @@ class PaymentAdapter(val paymentMethods: List<String>, val context: Context) :
 
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
-            payment.text = paymentMethods[position]
+            payment.text = paymentMethods[position].payment
             button.setOnClickListener {
                 if (!isSelected) {
                     isSelected = true
                     isCurSelected = true
+                    paymentMethods[position].isSelected = true
                     it.setBackgroundResource(R.drawable.button_selected)
+                    updateCheckoutInfo.updatePaymentMethod(paymentMethods[position].payment)
                     notifyDataSetChanged()
                 } else if (isCurSelected) {
                     isSelected = false
                     isCurSelected = false
+                    paymentMethods[position].isSelected = false
                     it.setBackgroundResource(R.drawable.button_unselected)
                     notifyDataSetChanged()
                 } else {
