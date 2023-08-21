@@ -13,6 +13,7 @@ import com.myworkshop.ecommerceapp.model.remote.dto.order.GetOrdersResult
 import com.myworkshop.ecommerceapp.model.remote.dto.order.OrderDetailResult
 import com.myworkshop.ecommerceapp.model.remote.dto.order.PlaceOrderResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
+import com.myworkshop.ecommerceapp.model.remote.dto.product.SearchProductResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
 
 interface MVPInterfaces {
@@ -113,7 +114,7 @@ interface MVPInterfaces {
 
     interface ProductCart {
         interface Presenter {
-            fun fetchProductsInCart()
+            fun fetchProductsInCart(userId: String)
             fun productMinus1(id: String)
             fun productPlus1(id: String)
             fun insertNewItem(cartItem: CartItem)
@@ -178,6 +179,17 @@ interface MVPInterfaces {
         interface View{
             fun getOrderDetailSuccess(orderDetailResult: OrderDetailResult)
             fun getOrderDetailFailed(errorMsg: String)
+        }
+    }
+
+    interface SearchProduct{
+        interface Presenter{
+            fun searchProduct(keyword: String)
+        }
+
+        interface View{
+            fun searchSuccess(searchProductResult: SearchProductResult)
+            fun searchFailed(errorMsg: String)
         }
     }
 

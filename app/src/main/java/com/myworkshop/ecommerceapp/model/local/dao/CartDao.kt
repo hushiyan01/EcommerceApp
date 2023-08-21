@@ -5,16 +5,17 @@ import android.database.Cursor
 import com.myworkshop.ecommerceapp.model.local.entity.db.ShoppingDBHelper
 import com.myworkshop.ecommerceapp.model.local.entity.po.CartItem
 import com.myworkshop.ecommerceapp.model.local.util.DBConstants
+import com.myworkshop.ecommerceapp.model.preferences.SharedPref
 
 class CartDao(private val dbHelper: ShoppingDBHelper) {
 
-    fun getAllItems(): List<CartItem> {
+    fun getAllItems(userId:String): List<CartItem> {
         val res = ArrayList<CartItem>()
         val cursor = dbHelper.readableDatabase.query(
             DBConstants.TABLE_NAME_CART,
             null,
-            null,
-            null,
+            "user_id=?",
+            arrayOf(userId),
             null,
             null,
             null,

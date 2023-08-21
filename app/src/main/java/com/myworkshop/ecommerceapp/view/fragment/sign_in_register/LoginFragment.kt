@@ -43,7 +43,6 @@ class LoginFragment(
             btnJumpToSignUp.setOnClickListener {
                 onSignInNRegisterChanged.changeToSignUp()
             }
-            ivShoppingBasket.startAnimation(bounceAnimation)
 
             btnSignIn.setOnClickListener {
                 val username = etEmailId.text.toString()

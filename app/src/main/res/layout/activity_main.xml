@@ -34,7 +34,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_search"
+                    android:id="@+id/btn_search_g"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="@dimen/_10dp"

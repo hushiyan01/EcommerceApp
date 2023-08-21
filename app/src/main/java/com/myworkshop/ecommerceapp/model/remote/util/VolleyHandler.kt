@@ -18,6 +18,7 @@ import com.myworkshop.ecommerceapp.model.remote.dto.order.GetOrdersResult
 import com.myworkshop.ecommerceapp.model.remote.dto.order.OrderDetailResult
 import com.myworkshop.ecommerceapp.model.remote.dto.order.PlaceOrderResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
+import com.myworkshop.ecommerceapp.model.remote.dto.product.SearchProductResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
 import org.json.JSONArray
 import org.json.JSONObject
@@ -310,6 +311,29 @@ class VolleyHandler(private val context: Context) {
         requestQueue.add(request)
     }
 
+    fun searchProduct(
+        keyword: String,
+        searchProductCallback: ResponseCallBack.SearchProductCallback
+    ) {
+        val requestQueue = Volley.newRequestQueue(context)
+        val jsonObject = JSONObject()
+        val request =
+            JsonObjectRequest(Request.Method.GET, SEARCH_PRODUCT_URL + keyword, jsonObject,
+                { response ->
+                    val searchProductResult: SearchProductResult =
+                        Gson().fromJson(response.toString(), SearchProductResult::class.java)
+                    if (searchProductResult.status == 0) {
+                        searchProductCallback.getOrdersSuccess(searchProductResult)
+                    } else {
+                        searchProductCallback.getOrdersFailed(searchProductResult.message)
+                    }
+                },
+                { error ->
+                    searchProductCallback.getOrdersFailed(error.toString())
+                })
+        requestQueue.add(request)
+    }
+
     companion object {
         private const val BASE_URL = "http://192.168.0.12/myshop/index.php/"
         const val USER_LOGIN_URL = BASE_URL + "user/auth"
@@ -323,6 +347,7 @@ class VolleyHandler(private val context: Context) {
         const val PLACE_ORDER_URL = BASE_URL + "order"
         const val GET_ORDERS_URL = BASE_URL + "order/userOrders/"
         const val GET_ORDER_DETAIL_URL = BASE_URL + "order?order_id="
+        const val SEARCH_PRODUCT_URL = BASE_URL + "product/search?query="
         const val FETCH_IMAGE_URL = "http://192.168.0.12/myshop/images/"
     }
 

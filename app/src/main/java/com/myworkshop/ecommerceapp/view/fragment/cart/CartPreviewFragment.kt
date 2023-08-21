@@ -13,6 +13,7 @@ import com.myworkshop.ecommerceapp.databinding.FragmentCartPreviewBinding
 import com.myworkshop.ecommerceapp.model.local.dao.CartDao
 import com.myworkshop.ecommerceapp.model.local.entity.db.ShoppingDBHelper
 import com.myworkshop.ecommerceapp.model.local.entity.po.CartItem
+import com.myworkshop.ecommerceapp.model.preferences.SharedPref
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.ProductCartPresenter
 import com.myworkshop.ecommerceapp.view.activity.MainActivity
@@ -41,7 +42,8 @@ class CartPreviewFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as? MainActivity)?.changeToolbar(this, "Cart")
-        presenter.fetchProductsInCart()
+        val userId = SharedPref.getSecuredSharedPreferences(requireContext()).getString("user_id","unknown_user")?:""
+        presenter.fetchProductsInCart(userId = userId)
         binding.btnCheckout.setOnClickListener {
             fragmentManager.beginTransaction()
                 .replace(R.id.fg_home_container, CheckOutFragment())

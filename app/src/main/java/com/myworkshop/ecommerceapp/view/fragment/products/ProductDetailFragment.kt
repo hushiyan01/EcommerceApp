@@ -115,11 +115,7 @@ class ProductDetailFragment : Fragment(),
                         )
                     )
                 }
-
             }
-//            TabLayoutMediator(tabLayout,viewPager2){tab,_->
-//                tab.customView = createTabView()
-//            }.attach()
         }
     }
 
@@ -128,7 +124,7 @@ class ProductDetailFragment : Fragment(),
     }
 
     override fun loadCart(products: List<CartItem>) {
-        TODO("Not yet implemented")
+
     }
 
 }

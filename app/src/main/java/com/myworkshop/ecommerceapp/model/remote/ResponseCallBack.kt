@@ -10,6 +10,7 @@ import com.myworkshop.ecommerceapp.model.remote.dto.order.GetOrdersResult
 import com.myworkshop.ecommerceapp.model.remote.dto.order.OrderDetailResult
 import com.myworkshop.ecommerceapp.model.remote.dto.order.PlaceOrderResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
+import com.myworkshop.ecommerceapp.model.remote.dto.product.SearchProductResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
 
 interface ResponseCallBack {
@@ -65,6 +66,11 @@ interface ResponseCallBack {
 
     interface GetOrderDetailCallback{
         fun getOrdersSuccess(orderDetailResult: OrderDetailResult)
+        fun getOrdersFailed(errorMsg: String)
+    }
+
+    interface SearchProductCallback{
+        fun getOrdersSuccess(searchProductResult: SearchProductResult)
         fun getOrdersFailed(errorMsg: String)
     }
 }
