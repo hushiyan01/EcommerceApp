@@ -46,7 +46,7 @@ class ProductDetailFragment : Fragment(),
             this
         )
         userId = SharedPref.getSecuredSharedPreferences(requireContext())
-            .getString("logged_in_email_id", "unknown user")!!
+            .getString("user_id", "unknown_user")?:""
         return binding.root
     }
 
