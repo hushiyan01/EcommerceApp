@@ -14,9 +14,6 @@
         android:id="@+id/profile"
         android:title="@string/profile" />
     <item
-        android:id="@+id/change_theme"
-        android:title="change_theme" />
-    <item
         android:id="@+id/logout"
         android:title="@string/logout" />
 </group>

@@ -23,6 +23,7 @@ import com.myworkshop.ecommerceapp.view.fragment.main.CategoryFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnChangeToolbarCallback
 import com.myworkshop.ecommerceapp.view.fragment.main.OnGoToSubCategoryViewPagerCallBack
 import com.myworkshop.ecommerceapp.view.fragment.main.SubCategoryFragment
+import com.myworkshop.ecommerceapp.view.fragment.orders.OrderDetailFragment
 import com.myworkshop.ecommerceapp.view.fragment.orders.OrdersFragment
 import com.myworkshop.ecommerceapp.view.fragment.products.ProductDetailFragment
 
@@ -79,6 +80,10 @@ class MainActivity : AppCompatActivity(),
                 }
 
                 is OrdersFragment -> {
+                    supportFragmentManager.popBackStack("category_fragment", 0)
+                }
+
+                is OrderDetailFragment -> {
                     supportFragmentManager.popBackStack()
                 }
             }
@@ -201,6 +206,11 @@ class MainActivity : AppCompatActivity(),
             }
 
             is OrdersFragment -> {
+                binding.tvToolbarTitle.text = toolBarTitle
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
+            }
+
+            is OrderDetailFragment -> {
                 binding.tvToolbarTitle.text = toolBarTitle
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
             }

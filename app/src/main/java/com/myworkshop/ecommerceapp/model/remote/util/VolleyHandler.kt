@@ -15,6 +15,7 @@ import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
 import com.myworkshop.ecommerceapp.model.remote.dto.order.GetOrdersResult
+import com.myworkshop.ecommerceapp.model.remote.dto.order.OrderDetailResult
 import com.myworkshop.ecommerceapp.model.remote.dto.order.PlaceOrderResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
@@ -286,6 +287,29 @@ class VolleyHandler(private val context: Context) {
         requestQueue.add(request)
     }
 
+    fun getOrderDetail(
+        id: String,
+        getOrderDetailCallback: ResponseCallBack.GetOrderDetailCallback
+    ) {
+        val requestQueue = Volley.newRequestQueue(context)
+        val jsonObject = JSONObject()
+        val request =
+            JsonObjectRequest(Request.Method.GET, GET_ORDER_DETAIL_URL + id, jsonObject,
+                { response ->
+                    val orderDetailResult: OrderDetailResult =
+                        Gson().fromJson(response.toString(), OrderDetailResult::class.java)
+                    if (orderDetailResult.status == 0) {
+                        getOrderDetailCallback.getOrdersSuccess(orderDetailResult)
+                    } else {
+                        getOrderDetailCallback.getOrdersFailed(orderDetailResult.message)
+                    }
+                },
+                { error ->
+                    getOrderDetailCallback.getOrdersFailed(error.toString())
+                })
+        requestQueue.add(request)
+    }
+
     companion object {
         private const val BASE_URL = "http://192.168.0.12/myshop/index.php/"
         const val USER_LOGIN_URL = BASE_URL + "user/auth"
@@ -298,6 +322,7 @@ class VolleyHandler(private val context: Context) {
         const val ADD_ADDRESS_URL = BASE_URL + "user/address"
         const val PLACE_ORDER_URL = BASE_URL + "order"
         const val GET_ORDERS_URL = BASE_URL + "order/userOrders/"
+        const val GET_ORDER_DETAIL_URL = BASE_URL + "order?order_id="
         const val FETCH_IMAGE_URL = "http://192.168.0.12/myshop/images/"
     }
 

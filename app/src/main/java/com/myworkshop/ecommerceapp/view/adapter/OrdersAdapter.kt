@@ -1,13 +1,17 @@
 package com.myworkshop.ecommerceapp.view.adapter
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.OrderItemBinding
 import com.myworkshop.ecommerceapp.model.remote.dto.order.Order
+import com.myworkshop.ecommerceapp.view.fragment.orders.OrderDetailFragment
 
-class OrdersAdapter(private val orders: List<Order>) :
+class OrdersAdapter(private val orders: List<Order>,private val fragmentManager: FragmentManager) :
     RecyclerView.Adapter<OrdersAdapter.OrderViewHolder>() {
     private lateinit var binding: OrderItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
@@ -20,6 +24,13 @@ class OrdersAdapter(private val orders: List<Order>) :
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         holder.bind(position)
+        holder.itemView.setOnClickListener{
+            val orderDetailFragment = OrderDetailFragment()
+            val bundle = Bundle()
+            bundle.putString("order_id", orders[position].order_id)
+            orderDetailFragment.arguments = bundle
+            fragmentManager.beginTransaction().replace(R.id.fg_home_container, orderDetailFragment).addToBackStack("order_detail_fragment").commit()
+        }
     }
 
     inner class OrderViewHolder(val binding: OrderItemBinding) :

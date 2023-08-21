@@ -7,6 +7,7 @@ import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
 import com.myworkshop.ecommerceapp.model.remote.dto.order.GetOrdersResult
+import com.myworkshop.ecommerceapp.model.remote.dto.order.OrderDetailResult
 import com.myworkshop.ecommerceapp.model.remote.dto.order.PlaceOrderResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
@@ -59,6 +60,11 @@ interface ResponseCallBack {
 
     interface GetOrdersCallback{
         fun getOrdersSuccess(getOrdersResult: GetOrdersResult)
+        fun getOrdersFailed(errorMsg: String)
+    }
+
+    interface GetOrderDetailCallback{
+        fun getOrdersSuccess(orderDetailResult: OrderDetailResult)
         fun getOrdersFailed(errorMsg: String)
     }
 }

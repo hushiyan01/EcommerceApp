@@ -14,6 +14,7 @@ import com.myworkshop.ecommerceapp.model.remote.dto.order.GetOrdersResult
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
 import com.myworkshop.ecommerceapp.presenter.GetOrdersPresenter
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
+import com.myworkshop.ecommerceapp.view.activity.MainActivity
 import com.myworkshop.ecommerceapp.view.adapter.OrdersAdapter
 
 class OrdersFragment : Fragment(),MVPInterfaces.GetOrders.View {
@@ -34,10 +35,15 @@ class OrdersFragment : Fragment(),MVPInterfaces.GetOrders.View {
         presenter.getOrders(userId)
     }
 
+    override fun onStart() {
+        super.onStart()
+        (requireActivity() as MainActivity).changeToolbar(this,"Orders")
+    }
+
     override fun getOrdersSuccess(getOrdersResult: GetOrdersResult) {
         binding.rvOrders.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = OrdersAdapter(getOrdersResult.orders)
+            adapter = OrdersAdapter(getOrdersResult.orders, requireActivity().supportFragmentManager)
         }
     }
 

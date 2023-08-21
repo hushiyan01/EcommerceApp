@@ -10,6 +10,7 @@ import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
 import com.myworkshop.ecommerceapp.model.remote.dto.order.GetOrdersResult
+import com.myworkshop.ecommerceapp.model.remote.dto.order.OrderDetailResult
 import com.myworkshop.ecommerceapp.model.remote.dto.order.PlaceOrderResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
@@ -166,6 +167,17 @@ interface MVPInterfaces {
         interface View{
             fun getOrdersSuccess(getOrdersResult: GetOrdersResult)
             fun getOrdersFailed(errorMsg: String)
+        }
+    }
+
+    interface OrderDetail{
+        interface Presenter{
+            fun getOrderDetail(orderId: String)
+        }
+
+        interface View{
+            fun getOrderDetailSuccess(orderDetailResult: OrderDetailResult)
+            fun getOrderDetailFailed(errorMsg: String)
         }
     }
 
