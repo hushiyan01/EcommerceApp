@@ -14,7 +14,6 @@ class ProductImageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentProductImageBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -26,5 +25,4 @@ class ProductImageFragment : Fragment() {
             Picasso.get().load(imageUrl).into(binding.ivProductDetailImage)
         }
     }
-
 }

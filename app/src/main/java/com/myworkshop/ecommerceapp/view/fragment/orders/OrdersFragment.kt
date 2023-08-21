@@ -50,5 +50,4 @@ class OrdersFragment : Fragment(),MVPInterfaces.GetOrders.View {
     override fun getOrdersFailed(errorMsg: String) {
         Toast.makeText(requireContext(),"fetching orders data failed",Toast.LENGTH_SHORT).show()
     }
-
 }

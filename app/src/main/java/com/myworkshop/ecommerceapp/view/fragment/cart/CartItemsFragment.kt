@@ -66,7 +66,6 @@ class CartItemsFragment(val updateCheckoutInfo: UpdateCheckoutInfo) : Fragment()
             }
             parentView = parentView.parent
         }
-
         return null
     }
 

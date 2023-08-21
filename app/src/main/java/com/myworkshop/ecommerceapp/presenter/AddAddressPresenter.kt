@@ -21,7 +21,6 @@ class AddAddressPresenter(
                 override fun getAddressesFailed(errorMsg: String) {
                     view.addFailed(errorMsg)
                 }
-
             }
         )
     }

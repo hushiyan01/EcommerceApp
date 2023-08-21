@@ -61,5 +61,4 @@ class RegisterFragment(private val onSignInNRegisterChanged: OnSignInNRegisterCh
     override fun registerFailed(errorMsg: String) {
         UIUtils.showSnackBar(requireView(), errorMsg)
     }
-
 }

@@ -126,5 +126,4 @@ class ProductDetailFragment : Fragment(),
     override fun loadCart(products: List<CartItem>) {
 
     }
-
 }

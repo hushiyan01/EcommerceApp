@@ -75,6 +75,4 @@ class LoginFragment(
     override fun loginFailed(errorMsg: String) {
         UIUtils.showSnackBar(requireView(), errorMsg)
     }
-
-
 }

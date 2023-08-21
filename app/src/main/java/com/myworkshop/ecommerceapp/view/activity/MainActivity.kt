@@ -109,7 +109,6 @@ class MainActivity : AppCompatActivity(),
                         makeFragTransaction("orders_fragment", ordersFragment)
                         openCloseDrawer()
                     }
-//                R.id.moments -> showToast("moments")
                     R.id.logout -> logout()
                 }
                 true

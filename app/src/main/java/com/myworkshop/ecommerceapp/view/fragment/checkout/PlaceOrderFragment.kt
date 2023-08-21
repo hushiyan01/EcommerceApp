@@ -50,5 +50,4 @@ class PlaceOrderFragment : Fragment() {
             }
         }
     }
-
 }

@@ -24,6 +24,4 @@ object DBConstants {
         address text
     )
     """.trimMargin()
-
-
 }

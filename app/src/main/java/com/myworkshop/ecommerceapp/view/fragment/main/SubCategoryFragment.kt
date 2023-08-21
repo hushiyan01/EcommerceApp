@@ -90,6 +90,4 @@ class SubCategoryFragment(
     override fun fetchFailed(errorMsg: String) {
         UIUtils.showSnackBar(requireView(), "load sub categories failed")
     }
-
-
 }

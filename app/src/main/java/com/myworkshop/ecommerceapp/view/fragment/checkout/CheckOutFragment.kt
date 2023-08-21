@@ -88,5 +88,4 @@ class CheckOutFragment : Fragment(),UpdateCheckoutInfo {
             null
         }
     }
-
 }

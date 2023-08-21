@@ -48,7 +48,6 @@ class AddAddressDialog(
                 this@AddAddressDialog.dismiss()
             }
         }
-
     }
 
     override fun addSuccess(addAddressResult: AddAddressResult) {

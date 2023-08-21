@@ -12,5 +12,4 @@ interface UpdateCheckoutInfo {
     fun getPaymentMethod():String?
 
     fun getCartItems(): List<CartItem>?
-
 }

@@ -14,7 +14,6 @@ class OrderDetailPresenter(val volleyHandler: VolleyHandler, val view:MVPInterfa
             override fun getOrdersFailed(errorMsg: String) {
                 view.getOrderDetailFailed(errorMsg)
             }
-
         })
     }
 }

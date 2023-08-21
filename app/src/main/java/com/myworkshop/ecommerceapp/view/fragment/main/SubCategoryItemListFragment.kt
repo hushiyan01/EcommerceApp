@@ -61,6 +61,4 @@ class SubCategoryItemListFragment : Fragment(), MVPInterfaces.Product.View,MVPIn
     override fun loadCart(products: List<CartItem>) {
 
     }
-
-
 }

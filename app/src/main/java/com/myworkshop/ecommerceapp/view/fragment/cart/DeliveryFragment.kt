@@ -52,15 +52,6 @@ class DeliveryFragment(val updateCheckoutInfo: UpdateCheckoutInfo) : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        if (userId.isEmpty()) {
-//            Toast.makeText(
-//                requireContext(),
-//                "fetch deliver address list failed: unknown user",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        } else {
-//            getAddressPresenter.getAddresses(userId)
-//        }
 
         binding.apply {
             btnNext.setOnClickListener {

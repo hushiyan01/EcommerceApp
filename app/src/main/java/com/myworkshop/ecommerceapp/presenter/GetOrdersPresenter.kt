@@ -14,7 +14,6 @@ class GetOrdersPresenter(private val volleyHandler: VolleyHandler, private val v
             override fun getOrdersFailed(errorMsg: String) {
                 view.getOrdersFailed(errorMsg)
             }
-
         })
     }
 }

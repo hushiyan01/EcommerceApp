@@ -69,5 +69,4 @@ class OrderDetailFragment : Fragment(), MVPInterfaces.OrderDetail.View {
             item.quantity.toInt()
         )
     }
-
 }

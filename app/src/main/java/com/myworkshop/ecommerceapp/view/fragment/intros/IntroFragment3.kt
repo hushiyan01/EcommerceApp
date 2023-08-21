@@ -37,5 +37,4 @@ class IntroFragment3(private val callback: OnFragmentFinishCallBack) : Fragment(
         startActivity(intent)
         callback.finishActivity()
     }
-
 }

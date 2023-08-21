@@ -14,7 +14,6 @@ class SearchProductPresenter(val volleyHandler: VolleyHandler, val view:MVPInter
             override fun getOrdersFailed(errorMsg: String) {
                 view.searchFailed(errorMsg)
             }
-
         })
     }
 }

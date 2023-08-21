@@ -7,10 +7,6 @@ interface OnGoToSubCategoryViewPagerCallBack {
     fun goToSubCategoryFragment(subCategoryId: String, categoryTitle: String)
 }
 
-//interface OnGoToProductDetailCallBack {
-//    fun goToProductDetailFragment(product: Product)
-//}
-
 interface OnChangeToolbarCallback {
     fun changeToolbar(fragment: Fragment, toolBarTitle: String)
 }
