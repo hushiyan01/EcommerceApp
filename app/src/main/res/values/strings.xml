@@ -57,4 +57,18 @@
     <string name="address_title">Address Title</string>
     <string name="cancel">cancel</string>
     <string name="save">save</string>
+    <string name="payment_description">payment description</string>
+    <string name="select_payment_option">Select Payment Option</string>
+    <string name="switch_theme">switch theme </string>
+    <string name="cart_items">Cart Items</string>
+    <string name="payment_option">Payment Option</string>
+    <string name="confirm_and_place_order">Confirm and Place Order</string>
+    <string name="purchased_items">Purchased Items</string>
+    <string name="cancel_order">cancel order</string>
+    <string name="order_id">Order ID</string>
+    <string name="_3246">#3246</string>
+    <string name="order_status">Order status</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="deliver_to">Deliver To:</string>
+    <string name="order_placed_at">Order Placed At:</string>
 </resources>

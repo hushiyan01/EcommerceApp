@@ -2,11 +2,18 @@ package com.myworkshop.ecommerceapp.presenter
 
 import android.content.Context
 import com.myworkshop.ecommerceapp.model.local.entity.po.CartItem
+import com.myworkshop.ecommerceapp.model.remote.dto.address.AddAddressResult
+import com.myworkshop.ecommerceapp.model.remote.dto.address.Address
+import com.myworkshop.ecommerceapp.model.remote.dto.address.GetAddressesResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
+import com.myworkshop.ecommerceapp.model.remote.dto.order.GetOrdersResult
+import com.myworkshop.ecommerceapp.model.remote.dto.order.OrderDetailResult
+import com.myworkshop.ecommerceapp.model.remote.dto.order.PlaceOrderResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
+import com.myworkshop.ecommerceapp.model.remote.dto.product.SearchProductResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
 
 interface MVPInterfaces {
@@ -35,7 +42,13 @@ interface MVPInterfaces {
     interface SignIn {
         interface Presenter {
             fun login(userName: String, password: String)
-            fun updatePref(context: Context, fullName: String, emailId: String, mobileNo: String)
+            fun updatePref(
+                context: Context,
+                fullName: String,
+                emailId: String,
+                mobileNo: String,
+                userId: String
+            )
         }
 
         interface View {
@@ -99,19 +112,85 @@ interface MVPInterfaces {
         }
     }
 
-    interface ProductCart{
-        interface Presenter{
-            fun fetchProductsInCart()
-            fun productMinus1(id:String)
-            fun productPlus1(id:String)
+    interface ProductCart {
+        interface Presenter {
+            fun fetchProductsInCart(userId: String)
+            fun productMinus1(id: String)
+            fun productPlus1(id: String)
             fun insertNewItem(cartItem: CartItem)
-            fun isInCart(id:String):Boolean
-            fun remove(id:String):Int
+            fun isInCart(id: String): Boolean
+            fun remove(id: String): Int
         }
-        interface View{
-            fun loadCart(products:List<CartItem>)
+
+        interface View {
+            fun loadCart(products: List<CartItem>)
         }
     }
 
+    interface GetAddresses{
+        interface Presenter{
+            fun getAddresses(userId: String)
+        }
+
+        interface View{
+            fun fetchSuccess(getAddressesResult: GetAddressesResult)
+            fun fetchFailed(errorMsg: String)
+        }
+    }
+
+    interface AddAddress{
+        interface Presenter{
+            fun addAddresses(userId: String, title:String, address:String)
+        }
+
+        interface View{
+            fun addSuccess(addAddressResult: AddAddressResult)
+            fun addFailed(errorMsg: String)
+        }
+    }
+
+    interface PlaceOrder{
+        interface Presenter{
+            fun placeOrder(userId: String, address: Address, items:List<CartItem>, payment:String)
+        }
+
+        interface View{
+            fun placeSuccess(placeOrderResult: PlaceOrderResult)
+            fun placeFailed(errorMsg: String)
+        }
+    }
+
+    interface GetOrders{
+        interface Presenter{
+            fun getOrders(userId: String)
+        }
+
+        interface View{
+            fun getOrdersSuccess(getOrdersResult: GetOrdersResult)
+            fun getOrdersFailed(errorMsg: String)
+        }
+    }
+
+    interface OrderDetail{
+        interface Presenter{
+            fun getOrderDetail(orderId: String)
+        }
+
+        interface View{
+            fun getOrderDetailSuccess(orderDetailResult: OrderDetailResult)
+            fun getOrderDetailFailed(errorMsg: String)
+        }
+    }
+
+    interface SearchProduct{
+        interface Presenter{
+            fun searchProduct(keyword: String)
+        }
+
+        interface View{
+            fun searchSuccess(searchProductResult: SearchProductResult)
+            fun searchFailed(errorMsg: String)
+        }
+    }
 
 }

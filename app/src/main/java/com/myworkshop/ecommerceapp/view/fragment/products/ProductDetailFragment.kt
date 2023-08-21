@@ -23,7 +23,7 @@ import com.myworkshop.ecommerceapp.view.adapter.FragmentViewpagerAdapter
 import com.myworkshop.ecommerceapp.view.adapter.SpecificationAdapter
 import com.myworkshop.ecommerceapp.view.adapter.UserReviewAdapter
 
-class ProductDetailFragment() : Fragment(),
+class ProductDetailFragment : Fragment(),
     MVPInterfaces.ProductDetail.View,
     MVPInterfaces.ProductCart.View {
     private lateinit var binding: FragmentProductDetailBinding
@@ -46,7 +46,7 @@ class ProductDetailFragment() : Fragment(),
             this
         )
         userId = SharedPref.getSecuredSharedPreferences(requireContext())
-            .getString("logged_in_email_id", "unknown user")!!
+            .getString("user_id", "unknown_user")?:""
         return binding.root
     }
 
@@ -61,8 +61,18 @@ class ProductDetailFragment() : Fragment(),
         val productTitle = product.product_name
         val rating = product.average_rating.toFloat()
         val description = product.description
-        val imageFrags = product.images.sortedBy { it.display_order }
-            .map { ProductImageFragment(VolleyHandler.FETCH_IMAGE_URL + it.image) }
+        val imageFrags = product.images
+            .sortedBy { it.display_order }
+            .map {
+                val imageUrl =
+                    StringBuffer(VolleyHandler.FETCH_IMAGE_URL).append(it.image).toString()
+                val productImageFragment = ProductImageFragment()
+                val bundle = Bundle()
+                bundle.putString("image_url", imageUrl)
+                productImageFragment.arguments = bundle
+                productImageFragment.requireArguments().putString("image_url", imageUrl)
+                productImageFragment
+            }
         val price = product.price
         val specifications =
             productDetailResult.product.specifications.sortedBy { it.display_order }
@@ -105,11 +115,7 @@ class ProductDetailFragment() : Fragment(),
                         )
                     )
                 }
-
             }
-//            TabLayoutMediator(tabLayout,viewPager2){tab,_->
-//                tab.customView = createTabView()
-//            }.attach()
         }
     }
 
@@ -118,7 +124,6 @@ class ProductDetailFragment() : Fragment(),
     }
 
     override fun loadCart(products: List<CartItem>) {
-        TODO("Not yet implemented")
-    }
 
+    }
 }

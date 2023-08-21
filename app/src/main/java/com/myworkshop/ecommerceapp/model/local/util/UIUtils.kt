@@ -7,5 +7,4 @@ object UIUtils {
     fun showSnackBar(view: View, message: String) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
     }
-
 }

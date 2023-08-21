@@ -2,10 +2,10 @@ package com.myworkshop.ecommerceapp.view.fragment.cart
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myworkshop.ecommerceapp.R
@@ -13,14 +13,17 @@ import com.myworkshop.ecommerceapp.databinding.FragmentCartPreviewBinding
 import com.myworkshop.ecommerceapp.model.local.dao.CartDao
 import com.myworkshop.ecommerceapp.model.local.entity.db.ShoppingDBHelper
 import com.myworkshop.ecommerceapp.model.local.entity.po.CartItem
+import com.myworkshop.ecommerceapp.model.preferences.SharedPref
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.ProductCartPresenter
+import com.myworkshop.ecommerceapp.view.activity.MainActivity
 import com.myworkshop.ecommerceapp.view.adapter.CartAdapter
 import com.myworkshop.ecommerceapp.view.adapter.OnCartItemChangeCallback
 import com.myworkshop.ecommerceapp.view.fragment.checkout.CheckOutFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnChangeToolbarCallback
 
-class CartPreviewFragment(private val onChangeToolbarCallback: OnChangeToolbarCallback) : Fragment(),MVPInterfaces.ProductCart.View,OnCartItemChangeCallback {
+class CartPreviewFragment :
+    Fragment(), MVPInterfaces.ProductCart.View, OnCartItemChangeCallback {
     private lateinit var binding: FragmentCartPreviewBinding
     private lateinit var cartDao: CartDao
     private lateinit var fragmentManager: FragmentManager
@@ -38,10 +41,12 @@ class CartPreviewFragment(private val onChangeToolbarCallback: OnChangeToolbarCa
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onChangeToolbarCallback.changeToolbar(this, "Cart")
-        presenter.fetchProductsInCart()
+        (activity as? MainActivity)?.changeToolbar(this, "Cart")
+        val userId = SharedPref.getSecuredSharedPreferences(requireContext()).getString("user_id","unknown_user")?:""
+        presenter.fetchProductsInCart(userId = userId)
         binding.btnCheckout.setOnClickListener {
-            fragmentManager.beginTransaction().replace(R.id.fg_home_container, CheckOutFragment(onChangeToolbarCallback))
+            fragmentManager.beginTransaction()
+                .replace(R.id.fg_home_container, CheckOutFragment())
                 .addToBackStack("checkout_fragment")
                 .commit()
         }
@@ -51,13 +56,13 @@ class CartPreviewFragment(private val onChangeToolbarCallback: OnChangeToolbarCa
     override fun loadCart(products: List<CartItem>) {
         binding.rvProducts.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = CartAdapter(products,presenter,this@CartPreviewFragment)
+            adapter = CartAdapter(products, presenter, this@CartPreviewFragment)
         }
-        binding.tvTotalPrice.text = "$ ${products.map { it.price*it.num }.sum()}"
+        binding.tvTotalPrice.text = "$ ${products.map { it.price * it.num }.sum()}"
     }
 
     @SuppressLint("SetTextI18n")
-    override fun updateTotalPrice(totalPrice:Float) {
+    override fun updateTotalPrice(totalPrice: Float) {
         binding.tvTotalPrice.text = "$ $totalPrice"
     }
 

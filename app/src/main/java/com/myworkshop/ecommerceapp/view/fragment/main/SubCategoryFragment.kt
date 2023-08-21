@@ -16,13 +16,12 @@ import com.myworkshop.ecommerceapp.model.remote.util.VolleyHandler
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyImageCaching
 import com.myworkshop.ecommerceapp.presenter.MVPInterfaces
 import com.myworkshop.ecommerceapp.presenter.SubCategoryPresenter
+import com.myworkshop.ecommerceapp.view.activity.MainActivity
 import com.myworkshop.ecommerceapp.view.adapter.FragmentViewpagerAdapter
 
 class SubCategoryFragment(
     private val id: String,
-    private val toolBarTitle: String,
-    private val onChangeToolbarCallback: OnChangeToolbarCallback,
-    private val onGoToProductDetailCallBack: OnGoToProductDetailCallBack
+    private val toolBarTitle: String
 ) : Fragment(), MVPInterfaces.SubCategory.View {
 
     private lateinit var binding: FragmentSubCategoryBinding
@@ -32,7 +31,6 @@ class SubCategoryFragment(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentSubCategoryBinding.inflate(inflater, container, false)
         presenter = SubCategoryPresenter(VolleyHandler(requireContext()), this)
         return binding.root
@@ -40,7 +38,9 @@ class SubCategoryFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onChangeToolbarCallback.changeToolbar(this, toolBarTitle)
+        if (activity != null && activity is MainActivity) {
+            (activity as MainActivity).changeToolbar(this, toolBarTitle)
+        }
         presenter.fetchSubCategoriesById(id)
     }
 
@@ -54,7 +54,13 @@ class SubCategoryFragment(
                 hashMap[index++] = i
             }
             val subcategoryFrags =
-                subcategories.map { SubCategoryItemListFragment(it, onGoToProductDetailCallBack) }
+                subcategories.map {
+                    val bundle = Bundle()
+                    bundle.putParcelable("sub_category", it)
+                    val subCategoryFragment = SubCategoryItemListFragment()
+                    subCategoryFragment.arguments = bundle
+                    subCategoryFragment
+                }
             vpSubCategory.adapter = FragmentViewpagerAdapter(subcategoryFrags, requireActivity())
 
             TabLayoutMediator(subCategoryTabLayout, vpSubCategory) {
@@ -84,6 +90,4 @@ class SubCategoryFragment(
     override fun fetchFailed(errorMsg: String) {
         UIUtils.showSnackBar(requireView(), "load sub categories failed")
     }
-
-
 }

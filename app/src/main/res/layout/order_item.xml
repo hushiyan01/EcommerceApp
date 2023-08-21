@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/light_blue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_10dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_order_id"
+            style="@style/ProductTitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10dp"
+            android:text="@string/order_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.012"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_bill_amount"
+            style="@style/ProductTitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10dp"
+            android:text="@string/total_bill_amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tv_order_id"
+            app:layout_constraintTop_toTopOf="@id/tv_order_id" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/address_section"
+            android:background="@drawable/static_item_background"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_status_orders"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/static_deliver_address"
+                style="@style/StaticText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10dp"
+                android:text="@string/deliver_to"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_address_title"
+                style="@style/StaticText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5dp"
+                android:text="@string/address_title"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@id/static_deliver_address" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_address_content"
+                style="@style/StaticText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/address_info"
+                android:padding="@dimen/_5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_address_title" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_payment_method_orders"
+            style="@style/StaticText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_margin="@dimen/_10dp"
+            android:text="@string/payment_option"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/address_section" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_order_time"
+            style="@style/StaticText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10dp"
+            android:text="@string/order_placed_at"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_payment_method_orders"
+            app:layout_constraintVertical_bias="0.333" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_order_status_orders"
+            style="@style/StaticText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10dp"
+            android:text="@string/order_status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_bill_amount" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

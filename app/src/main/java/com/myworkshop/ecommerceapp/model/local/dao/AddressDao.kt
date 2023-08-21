@@ -3,13 +3,13 @@ package com.myworkshop.ecommerceapp.model.local.dao
 import android.content.ContentValues
 import android.database.Cursor
 import com.myworkshop.ecommerceapp.model.local.entity.db.ShoppingDBHelper
-import com.myworkshop.ecommerceapp.model.local.entity.po.Address
+import com.myworkshop.ecommerceapp.model.local.entity.po.AddressView
 import com.myworkshop.ecommerceapp.model.local.util.DBConstants
 
 class AddressDao(private val dbHelper: ShoppingDBHelper) {
 
-    fun getAllAddress(): List<Address> {
-        val res = ArrayList<Address>()
+    fun getAllAddress(): List<AddressView> {
+        val res = ArrayList<AddressView>()
         val cursor = dbHelper.readableDatabase.query(
             DBConstants.TABLE_NAME_ADDRESS,
             null,
@@ -39,33 +39,22 @@ class AddressDao(private val dbHelper: ShoppingDBHelper) {
         )
     }
 
-    fun updateById(id:String, change:Int){
-//        val contentValues = ContentValues()
-//        contentValues.put("num", "num + $change")
-//        if(change>0){
-//            dbHelper.writableDatabase.execSQL("UPDATE Address SET num=num+1 WHERE id = $id")
-//        }else{
-//            dbHelper.writableDatabase.execSQL("UPDATE Address SET num=num-1 WHERE id = $id")
-//        }
-        dbHelper.writableDatabase.close()
-    }
-
-    fun save(address: Address): Long {
+    fun save(addressView: AddressView): Long {
         val contentValues = ContentValues()
-        contentValues.put("id", address.id)
-        contentValues.put("user_id", address.userId)
-        contentValues.put("type", address.type)
-        contentValues.put("address", address.address)
+        contentValues.put("id", addressView.id)
+        contentValues.put("user_id", addressView.userId)
+        contentValues.put("type", addressView.type)
+        contentValues.put("address", addressView.address)
         return dbHelper.writableDatabase.insert(DBConstants.TABLE_NAME_ADDRESS, null, contentValues)
     }
 
-    private fun getAddressFromCursor(cursor: Cursor): Address {
+    private fun getAddressFromCursor(cursor: Cursor): AddressView {
         cursor.apply {
             val id = getLong(getColumnIndexOrThrow("id"))
             val userId = getString(getColumnIndexOrThrow("user_id"))
             val type = getString(getColumnIndexOrThrow("type"))
             val address = getString(getColumnIndexOrThrow("address"))
-            return Address(
+            return AddressView(
                 id = id,
                 userId = userId,
                 type = type,

@@ -17,6 +17,14 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/sb_switch_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/_30dp"
+        android:text="@string/switch_theme"/>
     <TextView
         android:id="@+id/tv_header_email"
         android:layout_width="wrap_content"

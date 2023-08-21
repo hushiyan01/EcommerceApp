@@ -43,7 +43,6 @@ class LoginFragment(
             btnJumpToSignUp.setOnClickListener {
                 onSignInNRegisterChanged.changeToSignUp()
             }
-            ivShoppingBasket.startAnimation(bounceAnimation)
 
             btnSignIn.setOnClickListener {
                 val username = etEmailId.text.toString()
@@ -66,7 +65,8 @@ class LoginFragment(
             requireContext(),
             fullName = loginResult.user.full_name,
             emailId = loginResult.user.email_id,
-            mobileNo = loginResult.user.mobile_no
+            mobileNo = loginResult.user.mobile_no,
+            userId = loginResult.user.user_id
         )
         startActivity(intent)
         onFragmentFinishCallBack.finishActivity()
@@ -75,6 +75,4 @@ class LoginFragment(
     override fun loginFailed(errorMsg: String) {
         UIUtils.showSnackBar(requireView(), errorMsg)
     }
-
-
 }

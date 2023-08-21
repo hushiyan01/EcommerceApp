@@ -25,12 +25,13 @@ class LoginPresenter(
             })
     }
 
-    override fun updatePref(context: Context, fullName: String, emailId: String, mobileNo: String) {
+    override fun updatePref(context: Context, fullName: String, emailId: String, mobileNo: String, userId:String) {
         val pref = SharedPref.getSecuredSharedPreferences(context)
         pref.edit().putBoolean("is_login", true)
             .putString("logged_in_full_name", fullName)
             .putString("logged_in_email_id", emailId)
-            .putString("logged_in_mobile_no", mobileNo).apply()
+            .putString("logged_in_mobile_no", mobileNo)
+            .putString("user_id",userId).apply()
     }
 
 

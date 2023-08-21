@@ -5,16 +5,17 @@ import android.database.Cursor
 import com.myworkshop.ecommerceapp.model.local.entity.db.ShoppingDBHelper
 import com.myworkshop.ecommerceapp.model.local.entity.po.CartItem
 import com.myworkshop.ecommerceapp.model.local.util.DBConstants
+import com.myworkshop.ecommerceapp.model.preferences.SharedPref
 
 class CartDao(private val dbHelper: ShoppingDBHelper) {
 
-    fun getAllItems(): List<CartItem> {
+    fun getAllItems(userId:String): List<CartItem> {
         val res = ArrayList<CartItem>()
         val cursor = dbHelper.readableDatabase.query(
             DBConstants.TABLE_NAME_CART,
             null,
-            null,
-            null,
+            "user_id=?",
+            arrayOf(userId),
             null,
             null,
             null,
@@ -39,12 +40,12 @@ class CartDao(private val dbHelper: ShoppingDBHelper) {
         )
     }
 
-    fun updateById(id:String, change:Int){
+    fun updateById(id: String, change: Int) {
         val contentValues = ContentValues()
         contentValues.put("num", "num + $change")
-        if(change>0){
+        if (change > 0) {
             dbHelper.writableDatabase.execSQL("UPDATE cart SET num=num+1 WHERE id = $id")
-        }else{
+        } else {
             dbHelper.writableDatabase.execSQL("UPDATE cart SET num=num-1 WHERE id = $id")
         }
 
@@ -63,7 +64,7 @@ class CartDao(private val dbHelper: ShoppingDBHelper) {
         return dbHelper.writableDatabase.insert(DBConstants.TABLE_NAME_CART, null, contentValues)
     }
 
-    fun isInCart(id:String):Boolean{
+    fun isInCart(id: String): Boolean {
         val selection = "id = ?"
         val selectionArguments = arrayOf(id)
 
