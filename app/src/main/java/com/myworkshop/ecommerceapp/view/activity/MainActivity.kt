@@ -19,6 +19,7 @@ import com.myworkshop.ecommerceapp.model.preferences.SharedPref
 import com.myworkshop.ecommerceapp.model.remote.util.VolleyImageCaching
 import com.myworkshop.ecommerceapp.view.fragment.cart.CartPreviewFragment
 import com.myworkshop.ecommerceapp.view.fragment.checkout.CheckOutFragment
+import com.myworkshop.ecommerceapp.view.fragment.checkout.PlaceOrderFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.CategoryFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnChangeToolbarCallback
 import com.myworkshop.ecommerceapp.view.fragment.main.OnGoToSubCategoryViewPagerCallBack
@@ -71,6 +72,10 @@ class MainActivity : AppCompatActivity(),
 
                 is CheckOutFragment -> {
                     supportFragmentManager.popBackStack()
+                }
+
+                is PlaceOrderFragment -> {
+                    supportFragmentManager.popBackStack("category_fragment",0)
                 }
             }
         }

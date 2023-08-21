@@ -63,4 +63,10 @@
     <string name="cart_items">Cart Items</string>
     <string name="payment_option">Payment Option</string>
     <string name="confirm_and_place_order">Confirm and Place Order</string>
+    <string name="purchased_items">Purchased Items</string>
+    <string name="cancel_order">cancel order</string>
+    <string name="order_id">Order ID</string>
+    <string name="_3246">#3246</string>
+    <string name="order_status">Order status</string>
+    <string name="confirmed">Confirmed</string>
 </resources>

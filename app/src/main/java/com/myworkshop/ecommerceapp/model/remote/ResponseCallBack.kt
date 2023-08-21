@@ -6,6 +6,7 @@ import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
+import com.myworkshop.ecommerceapp.model.remote.dto.order.PlaceOrderResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
 
@@ -48,5 +49,10 @@ interface ResponseCallBack {
     interface AddAddressCallback{
         fun getAddressesSuccess(addAddressResult: AddAddressResult)
         fun getAddressesFailed(errorMsg: String)
+    }
+
+    interface PlaceOrderCallback{
+        fun placeSuccess(placeOrderResult: PlaceOrderResult)
+        fun placeFailed(errorMsg: String)
     }
 }

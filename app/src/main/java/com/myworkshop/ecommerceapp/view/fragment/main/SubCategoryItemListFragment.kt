@@ -29,7 +29,7 @@ class SubCategoryItemListFragment : Fragment(), MVPInterfaces.Product.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val subCategoryId = requireArguments().getParcelable<Subcategory>("sub_category")?.category_id
+        val subCategoryId = requireArguments().getParcelable<Subcategory>("sub_category")?.subcategory_id
         if(subCategoryId!=null){
             presenter.fetchProductsBySubCategoryId(subCategoryId = subCategoryId)
         }

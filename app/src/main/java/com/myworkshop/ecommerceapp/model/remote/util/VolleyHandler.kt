@@ -5,15 +5,19 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import com.myworkshop.ecommerceapp.model.local.entity.po.CartItem
 import com.myworkshop.ecommerceapp.model.remote.ResponseCallBack
 import com.myworkshop.ecommerceapp.model.remote.dto.address.AddAddressResult
+import com.myworkshop.ecommerceapp.model.remote.dto.address.Address
 import com.myworkshop.ecommerceapp.model.remote.dto.address.GetAddressesResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.CategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.category.SubCategoryResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.LoginResult
 import com.myworkshop.ecommerceapp.model.remote.dto.login_signup.RegisterResult
+import com.myworkshop.ecommerceapp.model.remote.dto.order.PlaceOrderResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product.ProductResult
 import com.myworkshop.ecommerceapp.model.remote.dto.product_detail.ProductDetailResult
+import org.json.JSONArray
 import org.json.JSONObject
 
 class VolleyHandler(private val context: Context) {
@@ -213,6 +217,51 @@ class VolleyHandler(private val context: Context) {
         requestQueue.add(request)
     }
 
+    fun placeOrder(
+        userId: String,
+        address: Address,
+        items:List<CartItem>,
+        payment:String,
+        placeOrderCallback: ResponseCallBack.PlaceOrderCallback
+    ){
+        val requestQueue = Volley.newRequestQueue(context)
+        val jsonObject = JSONObject()
+        val billAmount = items.map { it.price*it.num }.sum()
+        jsonObject.put("user_id",userId)
+        jsonObject.put("payment_method",payment)
+        jsonObject.put("bill_amount",billAmount)
+
+        val addressObject = JSONObject()
+        addressObject.put("title", address.title)
+        addressObject.put("address", address.address)
+
+        val itemArray = JSONArray()
+        for (item in items) {
+            val itemObject = JSONObject()
+            itemObject.put("product_id", item.id)
+            itemObject.put("quantity", item.num)
+            itemObject.put("unit_price", item.price)
+            itemArray.put(itemObject)
+        }
+        jsonObject.put("delivery_address",addressObject)
+        jsonObject.put("items", itemArray)
+        val request =
+            JsonObjectRequest(Request.Method.POST, PLACE_ORDER_URL, jsonObject,
+                { response ->
+                    val placeOrderResult: PlaceOrderResult =
+                        Gson().fromJson(response.toString(), PlaceOrderResult::class.java)
+                    if (placeOrderResult.status == 0) {
+                        placeOrderCallback.placeSuccess(placeOrderResult)
+                    } else {
+                        placeOrderCallback.placeFailed(placeOrderResult.message)
+                    }
+                },
+                { error ->
+                    placeOrderCallback.placeFailed(error.toString())
+                })
+        requestQueue.add(request)
+    }
+
     companion object {
         private const val BASE_URL = "http://192.168.0.12/myshop/index.php/"
         const val USER_LOGIN_URL = BASE_URL + "user/auth"
@@ -223,6 +272,7 @@ class VolleyHandler(private val context: Context) {
         const val FETCH_PRODUCTS_DETAIL_URL = BASE_URL + "product/details/"
         const val FETCH_ADDRESSES_URL = BASE_URL + "user/addresses/"
         const val ADD_ADDRESS_URL = BASE_URL + "user/address"
+        const val PLACE_ORDER_URL = BASE_URL + "order"
         const val FETCH_IMAGE_URL = "http://192.168.0.12/myshop/images/"
     }
 
