@@ -69,4 +69,6 @@
     <string name="_3246">#3246</string>
     <string name="order_status">Order status</string>
     <string name="confirmed">Confirmed</string>
+    <string name="deliver_to">Deliver To:</string>
+    <string name="order_placed_at">Order Placed At:</string>
 </resources>

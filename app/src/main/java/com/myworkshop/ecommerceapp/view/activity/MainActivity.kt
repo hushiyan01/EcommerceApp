@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.ActivityMainBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
@@ -24,6 +23,7 @@ import com.myworkshop.ecommerceapp.view.fragment.main.CategoryFragment
 import com.myworkshop.ecommerceapp.view.fragment.main.OnChangeToolbarCallback
 import com.myworkshop.ecommerceapp.view.fragment.main.OnGoToSubCategoryViewPagerCallBack
 import com.myworkshop.ecommerceapp.view.fragment.main.SubCategoryFragment
+import com.myworkshop.ecommerceapp.view.fragment.orders.OrdersFragment
 import com.myworkshop.ecommerceapp.view.fragment.products.ProductDetailFragment
 
 class MainActivity : AppCompatActivity(),
@@ -75,7 +75,11 @@ class MainActivity : AppCompatActivity(),
                 }
 
                 is PlaceOrderFragment -> {
-                    supportFragmentManager.popBackStack("category_fragment",0)
+                    supportFragmentManager.popBackStack("category_fragment", 0)
+                }
+
+                is OrdersFragment -> {
+                    supportFragmentManager.popBackStack()
                 }
             }
         }
@@ -94,8 +98,12 @@ class MainActivity : AppCompatActivity(),
                 when (menuItems.itemId) {
                     R.id.app_home -> goToHome()
                     R.id.cart -> goToCart()
-//                R.id.settings -> showToast("setting")
-//                R.id.logout -> showToast("logout")
+                    R.id.orders -> {
+                        val ordersFragment = OrdersFragment()
+                        changeToolbar(ordersFragment, "Orders")
+                        makeFragTransaction("orders_fragment", ordersFragment)
+                        openCloseDrawer()
+                    }
 //                R.id.moments -> showToast("moments")
                     R.id.logout -> logout()
                 }
@@ -125,7 +133,7 @@ class MainActivity : AppCompatActivity(),
                         if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
                         else AppCompatDelegate.MODE_NIGHT_NO
                     )
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
@@ -190,6 +198,11 @@ class MainActivity : AppCompatActivity(),
             is CartPreviewFragment -> {
                 binding.tvToolbarTitle.text = toolBarTitle
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_density_medium_24)
+            }
+
+            is OrdersFragment -> {
+                binding.tvToolbarTitle.text = toolBarTitle
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
             }
         }
     }
