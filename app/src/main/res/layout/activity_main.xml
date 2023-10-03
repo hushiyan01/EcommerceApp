@@ -57,6 +57,7 @@
             android:layout_marginTop="?attr/actionBarSize">
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fg_home_container"
+                android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"

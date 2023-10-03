@@ -4,6 +4,7 @@ package com.myworkshop.ecommerceapp.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.CategoryItemBinding
@@ -15,7 +16,8 @@ import com.squareup.picasso.Picasso
 class CategoryAdapter(
     private val categories: List<Category>,
 //    private val callBack: OnGoToSubCategoryViewPagerCallBack,
-    private val fragmentManager: FragmentManager
+    private val fragmentManager: FragmentManager,
+    private val navController: NavController
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryItemViewHolder>() {
     private lateinit var binding: CategoryItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryItemViewHolder {

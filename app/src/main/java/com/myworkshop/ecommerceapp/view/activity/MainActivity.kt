@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.ActivityMainBinding
 import com.myworkshop.ecommerceapp.model.local.util.UIUtils
@@ -114,8 +115,24 @@ class MainActivity : AppCompatActivity(),
                 true
             }
         }
+        var deeplinkCategory = ""
+        intent?.data?.let{
+            deeplinkCategory = it.getQueryParameter("category") ?: ""
+        }
 
-        makeFragTransaction("category_fragment", CategoryFragment())
+//        makeFragTransaction("category_fragment", CategoryFragment())
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fg_home_container, CategoryFragment())
+            .addToBackStack("category_fragment")
+            .commit()
+
+        if(deeplinkCategory!=""){
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fg_home_container, SubCategoryFragment(deeplinkCategory,""))
+                .addToBackStack("sub_category_fragment")
+                .commit()
+        }
+
     }
 
     @SuppressLint("SetTextI18n")

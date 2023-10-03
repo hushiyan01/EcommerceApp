@@ -9,6 +9,8 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.myworkshop.ecommerceapp.R
 import com.myworkshop.ecommerceapp.databinding.FragmentCategoryBinding
@@ -26,6 +28,7 @@ class CategoryFragment : Fragment(), MVPInterfaces.Category.View, MVPInterfaces.
     private lateinit var categoryPresenter: CategoryPresenter
     private lateinit var searchProductPresenter: SearchProductPresenter
     private lateinit var fragmentManager: FragmentManager
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +59,6 @@ class CategoryFragment : Fragment(), MVPInterfaces.Category.View, MVPInterfaces.
                 }
             }
         }
-
         binding.apply {
             btnSearch.setOnClickListener {
                 val keyword = etKeyWordSearch.text.toString()
@@ -68,6 +70,7 @@ class CategoryFragment : Fragment(), MVPInterfaces.Category.View, MVPInterfaces.
                 rvProducts.visibility = View.GONE
             }
         }
+        navController = findNavController()
     }
 
     override fun fetchSuccess(categoryResult: CategoryResult) {
@@ -76,7 +79,7 @@ class CategoryFragment : Fragment(), MVPInterfaces.Category.View, MVPInterfaces.
         binding.rvCategories.visibility = View.VISIBLE
         binding.rvCategories.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = CategoryAdapter(categories, fragmentManager)
+            adapter = CategoryAdapter(categories, fragmentManager,navController)
         }
     }
 
